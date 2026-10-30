@@ -1,6 +1,7 @@
 # Laptop de Diego: RTX 5070 Laptop, 8 GB, Blackwell (soporta bf16).
-# Estos valores sobrescriben los del config del modelo. Se mantiene el mismo
-# batch efectivo (batch_size x grad_accum) que en Kaggle para que los resultados sean comparables.
+# Estos valores se combinan con el config del modelo. Se mantiene el mismo batch efectivo
+# (batch_size x grad_accum) que en Kaggle para que los resultados sean comparables.
+# Para corridas largas: cargador conectado y `powerprofilesctl set performance`.
 machine: laptop
 device: cuda
 precision: bf16
@@ -11,10 +12,14 @@ dataset_roots:
   propios: data/propios
 output_root: runs
 num_workers: 8
+# Precio de una GPU de nube equivalente (clase L4), para reportar el costo de entrenamiento.
+gpu_price_usd_per_hour: 0.70
 
-# Ajustes por modelo para caber en 8 GB
+# Ajustes por modelo; se combinan sección por sección con el config del modelo.
 overrides:
   xlsr_aasist:
-    batch_size: 4
-    grad_accum: 4          # efectivo 16
-    gradient_checkpointing: true
+    train:
+      batch_size: 4
+      grad_accum: 4          # efectivo 16
+    model_args:
+      gradient_checkpointing: true

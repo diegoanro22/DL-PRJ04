@@ -1,0 +1,23 @@
+# Config para pruebas de humo: modelo mínimo + --fake-data. No genera resultados del proyecto.
+model: debug
+seed: 42
+
+audio:
+  sample_rate: 16000
+  num_samples: 64600
+
+train:
+  epochs: 3
+  batch_size: 32
+  grad_accum: 1
+  optimizer: adam
+  lr: 1.0e-3
+  weight_decay: 0.0
+  scheduler: cosine
+  loss: weighted_ce
+  early_stopping_metric: dev_eer
+  patience: 5
+
+augment:
+  telephony: false
+  rawboost: false

@@ -1,7 +1,6 @@
 # Kaggle: P100 o T4, 16 GB. No soportan bf16, así que se usa fp16 con GradScaler.
 # Preferir "GPU T4 x2": las versiones recientes de PyTorch dejaron de compilar para la P100
 # (Pascal, sm_60). Si sale "no kernel image is available", cambiar el acelerador a T4.
-# Las rutas apuntan a los datasets montados en /kaggle/input.
 machine: kaggle
 device: cuda
 precision: fp16
@@ -13,9 +12,13 @@ dataset_roots:
   propios: /kaggle/input/voces-propias
 output_root: /kaggle/working/runs
 num_workers: 4
+# Precio de una T4 en la nube, para reportar el costo aunque Kaggle sea gratis.
+gpu_price_usd_per_hour: 0.35
 
 overrides:
   xlsr_aasist:
-    batch_size: 8
-    grad_accum: 2          # efectivo 16, igual que en la laptop
-    gradient_checkpointing: true
+    train:
+      batch_size: 8
+      grad_accum: 2          # efectivo 16, igual que en la laptop
+    model_args:
+      gradient_checkpointing: true
