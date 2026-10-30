@@ -1,0 +1,29 @@
+# Modelo A: LFCC + LCNN ligera (iteraciones A1 y A2)
+model: lfcc_cnn
+seed: 42
+
+audio:
+  sample_rate: 16000
+  num_samples: 64600     # 4 s: "los primeros segundos de la llamada"
+
+features:
+  n_lfcc: 60
+  win_ms: 20
+  hop_ms: 10
+  deltas: true           # LFCC + delta + delta-delta
+
+train:
+  epochs: 30
+  batch_size: 64
+  grad_accum: 1
+  optimizer: adam
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+  scheduler: cosine
+  loss: weighted_ce      # pesos inversos a la frecuencia de clase
+  early_stopping_metric: dev_eer
+  patience: 5
+
+augment:
+  telephony: false       # A2: true (8 kHz, pasa-banda, códecs)
+  rawboost: false        # A2: true

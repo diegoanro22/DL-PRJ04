@@ -1,0 +1,16 @@
+# Laptop de Diego: RTX 5070 Laptop, 8 GB, Blackwell (soporta bf16).
+# Estos valores sobrescriben los del config del modelo. Se mantiene el mismo
+# batch efectivo (batch_size x grad_accum) que en Kaggle para que los resultados sean comparables.
+machine: laptop
+device: cuda
+precision: bf16
+data_root: data
+output_root: runs
+num_workers: 8
+
+# Ajustes por modelo para caber en 8 GB
+overrides:
+  xlsr_aasist:
+    batch_size: 4
+    grad_accum: 4          # efectivo 16
+    gradient_checkpointing: true

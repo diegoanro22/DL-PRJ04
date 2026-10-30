@@ -1,0 +1,30 @@
+# Modelo B: AASIST-L sobre la forma de onda (iteraciones B1 y B2).
+# Hiperparámetros de la config oficial AASIST-L (clovaai/aasist).
+model: aasist_l
+seed: 42
+
+audio:
+  sample_rate: 16000
+  num_samples: 64600
+
+model_args:
+  filts: [70, [1, 32], [32, 32], [32, 24], [24, 24]]
+  gat_dims: [24, 32]
+  pool_ratios: [0.4, 0.5, 0.7, 0.5]
+  temperatures: [2.0, 2.0, 100.0, 100.0]
+
+train:
+  epochs: 50
+  batch_size: 24
+  grad_accum: 1
+  optimizer: adam
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+  scheduler: cosine
+  loss: weighted_ce
+  early_stopping_metric: dev_eer
+  patience: 10
+
+augment:
+  telephony: false       # B2: true
+  rawboost: false        # B2: true

@@ -1,0 +1,31 @@
+# Modelo C: wav2vec 2.0 XLS-R 300M + cabeza AASIST (iteraciones C1 y C2).
+# Basado en Tak et al. (2022). batch_size y grad_accum se ajustan por máquina en configs/machines/.
+model: xlsr_aasist
+seed: 42
+
+audio:
+  sample_rate: 16000
+  num_samples: 64600
+
+model_args:
+  ssl_name: facebook/wav2vec2-xls-r-300m
+  freeze_ssl: false          # plan B si no cabe: congelar las primeras capas
+  freeze_first_layers: 0
+  gradient_checkpointing: true
+
+train:
+  epochs: 10
+  batch_size: 4
+  grad_accum: 4              # batch efectivo 16
+  optimizer: adam
+  lr_ssl: 1.0e-6
+  lr_head: 1.0e-4
+  weight_decay: 1.0e-4
+  scheduler: cosine
+  loss: weighted_ce
+  early_stopping_metric: dev_eer
+  patience: 3
+
+augment:
+  telephony: false           # C2: true
+  rawboost: false            # C2: true
