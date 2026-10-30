@@ -4,7 +4,11 @@
 machine: laptop
 device: cuda
 precision: bf16
-data_root: data
+dataset_roots:
+  asv19: data/ASVspoof2019_LA
+  asv21: data/ASVspoof2021_LA
+  mlaad_es: data/MLAAD_es
+  propios: data/propios
 output_root: runs
 num_workers: 8
 

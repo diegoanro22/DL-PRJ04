@@ -5,7 +5,12 @@
 machine: kaggle
 device: cuda
 precision: fp16
-data_root: /kaggle/input
+# Cisco: completar con la carpeta real de cada dataset en /kaggle/input al subirlos.
+dataset_roots:
+  asv19: /kaggle/input/asvpoof-2019-dataset/LA/LA
+  asv21: /kaggle/input/asvspoof2021-la/ASVspoof2021_LA_eval
+  mlaad_es: /kaggle/input/mlaad-es
+  propios: /kaggle/input/voces-propias
 output_root: /kaggle/working/runs
 num_workers: 4
 
