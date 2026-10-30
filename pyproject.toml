@@ -1,0 +1,51 @@
+[project]
+name = "voz-clonada-banca"
+version = "0.1.0"
+description = "Detección de voz clonada en los primeros segundos de llamadas a centros de contacto bancarios"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "torch",
+    "torchaudio",
+    "transformers>=4.45",
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "soundfile",
+    "librosa",
+    "pyyaml",
+    "tqdm",
+    "tensorboard",
+    "matplotlib",
+    "huggingface-hub",
+    "captum",
+    "onnx",
+    "onnxruntime",
+    "fastapi",
+    "uvicorn[standard]",
+    "python-multipart",
+]
+
+[dependency-groups]
+dev = ["pytest", "ruff", "ipykernel"]
+# XTTS-v2 para generar los clones de voz propios. Se instala aparte
+# (uv sync --group clonacion) porque trae muchas dependencias.
+clonacion = ["coqui-tts"]
+
+[tool.uv]
+# El repo no se instala como paquete: todo se corre desde la raíz con `python -m src.<modulo>`.
+package = false
+
+# PyTorch con CUDA 12.8: es la versión mínima que soporta la RTX 5070 (Blackwell).
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchaudio = { index = "pytorch-cu128" }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

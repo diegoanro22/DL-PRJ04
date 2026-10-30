@@ -1,0 +1,26 @@
+# Entorno
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.ruff_cache/
+.pytest_cache/
+.env
+
+# Datos (se descargan con scripts/ o se montan en Kaggle)
+data/*
+!data/README.md
+
+# Artefactos de entrenamiento (los pesos van a Hugging Face Hub)
+runs/
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+
+# Audio suelto (las grabaciones propias no se versionan)
+*.wav
+*.flac
+*.webm
