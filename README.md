@@ -51,10 +51,35 @@ el tiempo por paso y una estimación del tiempo por época.
 ## Entrenamiento
 
 ```bash
-uv run python -m src.train --config configs/aasist_l.yaml --machine laptop
+uv run python -m src.train --config configs/aasist_l.yaml --machine laptop --name B1
+uv run python -m src.train --resume runs/B1          # retomar si se cortó (p. ej. en Kaggle)
 ```
 
-*(En construcción: `src/train.py` y `src/evaluate.py`.)*
+- Combina el config del modelo con `configs/machines/<máquina>.yaml` (precisión, batch, rutas).
+- Mide el EER en dev al final de cada época, guarda `runs/<corrida>/last.pt` (para retomar) y
+  `best.pt` (mejor EER), y se detiene si el EER deja de mejorar (`train.patience`).
+- Al terminar agrega una fila a `results/runs.csv` con máquina, GPU, tiempo, costo y métricas.
+- Curvas en TensorBoard: `uv run tensorboard --logdir runs`.
+
+## Evaluación
+
+```bash
+uv run python -m src.evaluate --checkpoint runs/B1/best.pt --splits asv19_eval asv21_eval
+```
+
+Guarda los scores P(sintética) por audio en `results/scores/` (los usa el modelo de valor) y las
+métricas en `results/metrics/`: EER y AUC con IC 95 % por bootstrap, min t-DCF en ASVspoof 2019
+y EER por ataque, códec e idioma.
+
+## Pruebas
+
+```bash
+uv run pytest
+```
+
+Prueban las métricas contra casos calculados a mano y el ciclo completo de entrenamiento
+(CPU, bf16, fp16, retomar y evaluar) con un dataset sintético (`--fake-data`) y un modelo
+mínimo (`configs/debug.yaml`).
 
 ## Datos
 
