@@ -106,3 +106,20 @@ def test_evalua_y_guarda_scores(config, tmp_path, monkeypatch):
     assert metrics["eer"] < 0.1
     assert {row["grupo"] for row in metrics["por_ataque"]} <= {"A01", "A02", "A03", "A04"}
     assert "por_codec" in metrics
+
+
+def test_migra_runs_csv_con_columnas_viejas(tmp_path, monkeypatch):
+    # runs.csv hecho con una versión anterior: sin entrenables_M.
+    old_fields = [f for f in train.RUNS_CSV_FIELDS if f != "entrenables_M"]
+    path = tmp_path / "runs.csv"
+    path.write_text(",".join(old_fields) + "\n" + ",".join(f"viejo_{f}" for f in old_fields) + "\n")
+
+    train.append_run_row({f: f"nuevo_{f}" for f in train.RUNS_CSV_FIELDS})
+
+    import pandas as pd
+    df = pd.read_csv(path)
+    assert list(df.columns) == train.RUNS_CSV_FIELDS
+    assert df.loc[0, "horas_entrenamiento"] == "viejo_horas_entrenamiento"
+    assert df.loc[0, "entrenables_M"] == "-"
+    assert df.loc[1, "horas_entrenamiento"] == "nuevo_horas_entrenamiento"
+    assert df.loc[1, "entrenables_M"] == "nuevo_entrenables_M"

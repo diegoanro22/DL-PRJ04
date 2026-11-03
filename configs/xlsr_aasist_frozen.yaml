@@ -1,0 +1,32 @@
+# Modelo C0: XLS-R 300M congelado + cabeza AASIST. Es el modelo base del transfer learning:
+# contra él se mide cuánto aporta el fine-tuning de C1 y C2 (lo pide la restricción del curso).
+# Solo se entrena la cabeza; XLS-R corre sin gradientes y siempre en modo eval.
+model: xlsr_aasist
+variant: xlsr_aasist_frozen  # para que no le apliquen los overrides de memoria de C1/C2
+seed: 42
+
+audio:
+  sample_rate: 16000
+  num_samples: 64600
+
+model_args:
+  ssl_name: facebook/wav2vec2-xls-r-300m
+  freeze_ssl: true
+  gradient_checkpointing: false   # sin gradientes en XLS-R no hace falta
+  normalize_input: true
+
+train:
+  epochs: 10
+  batch_size: 16             # mismo batch efectivo que C1/C2, sin acumulación
+  grad_accum: 1
+  optimizer: adam
+  lr_head: 1.0e-4            # igual que la cabeza de C1/C2
+  weight_decay: 1.0e-4
+  scheduler: cosine
+  loss: weighted_ce
+  early_stopping_metric: dev_eer
+  patience: 3
+
+augment:
+  telephony: false
+  rawboost: false

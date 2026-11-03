@@ -36,7 +36,7 @@ RUNS_CSV = REPO_ROOT / "results" / "runs.csv"
 RUNS_CSV_FIELDS = [
     "run", "fecha", "modelo", "config", "maquina", "gpu", "precision", "seed",
     "train_split", "dev_split", "batch_efectivo", "epocas", "mejor_epoca", "dev_eer", "dev_auc",
-    "parametros_M", "horas_entrenamiento", "costo_usd", "commit", "notas",
+    "parametros_M", "entrenables_M", "horas_entrenamiento", "costo_usd", "commit", "notas",
 ]
 
 
@@ -94,11 +94,35 @@ def atomic_save(obj: dict, path: Path) -> None:
     os.replace(tmp, path)
 
 
+def _migrate_runs_csv() -> list[str]:
+    """Si runs.csv tiene columnas de una versión anterior, lo reescribe con las actuales.
+
+    Las columnas que faltan en las filas viejas quedan como "-" y las que ya no existen se
+    conservan al final, para no perder datos ni desalinear las filas nuevas. Devuelve las
+    columnas con las que quedó el archivo.
+    """
+    with open(RUNS_CSV, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        old_fields = reader.fieldnames or []
+        rows = list(reader)
+    fields = RUNS_CSV_FIELDS + [c for c in old_fields if c not in RUNS_CSV_FIELDS]
+    if old_fields == fields:
+        return fields
+    tmp = RUNS_CSV.with_suffix(".tmp")
+    with open(tmp, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fields, restval="-")
+        writer.writeheader()
+        writer.writerows(rows)
+    os.replace(tmp, RUNS_CSV)
+    return fields
+
+
 def append_run_row(row: dict) -> None:
     RUNS_CSV.parent.mkdir(parents=True, exist_ok=True)
     is_new = not RUNS_CSV.exists()
+    fields = RUNS_CSV_FIELDS if is_new else _migrate_runs_csv()
     with open(RUNS_CSV, "a", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=RUNS_CSV_FIELDS)
+        writer = csv.DictWriter(f, fieldnames=fields, restval="-")
         if is_new:
             writer.writeheader()
         writer.writerow(row)
@@ -150,6 +174,7 @@ def main() -> None:
     # --- Modelo, optimizador, scheduler --------------------------------------------------------
     model = build_model(cfg).to(device)
     n_params = sum(p.numel() for p in model.parameters()) / 1e6
+    n_trainable = sum(p.numel() for p in model.parameters() if p.requires_grad) / 1e6
     accum = tcfg.get("grad_accum", 1)
     n_batches = len(train_loader)
     if args.limit_train_batches:
@@ -171,7 +196,8 @@ def main() -> None:
         bad_epochs, elapsed = resume_state["bad_epochs"], resume_state["elapsed_sec"]
 
     gpu = device_name(device)
-    print(f"Modelo {cfg['model']} ({n_params:.2f} M parámetros) en {gpu}, {cfg['precision']}")
+    print(f"Modelo {cfg.get('variant', cfg['model'])} ({n_params:.2f} M parámetros, "
+          f"{n_trainable:.2f} M entrenables) en {gpu}, {cfg['precision']}")
     print(f"Batch {tcfg['batch_size']} x acumulación {accum} = {tcfg['batch_size'] * accum} efectivo; "
           f"{n_batches} batches por época")
 
@@ -249,7 +275,7 @@ def main() -> None:
     row = {
         "run": run_dir.name,
         "fecha": f"{datetime.now():%Y-%m-%d %H:%M}",
-        "modelo": cfg["model"],
+        "modelo": cfg.get("variant", cfg["model"]),
         "config": cfg.get("config_path", "-"),
         "maquina": cfg["machine"],
         "gpu": gpu,
@@ -263,6 +289,7 @@ def main() -> None:
         "dev_eer": f"{compute_eer(dev.score.values, dev.label.values)[0]:.5f}",
         "dev_auc": f"{compute_auc(dev.score.values, dev.label.values):.5f}",
         "parametros_M": f"{n_params:.3f}",
+        "entrenables_M": f"{n_trainable:.3f}",
         "horas_entrenamiento": f"{hours:.3f}",
         "costo_usd": f"{hours * cfg.get('gpu_price_usd_per_hour', 0):.2f}",
         "commit": git_commit(),

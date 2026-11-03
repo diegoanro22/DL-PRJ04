@@ -27,13 +27,14 @@ def apply_machine(cfg: dict, machine: str) -> dict:
     """Combina un config de modelo con configs/machines/<machine>.yaml.
 
     Las claves de la máquina (device, precision, dataset_roots...) quedan en la raíz, y
-    `overrides.<modelo>` se combina sección por sección (train, model_args...).
+    `overrides.<variante>` se combina sección por sección (train, model_args...). La variante
+    es `cfg["variant"]` si existe (p. ej. xlsr_aasist_frozen para C0) y si no, `cfg["model"]`.
     """
     cfg = copy.deepcopy(cfg)
     machine_cfg = load_yaml(MACHINES_DIR / f"{machine}.yaml")
     overrides = machine_cfg.pop("overrides", None) or {}
     _deep_update(cfg, machine_cfg)
-    _deep_update(cfg, overrides.get(cfg["model"]) or {})
+    _deep_update(cfg, overrides.get(cfg.get("variant", cfg["model"])) or {})
     return cfg
 
 
