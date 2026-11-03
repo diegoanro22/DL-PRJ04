@@ -61,6 +61,18 @@ uv run python -m src.train --resume runs/B1          # retomar si se cortó (p. 
 - Al terminar agrega una fila a `results/runs.csv` con máquina, GPU, tiempo, costo y métricas.
 - Curvas en TensorBoard: `uv run tensorboard --logdir runs`.
 
+### Modelos
+
+| Iteración | Config | Qué entrena |
+|---|---|---|
+| A1, A2 | `configs/lfcc_cnn.yaml` | LFCC + LCNN desde cero |
+| B1, B2 | `configs/aasist_l.yaml` | AASIST-L (85k parámetros) desde cero |
+| C0 | `configs/xlsr_aasist_frozen.yaml` | XLS-R 300M congelado + cabeza AASIST (modelo base del transfer learning) |
+| C1, C2 | `configs/xlsr_aasist.yaml` | Fine-tuning completo de XLS-R 300M + cabeza AASIST |
+
+La iteración 2 de cada modelo (A2, B2, C2) activa `augment.telephony` y `augment.rawboost`.
+C0 sirve para medir cuánto aporta el fine-tuning: C0 → C1 → C2 se comparan en EER y valor.
+
 ## Evaluación
 
 ```bash
@@ -71,15 +83,30 @@ Guarda los scores P(sintética) por audio en `results/scores/` (los usa el model
 métricas en `results/metrics/`: EER y AUC con IC 95 % por bootstrap, min t-DCF en ASVspoof 2019
 y EER por ataque, códec e idioma.
 
+## Calibración, ONNX y latencia
+
+```bash
+uv run python -m src.calibrate --scores results/scores/C1__asv19_dev.csv   # -> runs/C1/calibration.json
+uv run python -m src.export_onnx --source runs/C1/best.pt                   # -> runs/C1/model.onnx
+uv run python scripts/benchmark_latency.py --models runs/B2/best.pt runs/C2/best.pt
+```
+
+- La calibración de Platt convierte el score en P(sintética) para cualquier prevalencia, sin
+  cambiar EER, TPR ni FPR.
+- El benchmark mide latencia p50/p95 en ONNX Runtime con 2 hilos de CPU (la instancia donde se
+  serviría), en PyTorch CPU y GPU, y el costo por 1,000 llamadas que usa el modelo de valor
+  (`c_comp`). Guarda `results/latency.csv`. Acepta configs `.yaml` para medir antes de entrenar.
+
 ## Pruebas
 
 ```bash
 uv run pytest
 ```
 
-Prueban las métricas contra casos calculados a mano y el ciclo completo de entrenamiento
-(CPU, bf16, fp16, retomar y evaluar) con un dataset sintético (`--fake-data`) y un modelo
-mínimo (`configs/debug.yaml`).
+Prueban las métricas y la calibración contra casos calculados a mano, el ciclo completo de
+entrenamiento (CPU, bf16, fp16, retomar y evaluar) con un dataset sintético (`--fake-data`),
+los modelos AASIST-L y XLS-R + AASIST (congelado y con fine-tuning, con un wav2vec2 chico para
+no bajar XLS-R) y la exportación a ONNX.
 
 ## Datos
 
