@@ -112,3 +112,25 @@ no bajar XLS-R) y la exportación a ONNX.
 
 Ver [`data/README.md`](data/README.md). ASVspoof 2019 LA, ASVspoof 2021 LA, MLAAD (es) y
 grabaciones propias con consentimiento.
+
+Antes de entrenar con ASVspoof 2019 LA, genera los protocolos unificados usando la misma
+carpeta que figura en `dataset_roots.asv19` del config de tu máquina:
+
+```bash
+uv run python scripts/build_protocols.py --root data/ASVspoof2019_LA
+# En Kaggle:
+uv run python scripts/build_protocols.py --root /kaggle/input/asvpoof-2019-dataset/LA/LA
+```
+
+El script genera `protocols/asv19_{train,dev,eval}.csv` con rutas relativas, valida etiquetas,
+IDs únicos y existencia de los FLAC. Acepta las carpetas oficiales `ASVspoof2019_LA_train/`
+(y dev/eval) o los nombres cortos `train/`, `dev/`, `eval/`. Los archivos oficiales
+`ASVspoof2019.LA.cm.*.txt` deben estar en `ASVspoof2019_LA_cm_protocols/` o en la raíz del
+dataset. Usa `--splits train dev` si todavía no descargaste eval. Generar su CSV solo lee
+metadatos; no ejecuta la evaluación del modelo.
+
+El dataloader convierte a mono y 16 kHz, repite audios cortos y entrega 64,600 muestras:
+recorte aleatorio en train y el inicio en dev/test, conservando la amplitud sin normalizar.
+Las augmentations telefónicas y RawBoost todavía están pendientes; para esta etapa deja
+ambos flags en `false`. Los generadores de protocolos de ASVspoof 2021, español y datos propios
+corresponden a etapas posteriores.
