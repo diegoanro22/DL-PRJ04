@@ -123,3 +123,14 @@ def test_migra_runs_csv_con_columnas_viejas(tmp_path, monkeypatch):
     assert df.loc[0, "entrenables_M"] == "-"
     assert df.loc[1, "horas_entrenamiento"] == "nuevo_horas_entrenamiento"
     assert df.loc[1, "entrenables_M"] == "nuevo_entrenables_M"
+
+
+def test_muestra_limitada_trae_las_dos_clases():
+    from src.data.fake import build_dataloader as fake_loader
+    from src.evaluate import subsample_loader
+
+    cfg = read_yaml("configs/debug.yaml")
+    cfg["train"]["batch_size"] = 4
+    loader = subsample_loader(fake_loader(cfg, "asv19_dev", train=False), n_batches=1)
+    labels = {int(label) for batch in loader for label in batch["label"]}
+    assert labels == {0, 1}   # el split falso tiene 90 % de sintéticas

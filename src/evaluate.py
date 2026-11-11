@@ -22,7 +22,7 @@ import numpy as np
 import pandas as pd
 import torch
 from torch import nn
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Subset
 
 from src.config import REPO_ROOT, apply_machine
 from src.data.dataset import LABEL_SPOOF, protocol_path
@@ -44,6 +44,32 @@ ASV_SCORE_FILES = {
     "asv19_dev": "ASVspoof2019_LA_asv_scores/ASVspoof2019.LA.asv.dev.gi.trl.scores.txt",
     "asv19_eval": "ASVspoof2019_LA_asv_scores/ASVspoof2019.LA.asv.eval.gi.trl.scores.txt",
 }
+
+
+def subsample_loader(loader: DataLoader, n_batches: int, seed: int = 0) -> DataLoader:
+    """Para pruebas rápidas: `n_batches` de una muestra aleatoria fija del split.
+
+    No se toma el inicio porque los protocolos vienen ordenados por clase (primero las
+    genuinas) y unos pocos batches tendrían una sola clase, con lo que el EER no existe. La
+    muestra es estratificada: mantiene la proporción de clases con al menos un audio de cada
+    una, si el dataset expone sus etiquetas en `dataset.protocol.label`.
+    """
+    dataset = loader.dataset
+    n = min(len(dataset), n_batches * loader.batch_size)
+    gen = torch.Generator().manual_seed(seed)
+    protocol = getattr(dataset, "protocol", None)
+    if protocol is None or n < 2:
+        idx = torch.randperm(len(dataset), generator=gen)[:n].tolist()
+    else:
+        labels = torch.tensor(protocol.label.to_numpy())
+        idx = []
+        for c in labels.unique():
+            members = torch.nonzero(labels == c).flatten()
+            k = max(1, round(n * len(members) / len(labels)))
+            idx += members[torch.randperm(len(members), generator=gen)[:k]].tolist()
+    idx = sorted(idx)
+    return DataLoader(Subset(loader.dataset, idx), batch_size=loader.batch_size, shuffle=False,
+                      num_workers=loader.num_workers, pin_memory=loader.pin_memory)
 
 
 @torch.no_grad()
@@ -169,7 +195,9 @@ def main() -> None:
     (out_dir / "metrics").mkdir(parents=True, exist_ok=True)
     for split in args.splits:
         loader = build_dataloader(cfg, split, train=False)
-        df = predict(model, loader, device, dtype, args.limit_batches)
+        if args.limit_batches:
+            loader = subsample_loader(loader, args.limit_batches)
+        df = predict(model, loader, device, dtype)
         asv_file = None
         if split in ASV_SCORE_FILES and "asv19" in cfg.get("dataset_roots", {}):
             asv_file = Path(cfg["dataset_roots"]["asv19"]) / ASV_SCORE_FILES[split]

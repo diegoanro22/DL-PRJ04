@@ -1,0 +1,2 @@
+run,fecha,modelo,config,maquina,gpu,precision,seed,train_split,dev_split,batch_efectivo,epocas,mejor_epoca,dev_eer,dev_auc,parametros_M,entrenables_M,horas_entrenamiento,costo_usd,commit,notas
+C0,2026-11-10 20:17,xlsr_aasist_frozen,configs/xlsr_aasist_frozen.yaml,laptop,NVIDIA GeForce RTX 5070 Laptop GPU,bf16,42,asv19_train,asv19_dev,16,5,2,0.00166,0.99966,315.886,0.447,0.552,0.39,44ba05a,"XLS-R congelado, modelo base del transfer learning"

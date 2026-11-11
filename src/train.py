@@ -27,7 +27,7 @@ from torch import nn
 from torch.utils.tensorboard import SummaryWriter
 
 from src.config import REPO_ROOT, load_config, save_config
-from src.evaluate import predict
+from src.evaluate import predict, subsample_loader
 from src.metrics import compute_auc, compute_eer
 from src.models import build_model
 from src.utils import amp_dtype, device_name, get_device, git_commit, seed_everything
@@ -170,6 +170,8 @@ def main() -> None:
 
     train_loader = build_dataloader(cfg, cfg["train_split"], train=True)
     dev_loader = build_dataloader(cfg, cfg["dev_split"], train=False)
+    if args.limit_dev_batches:
+        dev_loader = subsample_loader(dev_loader, args.limit_dev_batches)
 
     # --- Modelo, optimizador, scheduler --------------------------------------------------------
     model = build_model(cfg).to(device)
@@ -230,7 +232,7 @@ def main() -> None:
             running_loss += loss.item() * len(labels)
             seen += len(labels)
 
-        dev = predict(model, dev_loader, device, dtype, args.limit_dev_batches)
+        dev = predict(model, dev_loader, device, dtype)
         dev_eer, _ = compute_eer(dev.score.values, dev.label.values)
         dev_auc = compute_auc(dev.score.values, dev.label.values)
         epoch_sec = time.perf_counter() - t0
@@ -242,7 +244,10 @@ def main() -> None:
         writer.add_scalar("auc/dev", dev_auc, epoch + 1)
         writer.add_scalar("lr", optimizer.param_groups[-1]["lr"], epoch + 1)
 
-        improved = dev_eer < best_eer
+        # La primera época siempre guarda best.pt, aunque el EER no se pueda calcular (nan);
+        # después, cualquier EER finito mejora a un nan guardado.
+        improved = (best_epoch < 0 or (math.isnan(best_eer) and not math.isnan(dev_eer))
+                    or dev_eer < best_eer)
         if improved:
             best_eer, best_epoch, bad_epochs = dev_eer, epoch, 0
             atomic_save({"model": model.state_dict(), "cfg": cfg, "epoch": epoch,
@@ -270,7 +275,7 @@ def main() -> None:
     # --- Registro de la corrida ----------------------------------------------------------------
     best = torch.load(run_dir / "best.pt", map_location="cpu", weights_only=False)
     model.load_state_dict(best["model"])
-    dev = predict(model, dev_loader, device, dtype, args.limit_dev_batches)
+    dev = predict(model, dev_loader, device, dtype)
     hours = elapsed / 3600
     row = {
         "run": run_dir.name,
@@ -297,9 +302,9 @@ def main() -> None:
     }
     print(f"\nListo. Mejor EER en dev: {100 * best_eer:.2f} % (época {best_epoch + 1}). "
           f"Tiempo: {hours * 60:.1f} min")
-    if args.fake_data:
-        # Las pruebas de humo no cuentan como resultados del proyecto.
-        print(f"Checkpoints en {run_dir} (--fake-data: no se registra en runs.csv).")
+    if args.fake_data or args.limit_train_batches or args.limit_dev_batches:
+        # Las pruebas de humo y las corridas recortadas no cuentan como resultados.
+        print(f"Checkpoints en {run_dir} (prueba: no se registra en runs.csv).")
     else:
         append_run_row(row)
         print(f"Checkpoints en {run_dir}. Fila agregada a {RUNS_CSV.relative_to(REPO_ROOT)}.")
