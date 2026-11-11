@@ -97,6 +97,25 @@ uv run python scripts/benchmark_latency.py --models runs/B2/best.pt runs/C2/best
   serviría), en PyTorch CPU y GPU, y el costo por 1,000 llamadas que usa el modelo de valor
   (`c_comp`). Guarda `results/latency.csv`. Acepta configs `.yaml` para medir antes de entrenar.
 
+## API
+
+```bash
+uv run python -m app.package_model --checkpoint runs/C2/best.pt --name C2 --t1 0.42 --t2 0.97
+uv run uvicorn app.api:app --reload
+curl -F audio=@llamada.wav "localhost:8000/analyze?modelo=C2"
+```
+
+| Ruta | Qué hace |
+|---|---|
+| `POST /analyze` | Recibe audio (wav, flac, webm, ogg, mp3), usa los primeros 4 s y devuelve el score, P(sintética) calibrada para la prevalencia indicada, la acción (continuar, verificar o analista), avisos de calidad (audio corto, silencio, saturación) y la latencia |
+| `GET /models` | Modelos disponibles en `app/models/` con sus umbrales |
+| `GET /health` | Estado del servicio |
+| `GET /metrics` | Llamadas y acciones por modelo, latencia p50/p95, histograma de scores y alarma de deriva cuando la tasa de alertas se aleja de la esperada |
+
+`app/package_model.py` exporta el checkpoint a ONNX y copia la calibración y los umbrales a
+`app/models/<nombre>/`. La API corre solo con ONNX Runtime en CPU (sin PyTorch) y no guarda
+audio. Sin `--t1/--t2` marca los umbrales como provisionales. Webm, ogg y mp3 requieren ffmpeg.
+
 ## Pruebas
 
 ```bash
@@ -106,7 +125,8 @@ uv run pytest
 Prueban las métricas y la calibración contra casos calculados a mano, el ciclo completo de
 entrenamiento (CPU, bf16, fp16, retomar y evaluar) con un dataset sintético (`--fake-data`),
 los modelos AASIST-L y XLS-R + AASIST (congelado y con fine-tuning, con un wav2vec2 chico para
-no bajar XLS-R) y la exportación a ONNX.
+no bajar XLS-R), la exportación a ONNX y la API (formatos de audio, avisos, umbrales,
+errores y alarma de deriva).
 
 ## Datos
 

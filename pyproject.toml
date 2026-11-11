@@ -27,7 +27,12 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["pytest", "ruff", "ipykernel"]
+dev = [
+    "pytest",
+    "ruff",
+    "ipykernel",
+    "httpx>=0.28.1",
+]
 # XTTS-v2 para generar los clones de voz propios. Se instala aparte
 # (uv sync --group clonacion) porque trae muchas dependencias.
 clonacion = ["coqui-tts"]
