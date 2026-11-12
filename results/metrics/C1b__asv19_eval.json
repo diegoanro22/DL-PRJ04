@@ -1,0 +1,101 @@
+{
+  "n": 71237,
+  "n_genuinas": 7355,
+  "n_sinteticas": 63882,
+  "eer": 0.016060897332141357,
+  "eer_ic95": [
+    0.014678414341908553,
+    0.017868977219236082
+  ],
+  "eer_umbral": 0.00016865275392774493,
+  "auc": 0.9974308192422505,
+  "auc_ic95": [
+    0.9966836502021881,
+    0.9980454756284909
+  ],
+  "min_tdcf": 0.05266376289053012,
+  "por_ataque": [
+    {
+      "grupo": "A07",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.004481874094382603
+    },
+    {
+      "grupo": "A08",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.006179627457669595
+    },
+    {
+      "grupo": "A09",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0029880636270846776
+    },
+    {
+      "grupo": "A10",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.04410250599917496
+    },
+    {
+      "grupo": "A11",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.007503706857887692
+    },
+    {
+      "grupo": "A12",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00801245736663818
+    },
+    {
+      "grupo": "A13",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0012223292984679776
+    },
+    {
+      "grupo": "A14",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.004787124399632907
+    },
+    {
+      "grupo": "A15",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.010593077894233551
+    },
+    {
+      "grupo": "A16",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.004244162061973067
+    },
+    {
+      "grupo": "A17",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.007775630719206523
+    },
+    {
+      "grupo": "A18",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0051607983627018576
+    },
+    {
+      "grupo": "A19",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.015720107120514998
+    }
+  ],
+  "run": "C1b",
+  "split": "asv19_eval",
+  "checkpoint": "runs/C1b/best.pt",
+  "epoch": 1
+}

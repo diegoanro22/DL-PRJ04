@@ -134,3 +134,22 @@ def test_muestra_limitada_trae_las_dos_clases():
     loader = subsample_loader(fake_loader(cfg, "asv19_dev", train=False), n_batches=1)
     labels = {int(label) for batch in loader for label in batch["label"]}
     assert labels == {0, 1}   # el split falso tiene 90 % de sintéticas
+
+
+def test_init_from_carga_pesos_de_otra_corrida(config, tmp_path, monkeypatch):
+    run(train, monkeypatch, "--config", str(config), "--fake-data", "--device", "cpu",
+        "--epochs", "1", "--name", "base")
+    base = tmp_path / "runs" / "base" / "best.pt"
+    # lr 0: si los pesos se cargaron, el modelo nuevo termina idéntico a la base.
+    cfg = read_yaml(config)
+    cfg["train"]["lr"] = 0.0
+    cfg["init_from"] = str(base)
+    zero_lr = tmp_path / "zero_lr.yaml"
+    zero_lr.write_text(yaml.safe_dump(cfg))
+    run(train, monkeypatch, "--config", str(zero_lr), "--fake-data", "--device", "cpu",
+        "--epochs", "1", "--name", "ft")
+    a = torch.load(base, weights_only=False)["model"]
+    b = torch.load(tmp_path / "runs" / "ft" / "best.pt", weights_only=False)["model"]
+    assert all(torch.equal(a[k], b[k]) for k in a if a[k].is_floating_point()
+               and "running" not in k)
+    assert read_yaml(tmp_path / "runs" / "ft" / "config.yaml")["init_from"] == str(base)

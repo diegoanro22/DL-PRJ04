@@ -1,0 +1,36 @@
+# Modelo C1b: LP-FT (Kumar et al., 2022, "Fine-Tuning can Distort Pretrained Features").
+# Arranca desde C0 (cabeza ya entrenada sobre XLS-R congelado) y después ajusta todo con lr
+# bajos, para no distorsionar las features de XLS-R. En C1 (fine-tuning desde una cabeza
+# aleatoria con lr 1e-4) el EER en eval subió de 1.08 % (C0) a 3.27 %.
+# Sin `variant`: usa los mismos ajustes de memoria por máquina que C1/C2.
+model: xlsr_aasist
+seed: 42
+init_from: runs/C0/best.pt
+
+audio:
+  sample_rate: 16000
+  num_samples: 64600
+
+model_args:
+  ssl_name: facebook/wav2vec2-xls-r-300m
+  freeze_ssl: false
+  freeze_first_layers: 0
+  gradient_checkpointing: true
+  normalize_input: true
+
+train:
+  epochs: 10
+  batch_size: 4
+  grad_accum: 4              # batch efectivo 16
+  optimizer: adam
+  lr_ssl: 1.0e-6
+  lr_head: 1.0e-5            # 10 veces menor que en C1: la cabeza ya viene entrenada
+  weight_decay: 1.0e-4
+  scheduler: cosine
+  loss: weighted_ce
+  early_stopping_metric: dev_eer
+  patience: 3
+
+augment:
+  telephony: false
+  rawboost: false

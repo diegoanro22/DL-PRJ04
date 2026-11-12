@@ -1,0 +1,59 @@
+{
+  "n": 24844,
+  "n_genuinas": 2548,
+  "n_sinteticas": 22296,
+  "eer": 0.005684999428271786,
+  "eer_ic95": [
+    0.0036717019237106183,
+    0.0080454898176046
+  ],
+  "eer_umbral": 0.00019716942915692925,
+  "auc": 0.9993541565628488,
+  "auc_ic95": [
+    0.9986408800421925,
+    0.9998493496978571
+  ],
+  "min_tdcf": 0.019106207325652963,
+  "por_ataque": [
+    {
+      "grupo": "A01",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.0023883735824378393
+    },
+    {
+      "grupo": "A02",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.0019230346771481406
+    },
+    {
+      "grupo": "A03",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.003980622637396417
+    },
+    {
+      "grupo": "A04",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.003184498109917156
+    },
+    {
+      "grupo": "A05",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.0022538202993377587
+    },
+    {
+      "grupo": "A06",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.00902647636847237
+    }
+  ],
+  "run": "C1b",
+  "split": "asv19_dev",
+  "checkpoint": "runs/C1b/best.pt",
+  "epoch": 1
+}

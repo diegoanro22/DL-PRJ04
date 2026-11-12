@@ -53,6 +53,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--dev-split", default="asv19_dev")
     p.add_argument("--epochs", type=int, help="sobrescribe train.epochs")
     p.add_argument("--seed", type=int, help="sobrescribe seed")
+    p.add_argument("--init-from", help="checkpoint .pt con pesos iniciales (p. ej. LP-FT desde C0); "
+                   "sobrescribe init_from del config")
     p.add_argument("--limit-train-batches", type=int, help="solo para pruebas rápidas")
     p.add_argument("--limit-dev-batches", type=int, help="solo para pruebas rápidas")
     p.add_argument("--notes", default="", help="nota libre que se guarda en runs.csv")
@@ -151,6 +153,8 @@ def main() -> None:
         if args.precision:
             cfg["precision"] = args.precision
         cfg["train_split"], cfg["dev_split"] = args.train_split, args.dev_split
+        if args.init_from:
+            cfg["init_from"] = args.init_from
         name = args.name or f"{cfg['model']}_{datetime.now():%Y%m%d_%H%M%S}"
         run_dir = Path(cfg["output_root"]) / name
         if (run_dir / "last.pt").exists():
@@ -174,7 +178,14 @@ def main() -> None:
         dev_loader = subsample_loader(dev_loader, args.limit_dev_batches)
 
     # --- Modelo, optimizador, scheduler --------------------------------------------------------
-    model = build_model(cfg).to(device)
+    model = build_model(cfg)
+    if cfg.get("init_from") and resume_state is None:
+        # Pesos iniciales de otra corrida (misma arquitectura). Al retomar no hace falta:
+        # last.pt ya trae los pesos actualizados.
+        init = torch.load(cfg["init_from"], map_location="cpu", weights_only=False)
+        model.load_state_dict(init["model"])
+        print(f"Pesos iniciales: {cfg['init_from']} (época {init.get('epoch', 0) + 1})")
+    model = model.to(device)
     n_params = sum(p.numel() for p in model.parameters()) / 1e6
     n_trainable = sum(p.numel() for p in model.parameters() if p.requires_grad) / 1e6
     accum = tcfg.get("grad_accum", 1)
