@@ -6,7 +6,8 @@ device: cuda
 precision: fp16
 # Cisco: completar con la carpeta real de cada dataset en /kaggle/input al subirlos.
 dataset_roots:
-  asv19: /kaggle/input/asvpoof-2019-dataset/LA/LA
+  # Ruta nueva de Kaggle Datasets; el runner también la detecta y sobrescribe.
+  asv19: /kaggle/input/datasets/awsaf49/asvpoof-2019-dataset/LA/LA
   asv21: /kaggle/input/asvspoof2021-la/ASVspoof2021_LA_eval
   mlaad_es: /kaggle/input/mlaad-es
   propios: /kaggle/input/voces-propias

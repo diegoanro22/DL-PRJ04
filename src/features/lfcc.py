@@ -99,19 +99,21 @@ class LFCCFrontend(nn.Module):
         return 0.5 * (padded[:, :, 2:] - padded[:, :, :-2])
 
     def forward(self, wav: torch.Tensor) -> torch.Tensor:
-        # Padding central equivalente a Spectrogram(center=True).
-        pad = self.n_fft // 2
-        x = nn.functional.pad(wav.unsqueeze(1), (pad, pad))
-        real = self.spec_real(x)
-        imag = self.spec_imag(x)
-        power = real.pow(2) + imag.pow(2)  # [B, n_freq, frames]
-        # [B, frames, n_freq] @ filterbank
-        filtered = torch.matmul(power.transpose(1, 2), self.filterbank)
-        log_fb = torch.log(torch.clamp(filtered, min=1e-10))
-        lfcc = torch.matmul(log_fb, self.dct)  # [B, frames, n_lfcc]
-        feats = lfcc.transpose(1, 2)  # [B, n_lfcc, frames]
-        if self.deltas:
-            d1 = self._delta(feats)
-            d2 = self._delta(d1)
-            feats = torch.cat([feats, d1, d2], dim=1)
-        return feats.transpose(1, 2).unsqueeze(1)
+        # Siempre en fp32: en fp16, clamp(1e-10) subdesborda a 0 y log → -inf (loss NaN).
+        device_type = wav.device.type
+        with torch.autocast(device_type=device_type, enabled=False):
+            wav = wav.float()
+            pad = self.n_fft // 2
+            x = nn.functional.pad(wav.unsqueeze(1), (pad, pad))
+            real = self.spec_real(x)
+            imag = self.spec_imag(x)
+            power = real.pow(2) + imag.pow(2)  # [B, n_freq, frames]
+            filtered = torch.matmul(power.transpose(1, 2), self.filterbank.float())
+            log_fb = torch.log(torch.clamp(filtered, min=1e-10))
+            lfcc = torch.matmul(log_fb, self.dct.float())  # [B, frames, n_lfcc]
+            feats = lfcc.transpose(1, 2)  # [B, n_lfcc, frames]
+            if self.deltas:
+                d1 = self._delta(feats)
+                d2 = self._delta(d1)
+                feats = torch.cat([feats, d1, d2], dim=1)
+            return feats.transpose(1, 2).unsqueeze(1)

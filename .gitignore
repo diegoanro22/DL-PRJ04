@@ -7,6 +7,13 @@ __pycache__/
 .pytest_cache/
 .env
 
+# Credenciales / cuenta de Kaggle (nunca versionar)
+.kaggle/
+**/kaggle.json
+**/access_token
+kernel-metadata.json
+dataset-metadata.json
+
 # Datos (se descargan con scripts/ o se montan en Kaggle)
 data/*
 !data/README.md
