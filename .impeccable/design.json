@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-14T05:47:48+00:00",
+  "title": "Design System: Verificador de voz",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papel de seguridad",
+        "canonical": "oklch(94.5% 0.014 135)",
+        "tonalRamp": [
+          "#0a0c09",
+          "#232522",
+          "#3e403d",
+          "#5c5f5a",
+          "#7b7e79",
+          "#9ca099",
+          "#c1c6be",
+          "#edefeb"
+        ]
+      },
+      "plate": {
+        "role": "neutral",
+        "displayName": "Placa",
+        "canonical": "oklch(92.1% 0.019 138)",
+        "tonalRamp": [
+          "#090c09",
+          "#222521",
+          "#3d413c",
+          "#5b5f59",
+          "#7a7f78",
+          "#9aa198",
+          "#bfc7bc",
+          "#ecf0ea"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Tinta intaglio azul noche",
+        "canonical": "oklch(28.4% 0.034 251)",
+        "tonalRamp": [
+          "#070c11",
+          "#182534",
+          "#344150",
+          "#525f6d",
+          "#737f8c",
+          "#95a0ab",
+          "#bcc5cf",
+          "#e7eff9"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Tinta diluida",
+        "canonical": "oklch(41.3% 0.032 247)",
+        "tonalRamp": [
+          "#070c11",
+          "#192531",
+          "#324250",
+          "#50606e",
+          "#717f8d",
+          "#93a0ad",
+          "#bac6d1",
+          "#e7f0f8"
+        ]
+      },
+      "ink-hover": {
+        "role": "primary",
+        "displayName": "Tinta intaglio en relieve",
+        "canonical": "oklch(36.0% 0.043 249)",
+        "tonalRamp": [
+          "#050c13",
+          "#142536",
+          "#2e4256",
+          "#4d6073",
+          "#6e7f91",
+          "#91a0b1",
+          "#b8c6d4",
+          "#e5f0fb"
+        ]
+      },
+      "guilloche": {
+        "role": "secondary",
+        "displayName": "Verde billete de guilloche",
+        "canonical": "oklch(44.1% 0.056 173)",
+        "tonalRamp": [
+          "#010f0a",
+          "#042b22",
+          "#1e493d",
+          "#3c685b",
+          "#5f877b",
+          "#84a79c",
+          "#adccc2",
+          "#def4ed"
+        ]
+      },
+      "uv": {
+        "role": "tertiary",
+        "displayName": "Violeta UV",
+        "canonical": "oklch(50.5% 0.211 290)",
+        "tonalRamp": [
+          "#0f002f",
+          "#2b006b",
+          "#461897",
+          "#6338c6",
+          "#8060e6",
+          "#9f87ff",
+          "#c4b2ff",
+          "#ede4ff"
+        ]
+      },
+      "ok": {
+        "role": "semantic",
+        "displayName": "Verde sello",
+        "canonical": "oklch(47.9% 0.078 161)",
+        "tonalRamp": [
+          "#000f07",
+          "#002d1a",
+          "#144b33",
+          "#2f6b4f",
+          "#568a70",
+          "#7cab92",
+          "#a6d0b9",
+          "#dbf6e7"
+        ]
+      },
+      "warn": {
+        "role": "semantic",
+        "displayName": "Ocre sello",
+        "canonical": "oklch(49.3% 0.105 73)",
+        "tonalRamp": [
+          "#170700",
+          "#3b1b00",
+          "#5d3600",
+          "#815200",
+          "#a07436",
+          "#bf9661",
+          "#e2bd8f",
+          "#ffeacc"
+        ]
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Bermellón sello",
+        "canonical": "oklch(51.5% 0.159 34)",
+        "tonalRamp": [
+          "#210000",
+          "#500000",
+          "#781200",
+          "#a23017",
+          "#c5563d",
+          "#e47d66",
+          "#ffa892",
+          "#ffdecf"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Filete",
+        "canonical": "rgb(29 43 58 / 0.2)",
+        "tonalRamp": [
+          "#070c11",
+          "#182534",
+          "#344150",
+          "#525f6d",
+          "#737f8c",
+          "#95a0ab",
+          "#bcc5cf",
+          "#e7eff9"
+        ]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Filete fuerte",
+        "canonical": "rgb(29 43 58 / 0.45)",
+        "tonalRamp": [
+          "#070c11",
+          "#182534",
+          "#344150",
+          "#525f6d",
+          "#737f8c",
+          "#95a0ab",
+          "#bcc5cf",
+          "#e7eff9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Sello",
+        "purpose": "Solo la palabra de la acción en el sello, en mayúsculas."
+      },
+      "headline": {
+        "displayName": "Nombre",
+        "purpose": "Nombre del producto en la barra superior."
+      },
+      "title": {
+        "displayName": "Título de sección",
+        "purpose": "Títulos de sección como el registro."
+      },
+      "lead": {
+        "displayName": "Frase de acción",
+        "purpose": "La instrucción bajo el sello, máx. 34ch."
+      },
+      "body": {
+        "displayName": "Cuerpo",
+        "purpose": "Leyendas, notas, alertas y celdas de tabla."
+      },
+      "label": {
+        "displayName": "Etiqueta",
+        "purpose": "Etiquetas de campo, encabezados de tabla y metadatos en ink-2."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "La probabilidad calibrada, en mono tabular."
+      },
+      "data": {
+        "displayName": "Dato",
+        "purpose": "Ticks, umbrales, horas, score y latencia en mono tabular."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Curva única de todas las transiciones y animaciones."
+      },
+      {
+        "name": "button-state",
+        "value": "160ms",
+        "purpose": "Cambio de fondo y color de botones; presión de 80 ms."
+      },
+      {
+        "name": "estampar",
+        "value": "320ms",
+        "purpose": "Entrada del sello: de -7° y escala 1.4 a -2.5° y escala 1."
+      },
+      {
+        "name": "barrido-uv",
+        "value": "1.15s infinito",
+        "purpose": "Barrido violeta sobre la ventana de 4 s mientras la API responde."
+      },
+      {
+        "name": "entrar-fila",
+        "value": "600ms",
+        "purpose": "Destello de la tinta de acción al 14 % en la fila nueva del registro."
+      },
+      {
+        "name": "atenuar",
+        "value": "200ms",
+        "purpose": "Veredicto al 50 % mientras se reexamina; cambio de fondo de la placa al arrastrar."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "900px"
+      },
+      {
+        "name": "narrow",
+        "value": "640px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón primario",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Palanca principal (Grabar, Analizar): tinta llena sobre papel.",
+      "html": "<button class=\"ds-btn ds-btn--primary\"><svg viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M128 176a48 48 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48 48 0 0 0 48 48Zm-32-112a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.1 80.1 0 0 1 48 128a8 8 0 0 1 16 0 64 64 0 0 0 128 0 8 8 0 0 1 16 0 80.1 80.1 0 0 1-72 79.6Z\"/></svg>Grabar</button>",
+      "css": ":host{--paper:#e9efe6;--plate:#dfe8dc;--ink:#1d2b3a;--ink-2:#3d4d5c;--guilloche:#2f5d50;--uv:#6a3fd1;--ok:#2f6b4f;--warn:#855600;--danger:#b0391f;--rule:rgb(29 43 58 / 0.2);--rule-strong:rgb(29 43 58 / 0.45);--sans:'Archivo Variable','Archivo',system-ui,sans-serif;--mono:'JetBrains Mono Variable','JetBrains Mono',ui-monospace,monospace;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 20px;border:1px solid var(--ink);border-radius:0;background:transparent;color:var(--ink);font:600 16px var(--sans);cursor:pointer;transition:background 160ms var(--ease-out),color 160ms var(--ease-out),transform 80ms;} .ds-btn svg{width:20px;height:20px;flex:none;} .ds-btn:hover{background:rgb(29 43 58 / 0.07);} .ds-btn:active{transform:translateY(1px);} .ds-btn:focus-visible{outline:2px solid var(--guilloche);outline-offset:3px;} .ds-btn:disabled{opacity:.45;cursor:not-allowed;} .ds-btn--primary{background:var(--ink);color:var(--paper);min-width:148px;} .ds-btn--primary:hover{background:#2b3f53;}"
+    },
+    {
+      "name": "Botón grabando",
+      "kind": "button",
+      "refersTo": "button-recording",
+      "description": "Estado de la palanca primaria mientras graba, con temporizador mono.",
+      "html": "<button class=\"ds-btn ds-btn--rec\"><svg viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"56\" y=\"56\" width=\"144\" height=\"144\"/></svg>Detener <span class=\"ds-btn__timer\">0:03</span></button>",
+      "css": ":host{--paper:#e9efe6;--plate:#dfe8dc;--ink:#1d2b3a;--ink-2:#3d4d5c;--guilloche:#2f5d50;--uv:#6a3fd1;--ok:#2f6b4f;--warn:#855600;--danger:#b0391f;--rule:rgb(29 43 58 / 0.2);--rule-strong:rgb(29 43 58 / 0.45);--sans:'Archivo Variable','Archivo',system-ui,sans-serif;--mono:'JetBrains Mono Variable','JetBrains Mono',ui-monospace,monospace;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 20px;border:1px solid var(--ink);border-radius:0;background:transparent;color:var(--ink);font:600 16px var(--sans);cursor:pointer;transition:background 160ms var(--ease-out),color 160ms var(--ease-out),transform 80ms;} .ds-btn svg{width:20px;height:20px;flex:none;} .ds-btn:hover{background:rgb(29 43 58 / 0.07);} .ds-btn:active{transform:translateY(1px);} .ds-btn:focus-visible{outline:2px solid var(--guilloche);outline-offset:3px;} .ds-btn:disabled{opacity:.45;cursor:not-allowed;} .ds-btn--rec,.ds-btn--rec:hover{background:var(--danger);border-color:var(--danger);color:var(--paper);} .ds-btn__timer{font:500 14px var(--mono);font-variant-numeric:tabular-nums;opacity:.9;}"
+    },
+    {
+      "name": "Botón secundario",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Palanca de borde en tinta (Subir audio).",
+      "html": "<button class=\"ds-btn\"><svg viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M224 144v64a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-64a8 8 0 0 1 16 0v56h160v-56a8 8 0 0 1 16 0ZM93.7 69.7 120 43.3V136a8 8 0 0 0 16 0V43.3l26.3 26.4a8 8 0 0 0 11.4-11.4l-40-40a8 8 0 0 0-11.4 0l-40 40a8 8 0 0 0 11.4 11.4Z\"/></svg>Subir audio</button>",
+      "css": ":host{--paper:#e9efe6;--plate:#dfe8dc;--ink:#1d2b3a;--ink-2:#3d4d5c;--guilloche:#2f5d50;--uv:#6a3fd1;--ok:#2f6b4f;--warn:#855600;--danger:#b0391f;--rule:rgb(29 43 58 / 0.2);--rule-strong:rgb(29 43 58 / 0.45);--sans:'Archivo Variable','Archivo',system-ui,sans-serif;--mono:'JetBrains Mono Variable','JetBrains Mono',ui-monospace,monospace;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 20px;border:1px solid var(--ink);border-radius:0;background:transparent;color:var(--ink);font:600 16px var(--sans);cursor:pointer;transition:background 160ms var(--ease-out),color 160ms var(--ease-out),transform 80ms;} .ds-btn svg{width:20px;height:20px;flex:none;} .ds-btn:hover{background:rgb(29 43 58 / 0.07);} .ds-btn:active{transform:translateY(1px);} .ds-btn:focus-visible{outline:2px solid var(--guilloche);outline-offset:3px;} .ds-btn:disabled{opacity:.45;cursor:not-allowed;} "
+    },
+    {
+      "name": "Botón discreto",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Acción secundaria subrayada sin borde visible (Volver a analizar).",
+      "html": "<button class=\"ds-btn ds-btn--quiet\">Volver a analizar</button>",
+      "css": ":host{--paper:#e9efe6;--plate:#dfe8dc;--ink:#1d2b3a;--ink-2:#3d4d5c;--guilloche:#2f5d50;--uv:#6a3fd1;--ok:#2f6b4f;--warn:#855600;--danger:#b0391f;--rule:rgb(29 43 58 / 0.2);--rule-strong:rgb(29 43 58 / 0.45);--sans:'Archivo Variable','Archivo',system-ui,sans-serif;--mono:'JetBrains Mono Variable','JetBrains Mono',ui-monospace,monospace;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 20px;border:1px solid var(--ink);border-radius:0;background:transparent;color:var(--ink);font:600 16px var(--sans);cursor:pointer;transition:background 160ms var(--ease-out),color 160ms var(--ease-out),transform 80ms;} .ds-btn svg{width:20px;height:20px;flex:none;} .ds-btn:hover{background:rgb(29 43 58 / 0.07);} .ds-btn:active{transform:translateY(1px);} .ds-btn:focus-visible{outline:2px solid var(--guilloche);outline-offset:3px;} .ds-btn:disabled{opacity:.45;cursor:not-allowed;} .ds-btn--quiet{border-color:transparent;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px;}"
+    },
+    {
+      "name": "Campo",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Campo recto con etiqueta encima; los numéricos en mono tabular.",
+      "html": "<label class=\"ds-field\">Prevalencia de ataques<span class=\"ds-field__unit\"><input value=\"0.5\"> %</span></label>",
+      "css": ":host{--paper:#e9efe6;--plate:#dfe8dc;--ink:#1d2b3a;--ink-2:#3d4d5c;--guilloche:#2f5d50;--uv:#6a3fd1;--ok:#2f6b4f;--warn:#855600;--danger:#b0391f;--rule:rgb(29 43 58 / 0.2);--rule-strong:rgb(29 43 58 / 0.45);--sans:'Archivo Variable','Archivo',system-ui,sans-serif;--mono:'JetBrains Mono Variable','JetBrains Mono',ui-monospace,monospace;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-field{display:grid;gap:4px;font:12px var(--sans);color:var(--ink-2);} .ds-field__unit{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink);} .ds-field input{height:34px;width:76px;border:1px solid var(--rule-strong);border-radius:0;background:var(--paper);padding:0 10px;font:14px var(--mono);font-variant-numeric:tabular-nums;color:var(--ink);} .ds-field input:focus-visible{outline:2px solid var(--guilloche);outline-offset:3px;}"
+    },
+    {
+      "name": "Barra superior",
+      "kind": "nav",
+      "refersTo": "topbar",
+      "description": "Barra fina con nombre ancho, controles y estado, cerrada por filete fuerte.",
+      "html": "<header class=\"ds-topbar\"><h1>Verificador de voz</h1><p class=\"ds-status\">Servicio en línea</p></header>",
+      "css": ":host{--paper:#e9efe6;--plate:#dfe8dc;--ink:#1d2b3a;--ink-2:#3d4d5c;--guilloche:#2f5d50;--uv:#6a3fd1;--ok:#2f6b4f;--warn:#855600;--danger:#b0391f;--rule:rgb(29 43 58 / 0.2);--rule-strong:rgb(29 43 58 / 0.45);--sans:'Archivo Variable','Archivo',system-ui,sans-serif;--mono:'JetBrains Mono Variable','JetBrains Mono',ui-monospace,monospace;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-topbar{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:20px 0 16px;border-bottom:1px solid var(--rule-strong);background:var(--paper);color:var(--ink);font-family:var(--sans);} .ds-topbar h1{margin:0;font-size:22px;font-weight:700;font-variation-settings:'wdth' 118;letter-spacing:-0.01em;line-height:1.1;} .ds-status{margin:0;display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);} .ds-status::before{content:'';width:8px;height:8px;background:var(--ok);}"
+    },
+    {
+      "name": "Sello",
+      "kind": "custom",
+      "refersTo": "stamp",
+      "description": "Veredicto: palabra de la acción en display ancho, girada y enmarcada en su tinta. (El marco de guilloche real se traza por JS; aquí se aproxima con doble borde.)",
+      "html": "<div class=\"ds-stamp\" style=\"--stamp:#855600\"><svg viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M208 40H48a16 16 0 0 0-16 16v56c0 52.7 25.5 84.7 46.9 102.2 23 18.9 45.9 25.3 46.9 25.6a8 8 0 0 0 4.2 0c1-.3 23.9-6.7 46.9-25.6 21.4-17.5 46.9-49.5 46.9-102.2V56a16 16 0 0 0-16-16Zm0 72c0 37-13.6 67.1-40.6 89.4A129.3 129.3 0 0 1 128 223.6a128.3 128.3 0 0 1-38.9-21.9C61.9 179.2 48 149 48 112V56h160Zm-88 24V88a8 8 0 0 1 16 0v48a8 8 0 0 1-16 0Zm-4 36a12 12 0 1 1 12 12 12 12 0 0 1-12-12Z\"/></svg><span>Verificar</span></div>",
+      "css": ":host{--paper:#e9efe6;--plate:#dfe8dc;--ink:#1d2b3a;--ink-2:#3d4d5c;--guilloche:#2f5d50;--uv:#6a3fd1;--ok:#2f6b4f;--warn:#855600;--danger:#b0391f;--rule:rgb(29 43 58 / 0.2);--rule-strong:rgb(29 43 58 / 0.45);--sans:'Archivo Variable','Archivo',system-ui,sans-serif;--mono:'JetBrains Mono Variable','JetBrains Mono',ui-monospace,monospace;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-stamp{display:inline-flex;align-items:center;gap:14px;padding:24px 34px 24px 30px;color:var(--stamp);font:800 36px/1 var(--sans);font-variation-settings:'wdth' 125;text-transform:uppercase;letter-spacing:.015em;transform:rotate(-2.5deg);border:2px solid var(--stamp);outline:3px double var(--stamp);outline-offset:6px;animation:ds-estampar 320ms var(--ease-out) both;} .ds-stamp svg{width:.9em;height:.9em;flex:none;} @keyframes ds-estampar{0%{opacity:0;transform:rotate(-7deg) scale(1.4);}60%{opacity:1;}100%{opacity:1;transform:rotate(-2.5deg) scale(1);}}"
+    },
+    {
+      "name": "Mini-sello",
+      "kind": "chip",
+      "refersTo": "mini-stamp",
+      "description": "Acción en el registro: caja recta con borde en su tinta, palabra e ícono.",
+      "html": "<span class=\"ds-mini\" data-accion=\"verificar\"><svg viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M208 40H48a16 16 0 0 0-16 16v56c0 52.7 25.5 84.7 46.9 102.2 23 18.9 45.9 25.3 46.9 25.6a8 8 0 0 0 4.2 0c1-.3 23.9-6.7 46.9-25.6 21.4-17.5 46.9-49.5 46.9-102.2V56a16 16 0 0 0-16-16Zm0 72c0 37-13.6 67.1-40.6 89.4A129.3 129.3 0 0 1 128 223.6a128.3 128.3 0 0 1-38.9-21.9C61.9 179.2 48 149 48 112V56h160Zm-88 24V88a8 8 0 0 1 16 0v48a8 8 0 0 1-16 0Zm-4 36a12 12 0 1 1 12 12 12 12 0 0 1-12-12Z\"/></svg>Verificar</span> <span class=\"ds-mini\" data-accion=\"continuar\"><svg viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M208 40H48a16 16 0 0 0-16 16v56c0 52.7 25.5 84.7 46.9 102.2 23 18.9 45.9 25.3 46.9 25.6a8 8 0 0 0 4.2 0c1-.3 23.9-6.7 46.9-25.6 21.4-17.5 46.9-49.5 46.9-102.2V56a16 16 0 0 0-16-16Zm0 72c0 37-13.6 67.1-40.6 89.4A129.3 129.3 0 0 1 128 223.6a128.3 128.3 0 0 1-38.9-21.9C61.9 179.2 48 149 48 112V56h160Zm-88 24V88a8 8 0 0 1 16 0v48a8 8 0 0 1-16 0Zm-4 36a12 12 0 1 1 12 12 12 12 0 0 1-12-12Z\"/></svg>Continuar</span>",
+      "css": ":host{--paper:#e9efe6;--plate:#dfe8dc;--ink:#1d2b3a;--ink-2:#3d4d5c;--guilloche:#2f5d50;--uv:#6a3fd1;--ok:#2f6b4f;--warn:#855600;--danger:#b0391f;--rule:rgb(29 43 58 / 0.2);--rule-strong:rgb(29 43 58 / 0.45);--sans:'Archivo Variable','Archivo',system-ui,sans-serif;--mono:'JetBrains Mono Variable','JetBrains Mono',ui-monospace,monospace;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-mini{display:inline-flex;align-items:center;gap:6px;padding:2px 8px;border:1.5px solid currentColor;font:750 12px var(--sans);font-variation-settings:'wdth' 118;text-transform:uppercase;letter-spacing:.02em;} .ds-mini svg{width:14px;height:14px;} .ds-mini[data-accion='continuar']{color:var(--ok);} .ds-mini[data-accion='verificar']{color:var(--warn);} .ds-mini[data-accion='analista']{color:var(--danger);}"
+    },
+    {
+      "name": "Escala de umbrales",
+      "kind": "custom",
+      "refersTo": "threshold-scale",
+      "description": "Regla con tres zonas rayadas a ángulos distintos y aguja de tinta.",
+      "html": "<div class=\"ds-scale\"><span class=\"z1\"></span><span class=\"z2\"></span><span class=\"z3\"></span><span class=\"ds-needle\" style=\"left:89%\"></span></div>",
+      "css": ":host{--paper:#e9efe6;--plate:#dfe8dc;--ink:#1d2b3a;--ink-2:#3d4d5c;--guilloche:#2f5d50;--uv:#6a3fd1;--ok:#2f6b4f;--warn:#855600;--danger:#b0391f;--rule:rgb(29 43 58 / 0.2);--rule-strong:rgb(29 43 58 / 0.45);--sans:'Archivo Variable','Archivo',system-ui,sans-serif;--mono:'JetBrains Mono Variable','JetBrains Mono',ui-monospace,monospace;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-scale{position:relative;height:14px;margin:22px 0 8px;border:1px solid var(--rule-strong);} .ds-scale span{position:absolute;top:0;bottom:0;} .z1{left:0;width:50%;background:repeating-linear-gradient(45deg,rgb(47 107 79 / .55) 0 1px,transparent 1px 5px);} .z2{left:50%;width:40%;background:repeating-linear-gradient(-45deg,rgb(133 86 0 / .6) 0 1px,transparent 1px 4px);} .z3{left:90%;right:0;background:repeating-linear-gradient(90deg,rgb(176 57 31 / .6) 0 1px,transparent 1px 3px);} .ds-scale .ds-needle{top:-6px;bottom:-6px;width:3px;margin-left:-1px;background:var(--ink);}"
+    },
+    {
+      "name": "Alerta",
+      "kind": "card",
+      "refersTo": "alert",
+      "description": "Error de audio o API: franja bermellón tenue, sin radio ni sombra.",
+      "html": "<p class=\"ds-alert\">No se pudo leer el audio. Prueba con WAV o FLAC.</p>",
+      "css": ":host{--paper:#e9efe6;--plate:#dfe8dc;--ink:#1d2b3a;--ink-2:#3d4d5c;--guilloche:#2f5d50;--uv:#6a3fd1;--ok:#2f6b4f;--warn:#855600;--danger:#b0391f;--rule:rgb(29 43 58 / 0.2);--rule-strong:rgb(29 43 58 / 0.45);--sans:'Archivo Variable','Archivo',system-ui,sans-serif;--mono:'JetBrains Mono Variable','JetBrains Mono',ui-monospace,monospace;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-alert{margin:0;padding:12px 14px;border:1px solid rgb(176 57 31 / .5);background:rgb(176 57 31 / .06);color:var(--danger);font:15px/1.4 var(--sans);}"
+    }
+  ],
+  "narrative": {
+    "northStar": "El papel de seguridad",
+    "overview": "El sistema trata cada audio como un billete que se examina. La superficie es papel de seguridad verde pálido con un fondo de filetes ondulados casi invisibles; la información se imprime en tinta intaglio azul noche; el ornamento es guilloche verde billete trazado con datos reales (la envolvente del audio, el perímetro del sello, la roseta de marca de agua). El violeta UV aparece solo mientras la API examina, como la lámpara del cajero, y el veredicto cae como un sello de goma girado con una de tres tintas.\n\nLa densidad es de mesa de trabajo, no de dashboard: dos columnas divididas por filetes de 1 px, sin tarjetas, sin sombras, sin esquinas redondeadas. La jerarquía la dan el ancho variable de Archivo (más ancho cuanto más autoritativo) y los numerales monoespaciados tabulares para todo lo que es medida. El movimiento es mínimo y con significado: el barrido UV durante el examen, el estampado del sello y un destello de tinta en la fila nueva del registro.",
+    "keyCharacteristics": [
+      "Papel plano con filetes finos; profundidad cero, solo tinta sobre papel.",
+      "Guilloche generado a partir de datos reales, nunca como textura decorativa genérica.",
+      "Tres tintas de sello ligadas a tres acciones, siempre acompañadas de palabra e ícono.",
+      "Archivo variable con eje de ancho como escala de autoridad; JetBrains Mono tabular para cifras.",
+      "Violeta UV reservado al instante de examen."
+    ],
+    "rules": [
+      {
+        "name": "The Lámpara UV Rule",
+        "body": "El violeta UV existe solo durante el examen. Si no hay una petición en curso, no hay violeta en pantalla.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tres Tintas Rule",
+        "body": "Las tintas ok, warn y danger significan acción. Una tinta de sello nunca se usa como acento decorativo, y nunca va sola: siempre con la palabra de la acción y su ícono.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ancho Es Autoridad Rule",
+        "body": "Cuanto más mando tiene un texto, más ancho es: cuerpo a 100, título 112, nombre 118, mini-sello 118, sello 125. No se sube el peso sin subir el ancho en titulares.",
+        "section": "typography"
+      },
+      {
+        "name": "The Toda Cifra Es Mono Rule",
+        "body": "Toda cifra que se compara o se mide (probabilidad, score, latencia, duración, hora) va en JetBrains Mono con numerales tabulares.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tinta Sobre Papel Rule",
+        "body": "Nada flota. Si un elemento necesita destacar, se le da tinta, filete o tono de placa, nunca sombra ni desenfoque.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** separar regiones con filetes de 1 px (rule-strong entre regiones, rule entre filas y subsecciones) en lugar de tarjetas o fondos.",
+      "**Do** acompañar cada tinta de sello con la palabra de la acción y su ícono, y distinguir las zonas de la escala por ángulo de rayado además de por color.",
+      "**Do** trazar el guilloche a partir de datos reales del caso (audio, tamaño de la caja) y mantenerlo en guilloche o en la tinta de la acción.",
+      "**Do** escribir toda cifra medible en JetBrains Mono con numerales tabulares.",
+      "**Do** respetar `prefers-reduced-motion`: animaciones y transiciones a 1 ms."
+    ],
+    "donts": [
+      "**Don't** usar sombras, desenfoques ni esquinas redondeadas; todo es radio 0 y plano.",
+      "**Don't** mostrar el violeta UV fuera del momento de examen.",
+      "**Don't** usar ok, warn o danger como acento decorativo ni como único portador de la acción.",
+      "**Don't** volver al dashboard antifraude de tarjeta más gauge más semáforo: el veredicto es un sello y la escala es una regla, no un medidor circular.",
+      "**Don't** tratar el microtexto de la regla como texto de lectura: es ornamento de seguridad oculto a lectores de pantalla; cualquier información real va en tipo de 11 px o más."
+    ]
+  }
+}

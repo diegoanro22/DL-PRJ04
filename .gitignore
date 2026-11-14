@@ -24,3 +24,14 @@ checkpoints/
 *.wav
 *.flac
 *.webm
+
+# Panel: el build lo genera Vite (pnpm build) o el Dockerfile
+app/static/*
+app/web/node_modules/
+# Modelos empaquetados para la API (ONNX de ~1.3 GB): se generan con app.package_model
+app/models/
+
+# Impeccable: capturas y estado de builds locales
+.impeccable/review/
+.impeccable/build/
+.impeccable/questions/
