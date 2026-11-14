@@ -1,0 +1,29 @@
+# Modelo B2: AASIST-L con augmentation telefónica y RawBoost.
+model: aasist_l
+seed: 42
+
+audio:
+  sample_rate: 16000
+  num_samples: 64600
+
+model_args:
+  filts: [70, [1, 32], [32, 32], [32, 24], [24, 24]]
+  gat_dims: [24, 32]
+  pool_ratios: [0.4, 0.5, 0.7, 0.5]
+  temperatures: [2.0, 2.0, 100.0, 100.0]
+
+train:
+  epochs: 50
+  batch_size: 24
+  grad_accum: 1
+  optimizer: adam
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+  scheduler: cosine
+  loss: weighted_ce
+  early_stopping_metric: dev_eer
+  patience: 10
+
+augment:
+  telephony: true
+  rawboost: true

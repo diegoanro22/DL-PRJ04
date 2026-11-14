@@ -65,13 +65,32 @@ uv run python -m src.train --resume runs/B1          # retomar si se cortó (p. 
 
 | Iteración | Config | Qué entrena |
 |---|---|---|
-| A1, A2 | `configs/lfcc_cnn.yaml` | LFCC + LCNN desde cero |
-| B1, B2 | `configs/aasist_l.yaml` | AASIST-L (85k parámetros) desde cero |
+| A1 | `configs/lfcc_cnn.yaml` | LFCC + LCNN desde cero |
+| A2 | `configs/lfcc_cnn_aug.yaml` | A1 + telephony + RawBoost |
+| B1 | `configs/aasist_l.yaml` | AASIST-L (85k parámetros) desde cero |
+| B2 | `configs/aasist_l_aug.yaml` | B1 + telephony + RawBoost |
 | C0 | `configs/xlsr_aasist_frozen.yaml` | XLS-R 300M congelado + cabeza AASIST (modelo base del transfer learning) |
 | C1, C2 | `configs/xlsr_aasist.yaml` | Fine-tuning completo de XLS-R 300M + cabeza AASIST |
 
 La iteración 2 de cada modelo (A2, B2, C2) activa `augment.telephony` y `augment.rawboost`.
 C0 sirve para medir cuánto aporta el fine-tuning: C0 → C1 → C2 se comparan en EER y valor.
+
+### Modelo de valor
+
+```bash
+uv run python -m src.value.value_model \
+  --scores results/scores/C0__asv19_dev.csv results/scores/C1__asv19_dev.csv \
+  --names C0 C1 --out results/value
+uv run python -m src.value.sensitivity --scores results/scores/C0__asv19_dev.csv --name C0
+```
+
+Elige umbrales t1 < t2 por valor en USD/mes (no por EER), guarda curvas y un resumen CSV.
+La sensibilidad produce el tornado ±20/50 % y el heatmap prevalencia × L.
+
+### Kaggle
+
+El notebook `kaggle/runner.ipynb` clona el repo, instala deps, genera protocolos y lanza
+`python -m src.train --config ... --machine kaggle`. Preferir acelerador **GPU T4**.
 
 ## Evaluación
 
@@ -178,6 +197,7 @@ metadatos; no ejecuta la evaluación del modelo.
 
 El dataloader convierte a mono y 16 kHz, repite audios cortos y entrega 64,600 muestras:
 recorte aleatorio en train y el inicio en dev/test, conservando la amplitud sin normalizar.
-Las augmentations telefónicas y RawBoost todavía están pendientes; para esta etapa deja
-ambos flags en `false`. Los generadores de protocolos de ASVspoof 2021, español y datos propios
-corresponden a etapas posteriores.
+Las augmentations `telephony` (8 kHz + pasa-banda 300–3400 Hz) y `rawboost` se activan con
+los configs `*_aug.yaml`. Los códecs G.711/GSM/AMR se precalculan con
+`scripts/precompute_codecs.py` (no al vuelo). Los generadores de protocolos de ASVspoof 2021,
+español y datos propios corresponden a etapas posteriores.

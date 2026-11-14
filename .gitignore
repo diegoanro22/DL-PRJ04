@@ -10,6 +10,7 @@ __pycache__/
 # Datos (se descargan con scripts/ o se montan en Kaggle)
 data/*
 !data/README.md
+!data/consentimiento_plantilla.md
 
 # Artefactos de entrenamiento (los pesos van a Hugging Face Hub)
 runs/
