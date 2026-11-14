@@ -38,8 +38,12 @@ def load_model(source: str | Path, machine: str = "laptop") -> tuple[nn.Module, 
     return model.eval(), cfg, name
 
 
-def export(model: nn.Module, out: str | Path, atol: float = 1e-4) -> float:
-    """Exporta con batch dinámico y devuelve la diferencia máxima de logits contra PyTorch."""
+def export(model: nn.Module, out: str | Path, rtol: float = 1e-4) -> float:
+    """Exporta con batch dinámico y devuelve la diferencia máxima de logits contra PyTorch.
+
+    La tolerancia es relativa a la escala de los logits: un modelo entrenado da logits grandes
+    y XLS-R acumula errores de float32 de ~1e-4 que no cambian ningún score.
+    """
     import onnxruntime as ort
 
     out = Path(out)
@@ -60,7 +64,7 @@ def export(model: nn.Module, out: str | Path, atol: float = 1e-4) -> float:
         expected = model(check).numpy()
     got = session.run(None, {"wav": check.numpy()})[0]
     diff = float(np.abs(expected - got).max())
-    if diff > atol:
+    if diff > rtol * max(1.0, float(np.abs(expected).max())):
         raise RuntimeError(f"ONNX no coincide con PyTorch: diferencia máxima {diff:.2e}")
     return diff
 

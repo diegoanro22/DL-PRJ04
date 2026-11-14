@@ -116,6 +116,33 @@ curl -F audio=@llamada.wav "localhost:8000/analyze?modelo=C2"
 `app/models/<nombre>/`. La API corre solo con ONNX Runtime en CPU (sin PyTorch) y no guarda
 audio. Sin `--t1/--t2` marca los umbrales como provisionales. Webm, ogg y mp3 requieren ffmpeg.
 
+### Panel del agente
+
+`app/web/` es el panel (React + Vite) que usa el agente: graba del micrófono o recibe un
+archivo, dibuja la forma del audio con la ventana de 4 s que ve el modelo, y muestra la acción,
+la probabilidad calibrada, dónde cayó el score entre los umbrales, los avisos de calidad y un
+registro de la sesión. El build va a `app/static/` y la API lo sirve en `/`.
+
+```bash
+cd app/web && pnpm install && pnpm build   # genera app/static
+uv run uvicorn app.api:app                  # panel en http://localhost:8000
+# Desarrollo con recarga: API en :8000 y `pnpm dev` en app/web (Vite hace de proxy)
+```
+
+### Docker y Hugging Face Spaces
+
+El `Dockerfile` construye el panel y arma una imagen de inferencia sin PyTorch (FastAPI +
+ONNX Runtime + ffmpeg) con los modelos de `app/models/`, en el puerto 7860.
+
+```bash
+uv run python -m app.package_model --checkpoint runs/C0/best.pt --name C0
+docker build -t verificador-voz .
+docker run -p 7860:7860 verificador-voz     # http://localhost:7860
+```
+
+Para HF Spaces se crea un Space con SDK Docker y se sube este repo con el modelo en Git LFS
+(el ONNX de C0 pesa ~1.3 GB). El README del Space necesita `sdk: docker` y `app_port: 7860`.
+
 ## Pruebas
 
 ```bash
