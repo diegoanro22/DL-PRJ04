@@ -70,10 +70,13 @@ uv run python -m src.train --resume runs/B1          # retomar si se cortó (p. 
 | B1 | `configs/aasist_l.yaml` | AASIST-L (85k parámetros) desde cero |
 | B2 | `configs/aasist_l_aug.yaml` | B1 + telephony + RawBoost |
 | C0 | `configs/xlsr_aasist_frozen.yaml` | XLS-R 300M congelado + cabeza AASIST (modelo base del transfer learning) |
-| C1, C2 | `configs/xlsr_aasist.yaml` | Fine-tuning completo de XLS-R 300M + cabeza AASIST |
+| C1 | `configs/xlsr_aasist.yaml` | Fine-tuning completo de XLS-R 300M + cabeza AASIST |
+| C1b | `configs/xlsr_aasist_lpft.yaml` | LP-FT: primero solo la cabeza, luego todo |
+| C2 | `configs/xlsr_aasist_frozen_aug.yaml` | C0 + telephony y RawBoost (cada una con probabilidad 0.5); modelo servido |
 
-La iteración 2 de cada modelo (A2, B2, C2) activa `augment.telephony` y `augment.rawboost`.
-C0 sirve para medir cuánto aporta el fine-tuning: C0 → C1 → C2 se comparan en EER y valor.
+La iteración 2 de cada modelo (A2, B2, C2) activa `augment.telephony` y `augment.rawboost`
+(`true` en todos los audios o una probabilidad entre 0 y 1 por audio). C0 sirve para medir
+cuánto aporta el fine-tuning: C1 y C1b quedaron peor que C0 en eval, así que C2 parte de C0.
 
 ### Modelo de valor
 
@@ -154,13 +157,16 @@ El `Dockerfile` construye el panel y arma una imagen de inferencia sin PyTorch (
 ONNX Runtime + ffmpeg) con los modelos de `app/models/`, en el puerto 7860.
 
 ```bash
-uv run python -m app.package_model --checkpoint runs/C0/best.pt --name C0
+uv run python -m app.package_model --checkpoint runs/C2/best.pt --name C2 --t1 0.9258 --t2 0.9258 --tasa-alertas 0.00277
 docker build -t verificador-voz .
 docker run -p 7860:7860 verificador-voz     # http://localhost:7860
 ```
 
-Para HF Spaces se crea un Space con SDK Docker y se sube este repo con el modelo en Git LFS
-(el ONNX de C0 pesa ~1.3 GB). El README del Space necesita `sdk: docker` y `app_port: 7860`.
+Los modelos no están en git (el ONNX de C2 pesa ~1.3 GB): la imagen usa `app/models/C2` si se
+empaquetó localmente o, con `--build-arg MODEL_REPO=<usuario>/<repo>`, lo baja de un repo de
+modelos de Hugging Face con la misma estructura. Sin ninguno de los dos, el build falla con un
+mensaje claro. La imagen solo incluye C2 (ver `.dockerignore`). Para HF Spaces se crea un Space
+con SDK Docker; su README necesita `sdk: docker` y `app_port: 7860`.
 
 ## Pruebas
 

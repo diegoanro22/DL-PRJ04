@@ -33,7 +33,7 @@ el jurado ve un flujo desplegado de punta a punta, no un notebook.
 
 Modelos entrenados por el equipo (LFCC+LCNN, AASIST-L, XLS-R + AASIST), no un LLM. La salida
 no es "real/falso" sino una de tres acciones con umbrales justificados por un modelo de valor
-en USD, con probabilidad calibrada para la prevalencia real de ataques (≈0.5 %).
+en USD, con probabilidad calibrada para la prevalencia real de ataques (≈0.2 %, el supuesto del modelo de valor).
 
 ## Operating Context
 
@@ -43,20 +43,20 @@ en USD, con probabilidad calibrada para la prevalencia real de ataques (≈0.5 %
   provisionales, duración, avisos de calidad (audio corto, silencio, clipping) y latencia.
 - `GET /models` lista los modelos servidos; `GET /metrics` da conteos, latencias p50/p95,
   histograma de scores y alarma de deriva.
-- Inferencia en CPU con ONNX Runtime (C0 ≈ 580 ms; AASIST-L ≈ 105 ms).
+- Inferencia en CPU con ONNX Runtime (C2 ≈ 580 ms, misma arquitectura que C0; AASIST-L ≈ 105 ms).
 
 ## Capabilities and Constraints
 
 - Solo se analizan los primeros 4 s; con menos de 1 s la predicción no es confiable.
-- Los umbrales actuales son provisionales (0.5 / 0.9) hasta que salga el modelo de valor; la UI
-  debe decirlo cuando la API lo marque.
+- Los umbrales salen del modelo de valor; si un modelo no los tiene, la API los marca como
+  provisionales y la UI debe decirlo.
 - No se guarda audio ni datos del cliente.
 - Idioma de la interfaz: español.
-- Undecided: modelo final (C0 hoy; C2 o B si salen mejores en valor).
+- Modelo servido: C2 (XLS-R congelado + AASIST con augmentation), el mejor en eval.
 
 ## Evidence on Hand
 
-- Resultados reales en `results/` (EER, min t-DCF, IC 95 %, por ataque) de C0, C1 y C1b.
+- Resultados reales en `results/` (EER, min t-DCF, IC 95 %, por ataque) de C0, C1, C1b y C2.
 - Latencia y costo por 1,000 llamadas en `results/latency.csv`.
 - No hay clientes, testimonios ni métricas de producción: no inventarlos.
 
