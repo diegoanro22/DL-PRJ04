@@ -37,7 +37,8 @@ checkpoints/
 app/static/*
 app/web/node_modules/
 # Modelos empaquetados para la API (ONNX de ~1.3 GB): se generan con app.package_model
-app/models/
+app/models/*
+!app/models/README.md
 
 # Impeccable: capturas y estado de builds locales
 .impeccable/review/

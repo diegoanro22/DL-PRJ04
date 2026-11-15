@@ -29,7 +29,7 @@ MAX_DECODE_SECONDS = 10.0
 SILENCE_RMS = 1e-3        # aprox. -60 dBFS
 CLIP_FRACTION = 0.01      # más de 1 % de muestras saturadas
 DEFAULT_THRESHOLDS = {"t1": 0.5, "t2": 0.9, "tasa_alertas_esperada": None}
-DEFAULT_PRIOR = 0.005     # prevalencia de ataques usada para mostrar la probabilidad
+DEFAULT_PRIOR = 0.002     # prevalencia de ataques: la misma que supone src/value/value_model.py
 
 ACTIONS = {
     "continuar": "Continuar la llamada normalmente.",

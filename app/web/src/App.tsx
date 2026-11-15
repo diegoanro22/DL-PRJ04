@@ -31,7 +31,7 @@ export default function App() {
   const [salud, setSalud] = useState<Salud | null>(null)
   const [modelos, setModelos] = useState<ModeloInfo[]>([])
   const [modelo, setModelo] = useState<string | null>(null)
-  const [prevalencia, setPrevalencia] = useState('0.5')
+  const [prevalencia, setPrevalencia] = useState('0.2')
   const [audio, setAudio] = useState<AudioCargado | null>(null)
   const [resultado, setResultado] = useState<Analisis | null>(null)
   const [examinando, setExaminando] = useState(false)
@@ -54,7 +54,7 @@ export default function App() {
     getMetricas().then(setMetricas).catch(() => {})
   }, [])
 
-  const prev = Math.min(50, Math.max(0.01, Number(prevalencia) || 0.5)) / 100
+  const prev = Math.min(50, Math.max(0.01, Number(prevalencia) || 0.2)) / 100
 
   const ejecutar = useCallback(
     async (a: AudioCargado) => {
