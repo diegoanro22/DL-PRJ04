@@ -184,8 +184,8 @@ carpeta que figura en `dataset_roots.asv19` del config de tu máquina:
 
 ```bash
 uv run python scripts/build_protocols.py --root data/ASVspoof2019_LA
-# En Kaggle:
-uv run python scripts/build_protocols.py --root /kaggle/input/asvpoof-2019-dataset/LA/LA
+# En Kaggle (omitir el check por archivo: el FS de input cuelga con miles de exists()):
+uv run python scripts/build_protocols.py --root /kaggle/input/datasets/awsaf49/asvpoof-2019-dataset/LA/LA --skip-file-check
 ```
 
 El script genera `protocols/asv19_{train,dev,eval}.csv` con rutas relativas, valida etiquetas,
@@ -194,6 +194,27 @@ IDs únicos y existencia de los FLAC. Acepta las carpetas oficiales `ASVspoof201
 `ASVspoof2019.LA.cm.*.txt` deben estar en `ASVspoof2019_LA_cm_protocols/` o en la raíz del
 dataset. Usa `--splits train dev` si todavía no descargaste eval. Generar su CSV solo lee
 metadatos; no ejecuta la evaluación del modelo.
+
+### Kaggle (T4)
+
+Notebook canónico: [`kaggle/runner.ipynb`](kaggle/runner.ipynb). Para generar un kernel
+A1/A2/B1/B2 listo para push:
+
+```bash
+python scripts/make_kaggle_kernel.py --run B1 --out /tmp/kaggle-b1
+kaggle kernels push -p /tmp/kaggle-b1 --accelerator NvidiaTeslaT4
+```
+
+Gotchas ya cubiertos en el runner / `configs/machines/kaggle.yaml`:
+
+| Problema | Mitigación |
+|---|---|
+| Path del dataset en `/kaggle/input/datasets/owner/slug/...` | `find_asv19()` (sin `rglob` profundo) |
+| `build_protocols` cuelga comprobando cada FLAC | `--skip-file-check` |
+| `LibsndfileError` / eval opaca con workers | `num_workers: 0` (+ fallback torchaudio en el dataloader) |
+| Loss NaN en batch 1 con fp16 | LFCC en fp32 (`src/features/lfcc.py`) |
+| Log parece “stuck” horas | prints mid-epoch / mid-eval con `flush=True` |
+| P100: “no kernel image” | Acelerador **T4**, no P100 |
 
 El dataloader convierte a mono y 16 kHz, repite audios cortos y entrega 64,600 muestras:
 recorte aleatorio en train y el inicio en dev/test, conservando la amplitud sin normalizar.

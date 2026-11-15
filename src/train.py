@@ -141,7 +141,7 @@ def main() -> None:
         cfg = resume_state["cfg"]
         if args.device:
             cfg["device"] = args.device
-        print(f"Retomando {run_dir} en la época {resume_state['epoch'] + 2}")
+        print(f"Retomando {run_dir} en la época {resume_state['epoch'] + 2}", flush=True)
     else:
         cfg = load_config(args.config, args.machine)
         if args.seed is not None:
@@ -184,7 +184,7 @@ def main() -> None:
         # last.pt ya trae los pesos actualizados.
         init = torch.load(cfg["init_from"], map_location="cpu", weights_only=False)
         model.load_state_dict(init["model"])
-        print(f"Pesos iniciales: {cfg['init_from']} (época {init.get('epoch', 0) + 1})")
+        print(f"Pesos iniciales: {cfg['init_from']} (época {init.get('epoch', 0) + 1})", flush=True)
     model = model.to(device)
     n_params = sum(p.numel() for p in model.parameters()) / 1e6
     n_trainable = sum(p.numel() for p in model.parameters() if p.requires_grad) / 1e6
@@ -210,20 +210,22 @@ def main() -> None:
 
     gpu = device_name(device)
     print(f"Modelo {cfg.get('variant', cfg['model'])} ({n_params:.2f} M parámetros, "
-          f"{n_trainable:.2f} M entrenables) en {gpu}, {cfg['precision']}")
+          f"{n_trainable:.2f} M entrenables) en {gpu}, {cfg['precision']}", flush=True)
     print(f"Batch {tcfg['batch_size']} x acumulación {accum} = {tcfg['batch_size'] * accum} efectivo; "
-          f"{n_batches} batches por época")
+          f"{n_batches} batches por época", flush=True)
 
     writer = SummaryWriter(run_dir / "tb")
     patience = tcfg.get("patience", tcfg["epochs"])
     epoch = start_epoch - 1
 
     # --- Ciclo de entrenamiento ----------------------------------------------------------------
+    log_every = max(1, min(50, n_batches // 4))  # progreso dentro de la época (Kaggle no bufferiza bien)
     for epoch in range(start_epoch, tcfg["epochs"]):
         t0 = time.perf_counter()
         model.train()
         optimizer.zero_grad(set_to_none=True)
         running_loss, seen = 0.0, 0
+        print(f"Época {epoch + 1}/{tcfg['epochs']}: entrenando ({n_batches} batches)...", flush=True)
         for i, batch in enumerate(train_loader):
             if i >= n_batches:
                 break
@@ -242,7 +244,10 @@ def main() -> None:
                 scheduler.step()
             running_loss += loss.item() * len(labels)
             seen += len(labels)
+            if (i + 1) % log_every == 0 or (i + 1) == n_batches:
+                print(f"  batch {i + 1}/{n_batches}  loss={running_loss / max(seen, 1):.4f}", flush=True)
 
+        print(f"Época {epoch + 1}: evaluando dev...", flush=True)
         dev = predict(model, dev_loader, device, dtype)
         dev_eer, _ = compute_eer(dev.score.values, dev.label.values)
         dev_auc = compute_auc(dev.score.values, dev.label.values)
@@ -274,9 +279,10 @@ def main() -> None:
 
         mark = "  *mejor*" if improved else ""
         print(f"Época {epoch + 1}/{tcfg['epochs']}: loss {train_loss:.4f} | dev EER "
-              f"{100 * dev_eer:.2f} % | AUC {dev_auc:.4f} | {epoch_sec / 60:.1f} min{mark}")
+              f"{100 * dev_eer:.2f} % | AUC {dev_auc:.4f} | {epoch_sec / 60:.1f} min{mark}",
+              flush=True)
         if bad_epochs >= patience:
-            print(f"Early stopping: {patience} épocas sin mejorar el EER en dev.")
+            print(f"Early stopping: {patience} épocas sin mejorar el EER en dev.", flush=True)
             break
     writer.close()
 
@@ -312,15 +318,15 @@ def main() -> None:
         "notas": args.notes,
     }
     print(f"\nListo. Mejor EER en dev: {100 * best_eer:.2f} % (época {best_epoch + 1}). "
-          f"Tiempo: {hours * 60:.1f} min")
+          f"Tiempo: {hours * 60:.1f} min", flush=True)
     if args.fake_data or args.limit_train_batches or args.limit_dev_batches:
         # Las pruebas de humo y las corridas recortadas no cuentan como resultados.
-        print(f"Checkpoints en {run_dir} (prueba: no se registra en runs.csv).")
+        print(f"Checkpoints en {run_dir} (prueba: no se registra en runs.csv).", flush=True)
     else:
         append_run_row(row)
-        print(f"Checkpoints en {run_dir}. Fila agregada a {RUNS_CSV.relative_to(REPO_ROOT)}.")
+        print(f"Checkpoints en {run_dir}. Fila agregada a {RUNS_CSV.relative_to(REPO_ROOT)}.", flush=True)
     print(f"Evaluar: uv run python -m src.evaluate --checkpoint {run_dir / 'best.pt'} "
-          f"--splits asv19_eval --machine {cfg['machine']}")
+          f"--splits asv19_eval --machine {cfg['machine']}", flush=True)
 
 
 if __name__ == "__main__":

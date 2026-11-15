@@ -83,6 +83,8 @@ def predict(
     """Score P(sintética) por audio: DataFrame con utt_id, score, label."""
     model.eval()
     ids, scores, labels = [], [], []
+    n_batches = len(loader) if limit_batches is None else min(limit_batches, len(loader))
+    log_every = max(1, min(100, n_batches // 5)) if n_batches else 1
     for i, batch in enumerate(loader):
         if limit_batches is not None and i >= limit_batches:
             break
@@ -93,6 +95,8 @@ def predict(
         ids.extend(batch["utt_id"])
         scores.append(prob.cpu().numpy())
         labels.append(batch["label"].numpy())
+        if (i + 1) % log_every == 0 or (i + 1) == n_batches:
+            print(f"  inferencia batch {i + 1}/{n_batches}", flush=True)
     return pd.DataFrame({
         "utt_id": ids,
         "score": np.concatenate(scores) if scores else np.array([]),
@@ -194,14 +198,16 @@ def main() -> None:
     (out_dir / "scores").mkdir(parents=True, exist_ok=True)
     (out_dir / "metrics").mkdir(parents=True, exist_ok=True)
     # En Kaggle, varios workers + soundfile suelen romper la eval (LibsndfileError opaco).
-    if str(cfg.get("machine", args.machine)).lower() == "kaggle":
+    if str(cfg.get("machine", args.machine)).lower() == "kaggle" or args.machine == "kaggle":
         cfg["num_workers"] = 0
 
     for split in args.splits:
+        print(f"Evaluando {split}...", flush=True)
         loader = build_dataloader(cfg, split, train=False)
         if args.limit_batches:
             loader = subsample_loader(loader, args.limit_batches)
         df = predict(model, loader, device, dtype)
+        print(f"  {split}: {len(df)} scores", flush=True)
         asv_file = None
         if split in ASV_SCORE_FILES and "asv19" in cfg.get("dataset_roots", {}):
             asv_file = Path(cfg["dataset_roots"]["asv19"]) / ASV_SCORE_FILES[split]
