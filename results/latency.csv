@@ -1,3 +1,5 @@
 modelo,fuente,parametros_M,hilos_cpu,onnx_MB,onnx_cpu_p50_ms,onnx_cpu_p95_ms,torch_cpu_p50_ms,torch_cpu_p95_ms,torch_gpu_p50_ms,torch_gpu_p95_ms,gpu_batch,gpu_audios_por_s,gpu,usd_por_1000_llamadas,precio_cpu_usd_h
 aasist_l,configs/aasist_l.yaml,0.085,2,0.7,105.1,109.6,201.2,213.2,7.3,63.7,16,126.9,NVIDIA GeForce RTX 5070 Laptop GPU,0.00248,0.085
 xlsr_aasist,configs/xlsr_aasist.yaml,315.886,2,1205.7,583.2,603.8,689.1,698.2,26.0,26.1,32,53.9,NVIDIA GeForce RTX 5070 Laptop GPU,0.01377,0.085
+C2,runs/C2/best.pt,315.886,2,1205.7,587.6,607.6,686.5,699.2,26.1,26.1,32,53.8,NVIDIA GeForce RTX 5070 Laptop GPU,0.01387,0.085
+lfcc_cnn,configs/lfcc_cnn.yaml,0.422,2,1.7,10.4,10.6,19.4,20.6,0.7,0.7,32,1115.3,NVIDIA GeForce RTX 5070 Laptop GPU,0.00025,0.085
