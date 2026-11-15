@@ -12,7 +12,7 @@ dataset_roots:
   mlaad_es: /kaggle/input/mlaad-es
   propios: /kaggle/input/voces-propias
 output_root: /kaggle/working/runs
-num_workers: 4
+num_workers: 2   # 4 + soundfile a veces falla en eval; train aguanta con 2
 # Precio de una T4 en la nube, para reportar el costo aunque Kaggle sea gratis.
 gpu_price_usd_per_hour: 0.35
 

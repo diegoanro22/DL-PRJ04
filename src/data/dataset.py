@@ -67,11 +67,29 @@ class AudioDataset(Dataset):
     def __len__(self) -> int:
         return len(self.protocol)
 
+    def _load_wav(self, path: Path) -> tuple[torch.Tensor, int]:
+        """Lee audio con soundfile; si falla (frecuente con workers en Kaggle), prueba torchaudio."""
+        try:
+            wav, sr = sf.read(path, dtype="float32", always_2d=True)
+            wav = torch.from_numpy(wav.mean(axis=1))
+            return wav, int(sr)
+        except Exception as primary:
+            try:
+                import torchaudio
+                wav, sr = torchaudio.load(str(path))  # [C, T]
+                wav = wav.mean(dim=0)
+                return wav.float(), int(sr)
+            except Exception as secondary:
+                raise RuntimeError(
+                    f"{path}: no se pudo leer el audio "
+                    f"(soundfile={type(primary).__name__}: {primary}; "
+                    f"torchaudio={type(secondary).__name__}: {secondary})"
+                ) from secondary
+
     def __getitem__(self, index: int) -> dict:
         row = self.protocol.iloc[index]
         path = self.roots[row.dataset] / row.path
-        wav, sr = sf.read(path, dtype="float32", always_2d=True)
-        wav = torch.from_numpy(wav.mean(axis=1))
+        wav, sr = self._load_wav(path)
         if not wav.numel() or not torch.isfinite(wav).all():
             raise ValueError(f"{path}: audio vacío o con muestras no finitas")
         if sr != self.sample_rate:

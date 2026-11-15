@@ -2,3 +2,4 @@ run,fecha,modelo,config,maquina,gpu,precision,seed,train_split,dev_split,batch_e
 C0,2026-11-10 20:17,xlsr_aasist_frozen,configs/xlsr_aasist_frozen.yaml,laptop,NVIDIA GeForce RTX 5070 Laptop GPU,bf16,42,asv19_train,asv19_dev,16,5,2,0.00166,0.99966,315.886,0.447,0.552,0.39,44ba05a,"XLS-R congelado, modelo base del transfer learning"
 C1,2026-11-11 13:13,xlsr_aasist,configs/xlsr_aasist.yaml,laptop,NVIDIA GeForce RTX 5070 Laptop GPU,bf16,42,asv19_train,asv19_dev,16,8,5,0.00853,0.99932,315.886,315.886,3.126,2.19,49136c9,"Fine-tuning completo de XLS-R, sin augmentation"
 C1b,2026-11-11 16:04,xlsr_aasist,configs/xlsr_aasist_lpft.yaml,laptop,NVIDIA GeForce RTX 5070 Laptop GPU,bf16,42,asv19_train,asv19_dev,16,5,2,0.00568,0.99935,315.886,315.886,1.959,1.37,49136c9,"LP-FT: fine-tuning desde C0, lr cabeza 1e-5"
+A1,2026-11-15 00:08,lfcc_cnn,configs/lfcc_cnn.yaml,kaggle,Tesla T4,fp16,42,asv19_train,asv19_dev,64,10,5,0.00000,1.00000,0.422,0.158,0.406,0.14,c73660f,

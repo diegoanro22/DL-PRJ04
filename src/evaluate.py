@@ -193,6 +193,10 @@ def main() -> None:
     out_dir = ckpt_path.parent / "eval" if args.fake_data else RESULTS_DIR
     (out_dir / "scores").mkdir(parents=True, exist_ok=True)
     (out_dir / "metrics").mkdir(parents=True, exist_ok=True)
+    # En Kaggle, varios workers + soundfile suelen romper la eval (LibsndfileError opaco).
+    if str(cfg.get("machine", args.machine)).lower() == "kaggle":
+        cfg["num_workers"] = 0
+
     for split in args.splits:
         loader = build_dataloader(cfg, split, train=False)
         if args.limit_batches:
