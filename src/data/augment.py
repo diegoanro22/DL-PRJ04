@@ -42,10 +42,18 @@ def telephony(wav: np.ndarray, sr: int) -> np.ndarray:
     wav = np.asarray(wav, dtype=np.float64).reshape(-1)
     if wav.size == 0:
         return wav.astype(np.float32)
-    # Remuestreo por Fourier (scipy): 16 kHz -> 8 kHz -> 16 kHz simula el canal estrecho.
-    n_8k = max(1, int(round(wav.size * 8000 / sr)))
-    narrow = signal.resample(wav, n_8k)
-    wide = signal.resample(narrow, wav.size)
+    # resample_poly es mucho más rápido que signal.resample (FFT) en clips largos.
+    from math import gcd
+    g = gcd(int(sr), 8000)
+    up_8k, down_8k = 8000 // g, int(sr) // g
+    narrow = signal.resample_poly(wav, up_8k, down_8k)
+    wide = signal.resample_poly(narrow, down_8k, up_8k)
+    if wide.size != wav.size:
+        # Ajuste fino por redondeo de polyphase.
+        if wide.size > wav.size:
+            wide = wide[: wav.size]
+        else:
+            wide = np.pad(wide, (0, wav.size - wide.size))
     # Butterworth de orden 4 en banda telefónica.
     low, high = 300 / (sr / 2), 3400 / (sr / 2)
     high = min(high, 0.99)

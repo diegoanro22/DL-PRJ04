@@ -12,9 +12,8 @@ dataset_roots:
   mlaad_es: /kaggle/input/mlaad-es
   propios: /kaggle/input/voces-propias
 output_root: /kaggle/working/runs
-# 0 = más lento pero estable en el FS de Kaggle (evita LibsndfileError / hangs con workers).
-# evaluate.py fuerza 0 igual; aquí también el train usa 0.
-num_workers: 0
+# Train: 2 workers aceleran aug (A2/B2). evaluate.py fuerza 0 (LibsndfileError).
+num_workers: 2
 # Precio de una T4 en la nube, para reportar el costo aunque Kaggle sea gratis.
 gpu_price_usd_per_hour: 0.35
 

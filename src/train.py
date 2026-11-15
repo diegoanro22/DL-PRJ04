@@ -216,7 +216,11 @@ def main() -> None:
 
     writer = SummaryWriter(run_dir / "tb")
     patience = tcfg.get("patience", tcfg["epochs"])
+    eval_every = max(1, int(tcfg.get("eval_every", 1)))
     epoch = start_epoch - 1
+    if eval_every > 1:
+        print(f"Eval en dev cada {eval_every} épocas (patience cuenta solo épocas evaluadas).",
+              flush=True)
 
     # --- Ciclo de entrenamiento ----------------------------------------------------------------
     log_every = max(1, min(50, n_batches // 4))  # progreso dentro de la época (Kaggle no bufferiza bien)
@@ -247,18 +251,40 @@ def main() -> None:
             if (i + 1) % log_every == 0 or (i + 1) == n_batches:
                 print(f"  batch {i + 1}/{n_batches}  loss={running_loss / max(seen, 1):.4f}", flush=True)
 
+        train_loss = running_loss / max(seen, 1)
+        writer.add_scalar("loss/train", train_loss, epoch + 1)
+        writer.add_scalar("lr", optimizer.param_groups[-1]["lr"], epoch + 1)
+
+        # Eval completa en la 1ª época, cada eval_every, y en la última (early-stop / checkpoint).
+        do_eval = (
+            epoch == start_epoch
+            or (epoch + 1) % eval_every == 0
+            or epoch + 1 == tcfg["epochs"]
+            or (best_epoch >= 0 and bad_epochs + 1 >= patience)
+        )
+        if not do_eval:
+            epoch_sec = time.perf_counter() - t0
+            elapsed += epoch_sec
+            atomic_save({
+                "model": model.state_dict(), "optimizer": optimizer.state_dict(),
+                "scheduler": scheduler.state_dict(), "scaler": scaler.state_dict(), "cfg": cfg,
+                "epoch": epoch, "best_eer": best_eer, "best_epoch": best_epoch,
+                "bad_epochs": bad_epochs, "elapsed_sec": elapsed,
+            }, run_dir / "last.pt")
+            print(f"Época {epoch + 1}/{tcfg['epochs']}: loss {train_loss:.4f} | "
+                  f"dev omitido (eval_every={eval_every}) | {epoch_sec / 60:.1f} min",
+                  flush=True)
+            continue
+
         print(f"Época {epoch + 1}: evaluando dev...", flush=True)
         dev = predict(model, dev_loader, device, dtype)
         dev_eer, _ = compute_eer(dev.score.values, dev.label.values)
         dev_auc = compute_auc(dev.score.values, dev.label.values)
         epoch_sec = time.perf_counter() - t0
         elapsed += epoch_sec
-        train_loss = running_loss / max(seen, 1)
 
-        writer.add_scalar("loss/train", train_loss, epoch + 1)
         writer.add_scalar("eer/dev", dev_eer, epoch + 1)
         writer.add_scalar("auc/dev", dev_auc, epoch + 1)
-        writer.add_scalar("lr", optimizer.param_groups[-1]["lr"], epoch + 1)
 
         # La primera época siempre guarda best.pt, aunque el EER no se pueda calcular (nan);
         # después, cualquier EER finito mejora a un nan guardado.
@@ -282,7 +308,7 @@ def main() -> None:
               f"{100 * dev_eer:.2f} % | AUC {dev_auc:.4f} | {epoch_sec / 60:.1f} min{mark}",
               flush=True)
         if bad_epochs >= patience:
-            print(f"Early stopping: {patience} épocas sin mejorar el EER en dev.", flush=True)
+            print(f"Early stopping: {patience} evals sin mejorar el EER en dev.", flush=True)
             break
     writer.close()
 

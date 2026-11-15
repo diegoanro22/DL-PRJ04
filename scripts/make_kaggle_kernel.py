@@ -3,7 +3,8 @@
 
 Uso:
   python scripts/make_kaggle_kernel.py --run B1 --out /tmp/kaggle-b1
-  kaggle kernels push -p /tmp/kaggle-b1 --accelerator NvidiaTeslaT4
+  python scripts/make_kaggle_kernel.py --run A2 --out /tmp/kaggle-a2  # warm-start desde A1
+  kaggle kernels push -p /tmp/kaggle-a2 --accelerator NvidiaTeslaT4
 """
 from __future__ import annotations
 
@@ -12,16 +13,16 @@ import json
 from pathlib import Path
 
 RUNS = {
-    "A1": ("configs/lfcc_cnn.yaml", "A1"),
-    "A2": ("configs/lfcc_cnn_aug.yaml", "A2"),
-    "B1": ("configs/aasist_l.yaml", "B1"),
-    "B2": ("configs/aasist_l_aug.yaml", "B2"),
+    "A1": ("configs/lfcc_cnn.yaml", "A1", None),
+    "A2": ("configs/lfcc_cnn_aug.yaml", "A2", "cisco890/dl-prj04-a1-lfcc-cnn"),
+    "B1": ("configs/aasist_l.yaml", "B1", None),
+    "B2": ("configs/aasist_l_aug.yaml", "B2", "cisco890/dl-prj04-b1"),
 }
 
 REPO_URL = "https://github.com/diegoanro22/DL-PRJ04.git"
 
 
-def notebook(config: str, run_name: str) -> dict:
+def notebook(config: str, run_name: str, init_kernel: str | None) -> dict:
     setup = f'''import os, sys, subprocess, shutil
 from pathlib import Path
 
@@ -31,6 +32,7 @@ CONFIG = {config!r}
 RUN_NAME = {run_name!r}
 MACHINE = "kaggle"
 EVAL_SPLITS = ["asv19_dev", "asv19_eval"]
+INIT_KERNEL = {init_kernel!r}  # kernel Kaggle cuyo output trae best.pt (warm-start)
 
 WORK = Path("/kaggle/working")
 REPO = WORK / "DL-PRJ04"
@@ -58,8 +60,33 @@ def find_asv19() -> Path:
             return p
     raise FileNotFoundError("ASVspoof 2019 LA no encontrado. Candidatos: " + ", ".join(map(str, cands)))
 
+def find_init_ckpt() -> Path | None:
+    if not INIT_KERNEL:
+        return None
+    slug = INIT_KERNEL.split("/")[-1]
+    roots = [INP / slug, INP / slug.replace("-", "_")]
+    # Sin rglob: el FS de /kaggle/input cuelga con walks profundos.
+    names = (
+        "best.pt",
+        "A1_artifacts/best.pt", "B1_artifacts/best.pt",
+        "A2_artifacts/best.pt", "B2_artifacts/best.pt",
+        "runs/A1/best.pt", "runs/B1/best.pt",
+        "runs/A2/best.pt", "runs/B2/best.pt",
+    )
+    for root in roots:
+        if not root.is_dir():
+            continue
+        for name in names:
+            p = root / name
+            if p.is_file():
+                return p
+    print("WARN: no se encontró best.pt de", INIT_KERNEL, "- train from scratch", flush=True)
+    return None
+
 ASV19 = find_asv19()
 print("ASV19:", ASV19, flush=True)
+INIT_CKPT = find_init_ckpt()
+print("init_from:", INIT_CKPT, flush=True)
 
 if REPO.exists():
     shutil.rmtree(REPO)
@@ -74,11 +101,12 @@ for line in machine.read_text().splitlines(True):
     if line.strip().startswith("asv19:"):
         lines.append(f"  asv19: {{ASV19}}\\n")
     elif line.strip().startswith("num_workers:"):
-        lines.append("num_workers: 0\\n")
+        # Train con 2 workers acelera aug; evaluate.py fuerza 0.
+        lines.append("num_workers: 2\\n")
     else:
         lines.append(line)
 machine.write_text("".join(lines))
-print("kaggle.yaml asv19 + num_workers=0 OK", flush=True)
+print("kaggle.yaml asv19 + num_workers=2 OK", flush=True)
 
 import torch
 print("cuda:", torch.cuda.is_available(), torch.cuda.get_device_name(0) if torch.cuda.is_available() else None, flush=True)
@@ -111,6 +139,8 @@ subprocess.check_call(["wc", "-l"] + sorted(map(str, Path("protocols").glob("asv
 from pathlib import Path
 
 cmd = ["python", "-m", "src.train", "--config", CONFIG, "--machine", MACHINE, "--name", RUN_NAME]
+if INIT_CKPT is not None:
+    cmd += ["--init-from", str(INIT_CKPT)]
 print(" ".join(cmd), flush=True)
 subprocess.check_call(cmd)
 assert Path(f"/kaggle/working/runs/{RUN_NAME}/best.pt").is_file()
@@ -157,6 +187,7 @@ subprocess.check_call(["find", str(out), "-type", "f"])
             "source": [line + "\n" for line in source.splitlines()],
         }
 
+    warm = f" Warm-start desde `{init_kernel}`." if init_kernel else ""
     return {
         "nbformat": 4,
         "nbformat_minor": 5,
@@ -174,7 +205,7 @@ subprocess.check_call(["find", str(out), "-type", "f"])
                 "source": [
                     f"# DL-PRJ04 {run_name} train+eval\\n",
                     "\\n",
-                    f"Config `{config}`. T4 + `--skip-file-check` + `num_workers=0`.\\n",
+                    f"Config `{config}`. T4 + skip-file-check + eval_every/aug p.{warm}\\n",
                 ],
             },
             cell(setup),
@@ -186,7 +217,7 @@ subprocess.check_call(["find", str(out), "-type", "f"])
     }
 
 
-def metadata(slug: str, title: str) -> dict:
+def metadata(slug: str, title: str, init_kernel: str | None) -> dict:
     return {
         "id": f"cisco890/{slug}",
         "title": title,
@@ -199,7 +230,7 @@ def metadata(slug: str, title: str) -> dict:
         "enable_internet": True,
         "dataset_sources": ["awsaf49/asvpoof-2019-dataset"],
         "competition_sources": [],
-        "kernel_sources": [],
+        "kernel_sources": [init_kernel] if init_kernel else [],
         "model_sources": [],
     }
 
@@ -209,20 +240,25 @@ def main() -> None:
     p.add_argument("--run", choices=sorted(RUNS), required=True)
     p.add_argument("--out", type=Path, required=True, help="Carpeta para kernels push")
     p.add_argument("--slug", default=None, help="Slug del kernel (default dl-prj04-<run>)")
+    p.add_argument("--no-init", action="store_true", help="No usar warm-start ni kernel_sources")
     args = p.parse_args()
 
-    config, run_name = RUNS[args.run]
+    config, run_name, init_kernel = RUNS[args.run]
+    if args.no_init:
+        init_kernel = None
     slug = args.slug or f"dl-prj04-{run_name.lower()}"
     nb_name = f"{slug.replace('-', '_')}.ipynb"
     out: Path = args.out
     out.mkdir(parents=True, exist_ok=True)
 
-    (out / nb_name).write_text(json.dumps(notebook(config, run_name), indent=1) + "\n")
-    meta = metadata(slug, f"DL-PRJ04 {run_name}")
+    (out / nb_name).write_text(json.dumps(notebook(config, run_name, init_kernel), indent=1) + "\n")
+    meta = metadata(slug, f"DL-PRJ04 {run_name}", init_kernel)
     meta["code_file"] = nb_name
     (out / "kernel-metadata.json").write_text(json.dumps(meta, indent=1) + "\n")
     print(f"Wrote {out / nb_name}")
     print(f"Wrote {out / 'kernel-metadata.json'}")
+    if init_kernel:
+        print(f"Warm-start kernel_sources: {init_kernel}")
     print(f"Push: kaggle kernels push -p {out} --accelerator NvidiaTeslaT4")
 
 

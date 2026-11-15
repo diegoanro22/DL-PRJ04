@@ -1,0 +1,101 @@
+{
+  "n": 71237,
+  "n_genuinas": 7355,
+  "n_sinteticas": 63882,
+  "eer": 0.16032081137190168,
+  "eer_ic95": [
+    0.15690718937071496,
+    0.1636797789947139
+  ],
+  "eer_umbral": 0.0009473090176470578,
+  "auc": 0.9140178480841559,
+  "auc_ic95": [
+    0.9117274891029008,
+    0.9163682254986573
+  ],
+  "min_tdcf": 0.3231511648923826,
+  "por_ataque": [
+    {
+      "grupo": "A07",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0
+    },
+    {
+      "grupo": "A08",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0011205791967178577
+    },
+    {
+      "grupo": "A09",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0
+    },
+    {
+      "grupo": "A10",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.27712884592558285
+    },
+    {
+      "grupo": "A11",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.03772247718542758
+    },
+    {
+      "grupo": "A12",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.3235435901309457
+    },
+    {
+      "grupo": "A13",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.4411244721237923
+    },
+    {
+      "grupo": "A14",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.038876825518565854
+    },
+    {
+      "grupo": "A15",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.08159036999961541
+    },
+    {
+      "grupo": "A16",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0
+    },
+    {
+      "grupo": "A17",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.2760424785577743
+    },
+    {
+      "grupo": "A18",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.02403914286987024
+    },
+    {
+      "grupo": "A19",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00020350020350018427
+    }
+  ],
+  "run": "A1",
+  "split": "asv19_eval",
+  "checkpoint": "/kaggle/working/runs/A1/best.pt",
+  "epoch": 3
+}

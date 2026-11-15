@@ -59,9 +59,12 @@ class AudioDataset(Dataset):
         if missing:
             raise ValueError(f"Faltan dataset_roots para {sorted(missing)}")
         self.augmentations = []
+        self.augment_p = 1.0
         if train:
+            aug_cfg = cfg.get("augment", {}) or {}
+            self.augment_p = float(aug_cfg.get("p", 1.0))
             for name in ("telephony", "rawboost"):
-                if cfg.get("augment", {}).get(name, False):
+                if aug_cfg.get(name, False):
                     self.augmentations.append(getattr(augment, name))
 
     def __len__(self) -> int:
@@ -95,6 +98,9 @@ class AudioDataset(Dataset):
         if sr != self.sample_rate:
             wav = resample(wav, sr, self.sample_rate)
         for fn in self.augmentations:
+            # p<1: cada aug se aplica de forma independiente (más rápido y menos agresivo).
+            if self.augment_p < 1.0 and float(torch.rand(())) >= self.augment_p:
+                continue
             wav = torch.from_numpy(np.asarray(fn(wav.numpy(), self.sample_rate), dtype=np.float32))
         if wav.ndim != 1 or not wav.numel() or not torch.isfinite(wav).all():
             raise ValueError(f"{path}: audio inválido después del preprocesamiento")

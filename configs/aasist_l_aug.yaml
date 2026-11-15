@@ -1,4 +1,5 @@
 # Modelo B2: AASIST-L con augmentation telefónica y RawBoost.
+# Acelerado vs B1: warm-start (kernel), patience/epochs menores, eval_every, aug p=0.5.
 model: aasist_l
 seed: 42
 
@@ -13,8 +14,8 @@ model_args:
   temperatures: [2.0, 2.0, 100.0, 100.0]
 
 train:
-  epochs: 50
-  batch_size: 24
+  epochs: 25
+  batch_size: 32         # T4 aguanta; B1 usaba 24
   grad_accum: 1
   optimizer: adam
   lr: 1.0e-4
@@ -22,8 +23,10 @@ train:
   scheduler: cosine
   loss: weighted_ce
   early_stopping_metric: dev_eer
-  patience: 10
+  patience: 5            # B1 tenía 10; con warm-start basta
+  eval_every: 2
 
 augment:
   telephony: true
   rawboost: true
+  p: 0.5

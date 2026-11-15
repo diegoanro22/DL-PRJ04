@@ -1,4 +1,5 @@
 # Modelo A2: LFCC + LCNN con augmentation telefónica y RawBoost.
+# Acelerado vs A1: warm-start (kernel), eval_every, aug p=0.5, menos épocas.
 model: lfcc_cnn
 seed: 42
 
@@ -13,7 +14,7 @@ features:
   deltas: true
 
 train:
-  epochs: 30
+  epochs: 20
   batch_size: 64
   grad_accum: 1
   optimizer: adam
@@ -22,8 +23,10 @@ train:
   scheduler: cosine
   loss: weighted_ce
   early_stopping_metric: dev_eer
-  patience: 5
+  patience: 4
+  eval_every: 2          # ~mitad del coste de eval en dev
 
 augment:
   telephony: true
   rawboost: true
+  p: 0.5                 # cada aug con prob 0.5 (más rápido que siempre)
