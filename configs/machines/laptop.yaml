@@ -10,6 +10,7 @@ dataset_roots:
   asv21: data/ASVspoof2021_LA
   mlaad_es: data/MLAAD_es
   propios: data/propios
+  asv19_eval_codec: data/asv19_eval_codec   # scripts/precompute_codecs.py sobre eval
 output_root: runs
 num_workers: 8
 # Precio de una GPU de nube equivalente (clase L4), para reportar el costo de entrenamiento.
