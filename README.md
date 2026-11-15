@@ -105,6 +105,21 @@ Guarda los scores P(sintética) por audio en `results/scores/` (los usa el model
 métricas en `results/metrics/`: EER y AUC con IC 95 % por bootstrap, min t-DCF en ASVspoof 2019
 y EER por ataque, códec e idioma.
 
+### Canal telefónico, valor fuera de dev y explicabilidad
+
+```bash
+# eval con códecs: 20 % de asv19_eval, cada audio con G.711, GSM o AMR-NB al azar
+uv run python -m scripts.precompute_codecs --root data/ASVspoof2019_LA \
+  --protocol protocols/asv19_eval.csv --fraction 0.2 --out-audio data/asv19_eval_codec \
+  --out-protocol protocols/asv19_eval_codec.csv --dataset-key asv19_eval_codec
+uv run python -m src.evaluate --checkpoint runs/C2/best.pt --splits asv19_eval_codec
+# valor USD/mes en eval y en canal telefónico con los umbrales elegidos en dev
+uv run python -m scripts.value_on_eval --models C0 C2
+# oclusión por banda de frecuencia (promedio por ataque) y temporal (un audio)
+uv run python -m src.explain.occlusion --checkpoint runs/C2/best.pt --per-attack 40
+uv run python -m src.explain.occlusion --checkpoint runs/C2/best.pt --audio llamada.wav
+```
+
 ## Calibración, ONNX y latencia
 
 ```bash
@@ -226,5 +241,5 @@ El dataloader convierte a mono y 16 kHz, repite audios cortos y entrega 64,600 m
 recorte aleatorio en train y el inicio en dev/test, conservando la amplitud sin normalizar.
 Las augmentations `telephony` (8 kHz + pasa-banda 300–3400 Hz) y `rawboost` se activan con
 los configs `*_aug.yaml`. Los códecs G.711/GSM/AMR se precalculan con
-`scripts/precompute_codecs.py` (no al vuelo). Los generadores de protocolos de ASVspoof 2021,
+`scripts.precompute_codecs` (no al vuelo). Los generadores de protocolos de ASVspoof 2021,
 español y datos propios corresponden a etapas posteriores.
