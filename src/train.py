@@ -112,7 +112,7 @@ def _migrate_runs_csv() -> list[str]:
         return fields
     tmp = RUNS_CSV.with_suffix(".tmp")
     with open(tmp, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fields, restval="-")
+        writer = csv.DictWriter(f, fieldnames=fields, restval="-", lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     os.replace(tmp, RUNS_CSV)
@@ -124,7 +124,7 @@ def append_run_row(row: dict) -> None:
     is_new = not RUNS_CSV.exists()
     fields = RUNS_CSV_FIELDS if is_new else _migrate_runs_csv()
     with open(RUNS_CSV, "a", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fields, restval="-")
+        writer = csv.DictWriter(f, fieldnames=fields, restval="-", lineterminator="\n")
         if is_new:
             writer.writeheader()
         writer.writerow(row)

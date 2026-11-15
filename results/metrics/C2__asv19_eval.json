@@ -1,0 +1,101 @@
+{
+  "n": 71237,
+  "n_genuinas": 7355,
+  "n_sinteticas": 63882,
+  "eer": 0.009932711593015963,
+  "eer_ic95": [
+    0.008793821448412783,
+    0.01124127126937879
+  ],
+  "eer_umbral": 0.01912403665482998,
+  "auc": 0.9993479128996569,
+  "auc_ic95": [
+    0.9991954945408249,
+    0.9994844527249223
+  ],
+  "min_tdcf": 0.026863793040760496,
+  "por_ataque": [
+    {
+      "grupo": "A07",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0018332726014575246
+    },
+    {
+      "grupo": "A08",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00186748443036682
+    },
+    {
+      "grupo": "A09",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00033946213415959967
+    },
+    {
+      "grupo": "A10",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.027671918936364878
+    },
+    {
+      "grupo": "A11",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.004481874094382603
+    },
+    {
+      "grupo": "A12",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0030898137288347975
+    },
+    {
+      "grupo": "A13",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00013596193065941537
+    },
+    {
+      "grupo": "A14",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00030569299773924294
+    },
+    {
+      "grupo": "A15",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0012903102637976851
+    },
+    {
+      "grupo": "A16",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0016977533632869925
+    },
+    {
+      "grupo": "A17",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00954092235533434
+    },
+    {
+      "grupo": "A18",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.013207910250738274
+    },
+    {
+      "grupo": "A19",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.009303210322924804
+    }
+  ],
+  "run": "C2",
+  "split": "asv19_eval",
+  "checkpoint": "runs/C2/best.pt",
+  "epoch": 5
+}

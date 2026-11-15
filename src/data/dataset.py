@@ -58,14 +58,20 @@ class AudioDataset(Dataset):
         missing = set(self.protocol.dataset) - self.roots.keys()
         if missing:
             raise ValueError(f"Faltan dataset_roots para {sorted(missing)}")
-        self.augmentations = []
-        self.augment_p = 1.0
+        # augment.<nombre>: true/false o una probabilidad (0 a 1) por audio; augment.p (opcional)
+        # multiplica a todas, así que `telephony: true` + `p: 0.5` equivale a `telephony: 0.5`.
+        # Con probabilidad < 1, parte de train queda limpia y el modelo sigue viendo audio de
+        # banda ancha (la telefónica corta todo lo que pasa de 3.4 kHz).
+        self.augmentations: list[tuple[augment.Augment, float]] = []
         if train:
             aug_cfg = cfg.get("augment", {}) or {}
-            self.augment_p = float(aug_cfg.get("p", 1.0))
+            p_global = float(aug_cfg.get("p", 1.0))
             for name in ("telephony", "rawboost"):
-                if aug_cfg.get(name, False):
-                    self.augmentations.append(getattr(augment, name))
+                prob = float(aug_cfg.get(name, False))
+                if not (0 <= prob <= 1 and 0 <= p_global <= 1):
+                    raise ValueError(f"augment.{name} y augment.p deben ser bool o probabilidad en [0, 1]")
+                if prob * p_global > 0:
+                    self.augmentations.append((getattr(augment, name), prob * p_global))
 
     def __len__(self) -> int:
         return len(self.protocol)
@@ -97,11 +103,10 @@ class AudioDataset(Dataset):
             raise ValueError(f"{path}: audio vacío o con muestras no finitas")
         if sr != self.sample_rate:
             wav = resample(wav, sr, self.sample_rate)
-        for fn in self.augmentations:
-            # p<1: cada aug se aplica de forma independiente (más rápido y menos agresivo).
-            if self.augment_p < 1.0 and float(torch.rand(())) >= self.augment_p:
-                continue
-            wav = torch.from_numpy(np.asarray(fn(wav.numpy(), self.sample_rate), dtype=np.float32))
+        for fn, prob in self.augmentations:
+            # Cada augmentation se sortea por separado en cada audio.
+            if prob >= 1 or torch.rand(()).item() < prob:
+                wav = torch.from_numpy(np.asarray(fn(wav.numpy(), self.sample_rate), dtype=np.float32))
         if wav.ndim != 1 or not wav.numel() or not torch.isfinite(wav).all():
             raise ValueError(f"{path}: audio inválido después del preprocesamiento")
         # Mantener la amplitud original; limitar únicamente valores fuera de rango.

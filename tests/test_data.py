@@ -127,6 +127,38 @@ def test_augmentation_solo_en_train(corpus, monkeypatch):
     assert calls == [16000, 16000]
 
 
+def test_augmentation_con_probabilidad(corpus, monkeypatch):
+    _, _, cfg = corpus
+    cfg["augment"] = {"telephony": 0.5, "rawboost": 0.0}
+    calls = []
+    monkeypatch.setattr(dataset.augment, "telephony", lambda wav, sr: calls.append(1) or wav)
+    ds = dataset.AudioDataset(cfg, "asv19_train", train=True)
+    torch.manual_seed(0)
+    for _ in range(200):
+        ds[0]
+    # rawboost en 0 no se carga; telephony se aplica aprox. a la mitad de los audios
+    assert [fn for fn, _ in ds.augmentations] == [dataset.augment.telephony]
+    assert 70 < len(calls) < 130
+
+    cfg["augment"] = {"telephony": 1.5}
+    with pytest.raises(ValueError, match="probabilidad"):
+        dataset.AudioDataset(cfg, "asv19_train", train=True)
+
+
+def test_augmentation_p_global_multiplica(corpus):
+    _, _, cfg = corpus
+    # Formato de A2/B2 (true + p) y de C2 (probabilidad por augmentation): mismo resultado.
+    cfg["augment"] = {"telephony": True, "rawboost": True, "p": 0.5}
+    probs = [p for _, p in dataset.AudioDataset(cfg, "asv19_train", train=True).augmentations]
+    assert probs == [0.5, 0.5]
+    cfg["augment"] = {"telephony": 0.5, "rawboost": 0.5}
+    probs = [p for _, p in dataset.AudioDataset(cfg, "asv19_train", train=True).augmentations]
+    assert probs == [0.5, 0.5]
+    cfg["augment"] = {"telephony": True, "p": 2}
+    with pytest.raises(ValueError, match="probabilidad"):
+        dataset.AudioDataset(cfg, "asv19_train", train=True)
+
+
 @pytest.mark.parametrize("change, message", [
     (lambda df: df.assign(label=7), "label"),
     (lambda df: df.assign(utt_id="duplicado"), "duplicado"),
