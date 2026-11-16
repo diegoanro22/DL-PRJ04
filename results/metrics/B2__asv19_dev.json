@@ -1,0 +1,59 @@
+{
+  "n": 24844,
+  "n_genuinas": 2548,
+  "n_sinteticas": 22296,
+  "eer": 0.013573370475953885,
+  "eer_ic95": [
+    0.011100471591302733,
+    0.01572066062493555
+  ],
+  "eer_umbral": 0.49554455280303955,
+  "auc": 0.9987290576369655,
+  "auc_ic95": [
+    0.998021802041281,
+    0.999245246338475
+  ],
+  "min_tdcf": 0.04147065446157365,
+  "por_ataque": [
+    {
+      "grupo": "A01",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.014722706172806112
+    },
+    {
+      "grupo": "A02",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.005107532787065296
+    },
+    {
+      "grupo": "A03",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.011476529006899609
+    },
+    {
+      "grupo": "A04",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.014257367267516412
+    },
+    {
+      "grupo": "A05",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.011941867912189309
+    },
+    {
+      "grupo": "A06",
+      "n_genuinas": 2548,
+      "n_sinteticas": 3716,
+      "eer": 0.020161024582061024
+    }
+  ],
+  "run": "B2",
+  "split": "asv19_dev",
+  "checkpoint": "/kaggle/working/runs/B2/best.pt",
+  "epoch": 7
+}

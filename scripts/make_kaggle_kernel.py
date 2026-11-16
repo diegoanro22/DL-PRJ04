@@ -12,17 +12,24 @@ import argparse
 import json
 from pathlib import Path
 
+# (config, run_name, init_kernel|None, init_dataset|None)
+# B2: B1 timeout → warm-start desde dataset cisco890/dl-prj04-b1-ckpt (no kernel cancelado).
 RUNS = {
-    "A1": ("configs/lfcc_cnn.yaml", "A1", None),
-    "A2": ("configs/lfcc_cnn_aug.yaml", "A2", "cisco890/dl-prj04-a1-lfcc-cnn"),
-    "B1": ("configs/aasist_l.yaml", "B1", None),
-    "B2": ("configs/aasist_l_aug.yaml", "B2", "cisco890/dl-prj04-b1"),
+    "A1": ("configs/lfcc_cnn.yaml", "A1", None, None),
+    "A2": ("configs/lfcc_cnn_aug.yaml", "A2", "cisco890/dl-prj04-a1-lfcc-cnn", None),
+    "B1": ("configs/aasist_l.yaml", "B1", None, None),
+    "B2": ("configs/aasist_l_aug.yaml", "B2", None, "cisco890/dl-prj04-b1-ckpt"),
 }
 
 REPO_URL = "https://github.com/diegoanro22/DL-PRJ04.git"
 
 
-def notebook(config: str, run_name: str, init_kernel: str | None) -> dict:
+def notebook(
+    config: str,
+    run_name: str,
+    init_kernel: str | None,
+    init_dataset: str | None = None,
+) -> dict:
     setup = f'''import os, sys, subprocess, shutil
 from pathlib import Path
 
@@ -33,6 +40,7 @@ RUN_NAME = {run_name!r}
 MACHINE = "kaggle"
 EVAL_SPLITS = ["asv19_dev", "asv19_eval"]
 INIT_KERNEL = {init_kernel!r}  # kernel Kaggle cuyo output trae best.pt (warm-start)
+INIT_DATASET = {init_dataset!r}  # dataset Kaggle con best.pt (p.ej. post-timeout)
 
 WORK = Path("/kaggle/working")
 REPO = WORK / "DL-PRJ04"
@@ -61,10 +69,6 @@ def find_asv19() -> Path:
     raise FileNotFoundError("ASVspoof 2019 LA no encontrado. Candidatos: " + ", ".join(map(str, cands)))
 
 def find_init_ckpt() -> Path | None:
-    if not INIT_KERNEL:
-        return None
-    slug = INIT_KERNEL.split("/")[-1]
-    roots = [INP / slug, INP / slug.replace("-", "_")]
     # Sin rglob: el FS de /kaggle/input cuelga con walks profundos.
     names = (
         "best.pt",
@@ -73,6 +77,18 @@ def find_init_ckpt() -> Path | None:
         "runs/A1/best.pt", "runs/B1/best.pt",
         "runs/A2/best.pt", "runs/B2/best.pt",
     )
+    roots = []
+    if INIT_DATASET:
+        slug = INIT_DATASET.split("/")[-1]
+        owner = INIT_DATASET.split("/")[0] if "/" in INIT_DATASET else None
+        roots += [INP / slug, INP / slug.replace("-", "_")]
+        if owner:
+            roots += [INP / "datasets" / owner / slug]
+    if INIT_KERNEL:
+        slug = INIT_KERNEL.split("/")[-1]
+        roots += [INP / slug, INP / slug.replace("-", "_")]
+    if not roots:
+        return None
     for root in roots:
         if not root.is_dir():
             continue
@@ -80,7 +96,7 @@ def find_init_ckpt() -> Path | None:
             p = root / name
             if p.is_file():
                 return p
-    print("WARN: no se encontró best.pt de", INIT_KERNEL, "- train from scratch", flush=True)
+    print("WARN: no se encontró best.pt de", INIT_DATASET or INIT_KERNEL, "- train from scratch", flush=True)
     return None
 
 ASV19 = find_asv19()
@@ -187,7 +203,12 @@ subprocess.check_call(["find", str(out), "-type", "f"])
             "source": [line + "\n" for line in source.splitlines()],
         }
 
-    warm = f" Warm-start desde `{init_kernel}`." if init_kernel else ""
+    warm_bits = []
+    if init_kernel:
+        warm_bits.append(f"kernel `{init_kernel}`")
+    if init_dataset:
+        warm_bits.append(f"dataset `{init_dataset}`")
+    warm = (" Warm-start desde " + " + ".join(warm_bits) + ".") if warm_bits else ""
     return {
         "nbformat": 4,
         "nbformat_minor": 5,
@@ -217,7 +238,15 @@ subprocess.check_call(["find", str(out), "-type", "f"])
     }
 
 
-def metadata(slug: str, title: str, init_kernel: str | None) -> dict:
+def metadata(
+    slug: str,
+    title: str,
+    init_kernel: str | None,
+    init_dataset: str | None = None,
+) -> dict:
+    datasets = ["awsaf49/asvpoof-2019-dataset"]
+    if init_dataset:
+        datasets.append(init_dataset)
     return {
         "id": f"cisco890/{slug}",
         "title": title,
@@ -228,7 +257,7 @@ def metadata(slug: str, title: str, init_kernel: str | None) -> dict:
         "enable_gpu": True,
         "enable_tpu": False,
         "enable_internet": True,
-        "dataset_sources": ["awsaf49/asvpoof-2019-dataset"],
+        "dataset_sources": datasets,
         "competition_sources": [],
         "kernel_sources": [init_kernel] if init_kernel else [],
         "model_sources": [],
@@ -243,22 +272,27 @@ def main() -> None:
     p.add_argument("--no-init", action="store_true", help="No usar warm-start ni kernel_sources")
     args = p.parse_args()
 
-    config, run_name, init_kernel = RUNS[args.run]
+    config, run_name, init_kernel, init_dataset = RUNS[args.run]
     if args.no_init:
         init_kernel = None
+        init_dataset = None
     slug = args.slug or f"dl-prj04-{run_name.lower()}"
     nb_name = f"{slug.replace('-', '_')}.ipynb"
     out: Path = args.out
     out.mkdir(parents=True, exist_ok=True)
 
-    (out / nb_name).write_text(json.dumps(notebook(config, run_name, init_kernel), indent=1) + "\n")
-    meta = metadata(slug, f"DL-PRJ04 {run_name}", init_kernel)
+    (out / nb_name).write_text(
+        json.dumps(notebook(config, run_name, init_kernel, init_dataset), indent=1) + "\n"
+    )
+    meta = metadata(slug, f"DL-PRJ04 {run_name}", init_kernel, init_dataset)
     meta["code_file"] = nb_name
     (out / "kernel-metadata.json").write_text(json.dumps(meta, indent=1) + "\n")
     print(f"Wrote {out / nb_name}")
     print(f"Wrote {out / 'kernel-metadata.json'}")
     if init_kernel:
         print(f"Warm-start kernel_sources: {init_kernel}")
+    if init_dataset:
+        print(f"Warm-start dataset_sources: {init_dataset}")
     print(f"Push: kaggle kernels push -p {out} --accelerator NvidiaTeslaT4")
 
 

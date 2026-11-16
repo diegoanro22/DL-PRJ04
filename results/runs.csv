@@ -6,3 +6,6 @@ A1,2026-11-15 06:14,lfcc_cnn,configs/lfcc_cnn.yaml,kaggle,Tesla T4,fp16,42,asv19
 C2,2026-11-15 02:01,xlsr_aasist_frozen,configs/xlsr_aasist_frozen_aug.yaml,laptop,NVIDIA GeForce RTX 5070 Laptop GPU,bf16,42,asv19_train,asv19_dev,16,9,6,0.00204,0.99994,315.886,0.447,1.352,0.95,2075234,"C0 + telephony y RawBoost con probabilidad 0.5"
 C3,2026-11-15 22:28,xlsr_aasist_frozen,configs/xlsr_aasist_frozen_es.yaml,laptop,NVIDIA GeForce RTX 5070 Laptop GPU,bf16,42,mix_train,mix_dev,16,5,3,0.00416,0.99991,315.886,0.447,0.905,0.63,5825a3b,
 C4,2026-11-16 04:50,xlsr_aasist_frozen,configs/xlsr_aasist_frozen_es_omni.yaml,laptop,NVIDIA GeForce RTX 5070 Laptop GPU,bf16,42,mix_train,mix_dev,16,15,14,0.00660,0.99983,315.886,0.447,2.777,1.94,5cadfec,
+A2,2026-11-15 16:01,lfcc_cnn,configs/lfcc_cnn_aug.yaml,kaggle,Tesla T4,fp16,42,asv19_train,asv19_dev,64,9,2,0.00000,1.00000,0.422,0.158,2.915,1.02,990e8f0,
+B1,2026-11-15 21:04,aasist_l,configs/aasist_l.yaml,kaggle,Tesla T4,fp16,42,asv19_train,asv19_dev,24,34,28,0.01411,0.99843,,,8.680,,c570627,timeout ~ép.35; eval-only post-ckpt; eval EER ver metrics
+B2,2026-11-16 02:56,aasist_l,configs/aasist_l_aug.yaml,kaggle,Tesla T4,fp16,42,asv19_train,asv19_dev,32,17,8,0.01357,0.99873,0.085,0.085,5.795,2.03,c570627,
