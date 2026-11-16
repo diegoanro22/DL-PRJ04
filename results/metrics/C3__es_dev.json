@@ -1,0 +1,49 @@
+{
+  "n": 882,
+  "n_genuinas": 612,
+  "n_sinteticas": 270,
+  "eer": 0.048583877995642705,
+  "eer_ic95": [
+    0.03649237472766887,
+    0.07113289760348586
+  ],
+  "eer_umbral": 0.22135069966316223,
+  "auc": 0.9920479302832244,
+  "auc_ic95": [
+    0.9878726397966594,
+    0.9953010015734689
+  ],
+  "min_tdcf": null,
+  "por_ataque": [
+    {
+      "grupo": "edge",
+      "n_genuinas": 612,
+      "n_sinteticas": 150,
+      "eer": 0.012385620915032668
+    },
+    {
+      "grupo": "f5",
+      "n_genuinas": 612,
+      "n_sinteticas": 120,
+      "eer": 0.0758986928104575
+    }
+  ],
+  "por_codec": [
+    {
+      "grupo": "mp3",
+      "n_genuinas": 204,
+      "n_sinteticas": 150,
+      "eer": 0.014019607843137242
+    },
+    {
+      "grupo": "none",
+      "n_genuinas": 408,
+      "n_sinteticas": 120,
+      "eer": 0.07549019607843135
+    }
+  ],
+  "run": "C3",
+  "split": "es_dev",
+  "checkpoint": "runs/C3/best.pt",
+  "epoch": 2
+}

@@ -1,0 +1,121 @@
+{
+  "n": 14247,
+  "n_genuinas": 1468,
+  "n_sinteticas": 12779,
+  "eer": 0.030050152530132324,
+  "eer_ic95": [
+    0.025434756720462467,
+    0.0333573441867437
+  ],
+  "eer_umbral": 0.14463144540786743,
+  "auc": 0.9960477776358652,
+  "auc_ic95": [
+    0.9952926544646115,
+    0.9967632956924605
+  ],
+  "min_tdcf": null,
+  "por_ataque": [
+    {
+      "grupo": "A07",
+      "n_genuinas": 1468,
+      "n_sinteticas": 978,
+      "eer": 0.010562065718281752
+    },
+    {
+      "grupo": "A08",
+      "n_genuinas": 1468,
+      "n_sinteticas": 955,
+      "eer": 0.004137837567941558
+    },
+    {
+      "grupo": "A09",
+      "n_genuinas": 1468,
+      "n_sinteticas": 991,
+      "eer": 0.0
+    },
+    {
+      "grupo": "A10",
+      "n_genuinas": 1468,
+      "n_sinteticas": 953,
+      "eer": 0.09749900643600735
+    },
+    {
+      "grupo": "A11",
+      "n_genuinas": 1468,
+      "n_sinteticas": 985,
+      "eer": 0.01188156129407043
+    },
+    {
+      "grupo": "A12",
+      "n_genuinas": 1468,
+      "n_sinteticas": 975,
+      "eer": 0.026957311534968185
+    },
+    {
+      "grupo": "A13",
+      "n_genuinas": 1468,
+      "n_sinteticas": 1003,
+      "eer": 0.0016782078831624925
+    },
+    {
+      "grupo": "A14",
+      "n_genuinas": 1468,
+      "n_sinteticas": 964,
+      "eer": 0.002918414417673856
+    },
+    {
+      "grupo": "A15",
+      "n_genuinas": 1468,
+      "n_sinteticas": 986,
+      "eer": 0.014933178946670298
+    },
+    {
+      "grupo": "A16",
+      "n_genuinas": 1468,
+      "n_sinteticas": 1018,
+      "eer": 0.009870023500693246
+    },
+    {
+      "grupo": "A17",
+      "n_genuinas": 1468,
+      "n_sinteticas": 941,
+      "eer": 0.014741332630658419
+    },
+    {
+      "grupo": "A18",
+      "n_genuinas": 1468,
+      "n_sinteticas": 986,
+      "eer": 0.034611951517429275
+    },
+    {
+      "grupo": "A19",
+      "n_genuinas": 1468,
+      "n_sinteticas": 1044,
+      "eer": 0.010717790514370416
+    }
+  ],
+  "por_codec": [
+    {
+      "grupo": "amr",
+      "n_genuinas": 464,
+      "n_sinteticas": 4175,
+      "eer": 0.028140357216601276
+    },
+    {
+      "grupo": "g711",
+      "n_genuinas": 525,
+      "n_sinteticas": 4302,
+      "eer": 0.023051072590821536
+    },
+    {
+      "grupo": "gsm",
+      "n_genuinas": 479,
+      "n_sinteticas": 4302,
+      "eer": 0.027284488740975
+    }
+  ],
+  "run": "C3",
+  "split": "asv19_eval_codec",
+  "checkpoint": "runs/C3/best.pt",
+  "epoch": 2
+}

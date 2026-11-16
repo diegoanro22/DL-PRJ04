@@ -1,0 +1,193 @@
+etiqueta,archivo,modelo,score,accion,acierto,duracion_s,ventanas,avisos
+clon_f5,clon_f5/f5_diego_00.wav,C3,0.999616,analista,True,3.63,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+clon_f5,clon_f5/f5_diego_01.wav,C3,0.99687,analista,True,3.51,1,"Audio de 3.5 s: el modelo espera 4 s, se repitió el audio."
+clon_f5,clon_f5/f5_diego_02.wav,C3,0.791654,analista,True,4.3,2,
+clon_f5,clon_f5/f5_diego_03.wav,C3,0.985003,analista,True,3.94,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+clon_f5,clon_f5/f5_diego_04.wav,C3,0.996661,analista,True,3.74,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+clon_f5,clon_f5/f5_diego_05.wav,C3,0.995037,analista,True,3.2,1,"Audio de 3.2 s: el modelo espera 4 s, se repitió el audio."
+clon_f5,clon_f5/f5_diego_06.wav,C3,0.999381,analista,True,3.45,1,"Audio de 3.4 s: el modelo espera 4 s, se repitió el audio."
+clon_f5,clon_f5/f5_diego_07.wav,C3,0.988055,analista,True,3.2,1,"Audio de 3.2 s: el modelo espera 4 s, se repitió el audio."
+clon_f5,clon_f5/f5_diego_08.wav,C3,0.99693,analista,True,3.74,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+clon_f5,clon_f5/f5_diego_09.wav,C3,0.990685,analista,True,4.12,2,
+clon_voicestudio,clon_voicestudio/diego_vs_00.wav,C3,0.154213,continuar,False,4.28,2,
+clon_voicestudio,clon_voicestudio/diego_vs_01.wav,C3,0.109177,continuar,False,4.04,2,
+clon_voicestudio,clon_voicestudio/diego_vs_02.wav,C3,0.11203,continuar,False,4.8,2,
+clon_voicestudio,clon_voicestudio/diego_vs_03.wav,C3,0.002291,continuar,False,4.48,2,
+clon_voicestudio,clon_voicestudio/diego_vs_04.wav,C3,0.232349,continuar,False,4.4,2,
+clon_voicestudio,clon_voicestudio/diego_vs_05.wav,C3,0.446185,continuar,False,3.64,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+clon_voicestudio,clon_voicestudio/diego_vs_06.wav,C3,0.135055,continuar,False,3.88,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+clon_voicestudio,clon_voicestudio/diego_vs_07.wav,C3,0.029779,continuar,False,3.64,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+clon_voicestudio,clon_voicestudio/diego_vs_08.wav,C3,0.17654,continuar,False,4.12,2,
+clon_voicestudio,clon_voicestudio/diego_vs_09.wav,C3,0.024968,continuar,False,4.52,2,
+clon_voicestudio,clon_voicestudio/voicestudio-ce0334fd.wav,C3,0.063085,continuar,False,20.0,5,
+clon_web,clon_web/diego_clon_web_00.wav,C3,0.010229,continuar,False,6.3,2,
+clon_web,clon_web/diego_clon_web_01.wav,C3,0.001733,continuar,False,8.5,3,
+clon_web,clon_web/diego_clon_web_02.wav,C3,0.00192,continuar,False,4.2,2,
+clon_web,clon_web/diego_clon_web_03.wav,C3,0.001284,continuar,False,7.7,2,
+clon_web,clon_web/diego_clon_web_04.wav,C3,0.003024,continuar,False,6.2,2,
+clon_web_mic,clon_web_mic/diego_clon_web_00.wav,C3,0.008936,continuar,False,4.8,2,
+clon_web_mic,clon_web_mic/diego_clon_web_01.wav,C3,0.011163,continuar,False,7.0,2,
+clon_web_mic,clon_web_mic/diego_clon_web_02.wav,C3,0.00223,continuar,False,4.75,2,
+clon_web_mic,clon_web_mic/diego_clon_web_03.wav,C3,0.003599,continuar,False,3.35,1,"Audio de 3.4 s: el modelo espera 4 s, se repitió el audio."
+clon_web_mic,clon_web_mic/diego_clon_web_04.wav,C3,0.000473,continuar,False,5.25,2,
+clon_web_mic,clon_web_mic/diego_clon_web_05.wav,C3,0.000945,continuar,False,8.45,3,
+clon_xtts,clon_xtts/xtts_diego_00.wav,C3,0.998354,analista,True,3.99,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+clon_xtts,clon_xtts/xtts_diego_01.wav,C3,0.202589,continuar,False,4.27,2,
+clon_xtts,clon_xtts/xtts_diego_02.wav,C3,0.533628,continuar,False,4.31,2,
+clon_xtts,clon_xtts/xtts_diego_03.wav,C3,0.993973,analista,True,4.68,2,
+clon_xtts,clon_xtts/xtts_diego_04.wav,C3,0.931673,analista,True,4.54,2,
+clon_xtts,clon_xtts/xtts_diego_05.wav,C3,0.899117,analista,True,15.22,4,
+clon_xtts,clon_xtts/xtts_diego_06.wav,C3,0.97621,analista,True,4.45,2,
+clon_xtts,clon_xtts/xtts_diego_07.wav,C3,0.907434,analista,True,3.15,1,"Audio de 3.1 s: el modelo espera 4 s, se repitió el audio."
+clon_xtts,clon_xtts/xtts_diego_08.wav,C3,0.995013,analista,True,5.71,2,
+clon_xtts,clon_xtts/xtts_diego_09.wav,C3,0.675947,continuar,False,4.59,2,
+edge_tts,edge_tts/edge_es-GT-AndresNeural_00.wav,C3,0.999999,analista,True,4.1,2,
+edge_tts,edge_tts/edge_es-GT-AndresNeural_01.wav,C3,0.999586,analista,True,4.13,2,
+edge_tts,edge_tts/edge_es-GT-AndresNeural_02.wav,C3,0.999882,analista,True,4.9,2,
+edge_tts,edge_tts/edge_es-GT-AndresNeural_03.wav,C3,0.999924,analista,True,3.89,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-AndresNeural_04.wav,C3,0.995013,analista,True,4.42,2,
+edge_tts,edge_tts/edge_es-GT-AndresNeural_05.wav,C3,0.999985,analista,True,3.94,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-AndresNeural_06.wav,C3,0.999996,analista,True,3.65,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-AndresNeural_07.wav,C3,0.999994,analista,True,3.29,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-AndresNeural_08.wav,C3,0.999809,analista,True,4.01,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-AndresNeural_09.wav,C3,0.99932,analista,True,4.15,2,
+edge_tts,edge_tts/edge_es-GT-MartaNeural_00.wav,C3,0.999999,analista,True,3.98,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-MartaNeural_01.wav,C3,0.997652,analista,True,4.03,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-MartaNeural_02.wav,C3,0.999989,analista,True,4.73,2,
+edge_tts,edge_tts/edge_es-GT-MartaNeural_03.wav,C3,0.998839,analista,True,3.77,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-MartaNeural_04.wav,C3,0.996807,analista,True,4.39,2,
+edge_tts,edge_tts/edge_es-GT-MartaNeural_05.wav,C3,0.998962,analista,True,3.91,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-MartaNeural_06.wav,C3,0.999952,analista,True,3.53,1,"Audio de 3.5 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-MartaNeural_07.wav,C3,0.999984,analista,True,3.24,1,"Audio de 3.2 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-MartaNeural_08.wav,C3,0.999965,analista,True,3.91,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-GT-MartaNeural_09.wav,C3,0.998395,analista,True,4.2,2,
+edge_tts,edge_tts/edge_es-HN-CarlosNeural_00.wav,C3,0.999998,analista,True,4.1,2,
+edge_tts,edge_tts/edge_es-HN-CarlosNeural_01.wav,C3,0.9998,analista,True,4.13,2,
+edge_tts,edge_tts/edge_es-HN-CarlosNeural_02.wav,C3,0.999984,analista,True,4.9,2,
+edge_tts,edge_tts/edge_es-HN-CarlosNeural_03.wav,C3,0.999984,analista,True,3.89,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-HN-CarlosNeural_04.wav,C3,0.999987,analista,True,4.42,2,
+edge_tts,edge_tts/edge_es-HN-CarlosNeural_05.wav,C3,0.999963,analista,True,3.94,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-HN-CarlosNeural_06.wav,C3,0.999954,analista,True,3.65,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-HN-CarlosNeural_07.wav,C3,0.999976,analista,True,3.31,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-HN-CarlosNeural_08.wav,C3,0.999979,analista,True,4.01,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-HN-CarlosNeural_09.wav,C3,0.999874,analista,True,4.15,2,
+edge_tts,edge_tts/edge_es-HN-KarlaNeural_00.wav,C3,0.999968,analista,True,4.61,2,
+edge_tts,edge_tts/edge_es-HN-KarlaNeural_01.wav,C3,0.984738,analista,True,4.66,2,
+edge_tts,edge_tts/edge_es-HN-KarlaNeural_02.wav,C3,0.999276,analista,True,5.47,2,
+edge_tts,edge_tts/edge_es-HN-KarlaNeural_03.wav,C3,0.997765,analista,True,4.34,2,
+edge_tts,edge_tts/edge_es-HN-KarlaNeural_04.wav,C3,0.997916,analista,True,5.06,2,
+edge_tts,edge_tts/edge_es-HN-KarlaNeural_05.wav,C3,0.993317,analista,True,4.54,2,
+edge_tts,edge_tts/edge_es-HN-KarlaNeural_06.wav,C3,0.999455,analista,True,4.08,2,
+edge_tts,edge_tts/edge_es-HN-KarlaNeural_07.wav,C3,0.998138,analista,True,3.72,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-HN-KarlaNeural_08.wav,C3,0.995539,analista,True,4.51,2,
+edge_tts,edge_tts/edge_es-HN-KarlaNeural_09.wav,C3,0.695732,continuar,False,4.87,2,
+edge_tts,edge_tts/edge_es-MX-DaliaNeural_00.wav,C3,0.999956,analista,True,4.37,2,
+edge_tts,edge_tts/edge_es-MX-DaliaNeural_01.wav,C3,0.997362,analista,True,4.44,2,
+edge_tts,edge_tts/edge_es-MX-DaliaNeural_02.wav,C3,0.998059,analista,True,5.21,2,
+edge_tts,edge_tts/edge_es-MX-DaliaNeural_03.wav,C3,0.997667,analista,True,4.13,2,
+edge_tts,edge_tts/edge_es-MX-DaliaNeural_04.wav,C3,0.987047,analista,True,4.82,2,
+edge_tts,edge_tts/edge_es-MX-DaliaNeural_05.wav,C3,0.999727,analista,True,4.32,2,
+edge_tts,edge_tts/edge_es-MX-DaliaNeural_06.wav,C3,0.997929,analista,True,3.86,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-MX-DaliaNeural_07.wav,C3,0.999784,analista,True,3.55,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-MX-DaliaNeural_08.wav,C3,0.9998,analista,True,4.3,2,
+edge_tts,edge_tts/edge_es-MX-DaliaNeural_09.wav,C3,0.953975,analista,True,4.63,2,
+edge_tts,edge_tts/edge_es-MX-JorgeNeural_00.wav,C3,0.999975,analista,True,4.42,2,
+edge_tts,edge_tts/edge_es-MX-JorgeNeural_01.wav,C3,0.999919,analista,True,4.44,2,
+edge_tts,edge_tts/edge_es-MX-JorgeNeural_02.wav,C3,0.999408,analista,True,5.28,2,
+edge_tts,edge_tts/edge_es-MX-JorgeNeural_03.wav,C3,0.99783,analista,True,4.18,2,
+edge_tts,edge_tts/edge_es-MX-JorgeNeural_04.wav,C3,0.999166,analista,True,4.78,2,
+edge_tts,edge_tts/edge_es-MX-JorgeNeural_05.wav,C3,0.999242,analista,True,4.25,2,
+edge_tts,edge_tts/edge_es-MX-JorgeNeural_06.wav,C3,0.999988,analista,True,3.94,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-MX-JorgeNeural_07.wav,C3,0.999964,analista,True,3.55,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-MX-JorgeNeural_08.wav,C3,0.999821,analista,True,4.32,2,
+edge_tts,edge_tts/edge_es-MX-JorgeNeural_09.wav,C3,0.992259,analista,True,4.49,2,
+edge_tts,edge_tts/edge_es-SV-LorenaNeural_00.wav,C3,0.999999,analista,True,3.98,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-LorenaNeural_01.wav,C3,0.983538,analista,True,4.03,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-LorenaNeural_02.wav,C3,0.99982,analista,True,4.75,2,
+edge_tts,edge_tts/edge_es-SV-LorenaNeural_03.wav,C3,0.99869,analista,True,3.77,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-LorenaNeural_04.wav,C3,0.999371,analista,True,4.39,2,
+edge_tts,edge_tts/edge_es-SV-LorenaNeural_05.wav,C3,0.999802,analista,True,3.91,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-LorenaNeural_06.wav,C3,0.99983,analista,True,3.53,1,"Audio de 3.5 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-LorenaNeural_07.wav,C3,0.999807,analista,True,3.24,1,"Audio de 3.2 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-LorenaNeural_08.wav,C3,0.999981,analista,True,3.91,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-LorenaNeural_09.wav,C3,0.999214,analista,True,4.2,2,
+edge_tts,edge_tts/edge_es-SV-RodrigoNeural_00.wav,C3,0.999997,analista,True,4.1,2,
+edge_tts,edge_tts/edge_es-SV-RodrigoNeural_01.wav,C3,0.999967,analista,True,4.13,2,
+edge_tts,edge_tts/edge_es-SV-RodrigoNeural_02.wav,C3,0.999758,analista,True,4.9,2,
+edge_tts,edge_tts/edge_es-SV-RodrigoNeural_03.wav,C3,0.999539,analista,True,3.89,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-RodrigoNeural_04.wav,C3,0.999768,analista,True,4.42,2,
+edge_tts,edge_tts/edge_es-SV-RodrigoNeural_05.wav,C3,0.999944,analista,True,3.94,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-RodrigoNeural_06.wav,C3,0.999998,analista,True,3.65,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-RodrigoNeural_07.wav,C3,0.999961,analista,True,3.29,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-RodrigoNeural_08.wav,C3,0.999957,analista,True,4.01,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+edge_tts,edge_tts/edge_es-SV-RodrigoNeural_09.wav,C3,0.999588,analista,True,4.15,2,
+real,real/diego_00.wav,C3,0.000855,continuar,True,7.0,2,
+real,real/diego_01.wav,C3,0.000545,continuar,True,7.0,2,
+real,real/diego_02.wav,C3,0.001012,continuar,True,7.0,2,
+real,real/diego_03.wav,C3,0.002062,continuar,True,7.0,2,
+real,real/diego_04.wav,C3,0.002457,continuar,True,7.0,2,
+real,real/diego_05.wav,C3,0.000833,continuar,True,7.0,2,
+real,real/diego_06.wav,C3,0.003457,continuar,True,7.0,2,
+real,real/diego_07.wav,C3,0.001212,continuar,True,7.0,2,
+real,real/diego_08.wav,C3,0.002342,continuar,True,7.0,2,
+real,real/diego_09.wav,C3,0.000666,continuar,True,7.0,2,
+sintetico,sintetico/xtts_alma_mar_a_00.wav,C3,0.993746,analista,True,4.08,2,
+sintetico,sintetico/xtts_alma_mar_a_01.wav,C3,0.971272,analista,True,3.89,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_alma_mar_a_02.wav,C3,0.864198,analista,True,4.96,2,
+sintetico,sintetico/xtts_alma_mar_a_03.wav,C3,0.994865,analista,True,3.34,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_alma_mar_a_04.wav,C3,0.99969,analista,True,4.08,2,
+sintetico,sintetico/xtts_alma_mar_a_05.wav,C3,0.963446,analista,True,3.76,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_alma_mar_a_06.wav,C3,0.999535,analista,True,4.08,2,
+sintetico,sintetico/xtts_alma_mar_a_07.wav,C3,0.994195,analista,True,2.97,1,"Audio de 3.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_alma_mar_a_08.wav,C3,0.999959,analista,True,3.8,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_alma_mar_a_09.wav,C3,0.999445,analista,True,3.99,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_00.wav,C3,0.999998,analista,True,4.17,2,
+sintetico,sintetico/xtts_claribel_dervla_01.wav,C3,0.999988,analista,True,3.66,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_02.wav,C3,0.998343,analista,True,4.78,2,
+sintetico,sintetico/xtts_claribel_dervla_03.wav,C3,0.999987,analista,True,3.66,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_04.wav,C3,0.998616,analista,True,4.86,2,
+sintetico,sintetico/xtts_claribel_dervla_05.wav,C3,0.623086,continuar,False,3.99,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_06.wav,C3,0.967892,analista,True,3.57,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_07.wav,C3,0.997448,analista,True,4.03,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_08.wav,C3,0.999859,analista,True,3.62,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_09.wav,C3,0.999963,analista,True,4.08,2,
+sintetico,sintetico/xtts_gitta_nikolina_00.wav,C3,0.999979,analista,True,3.89,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_01.wav,C3,0.999997,analista,True,3.89,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_02.wav,C3,0.99653,analista,True,4.92,2,
+sintetico,sintetico/xtts_gitta_nikolina_03.wav,C3,0.999625,analista,True,4.54,2,
+sintetico,sintetico/xtts_gitta_nikolina_04.wav,C3,0.996243,analista,True,4.68,2,
+sintetico,sintetico/xtts_gitta_nikolina_05.wav,C3,0.997459,analista,True,3.71,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_06.wav,C3,0.979987,analista,True,3.38,1,"Audio de 3.4 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_07.wav,C3,0.99985,analista,True,3.2,1,"Audio de 3.2 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_08.wav,C3,0.998923,analista,True,3.57,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_09.wav,C3,0.999934,analista,True,3.76,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_kazuhiko_atallah_00.wav,C3,0.999999,analista,True,3.76,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_kazuhiko_atallah_01.wav,C3,0.99938,analista,True,3.85,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_kazuhiko_atallah_02.wav,C3,0.999802,analista,True,5.57,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_03.wav,C3,0.999989,analista,True,4.78,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_04.wav,C3,0.997114,analista,True,4.54,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_05.wav,C3,0.999779,analista,True,4.41,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_06.wav,C3,0.999922,analista,True,4.41,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_07.wav,C3,0.999979,analista,True,4.13,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_08.wav,C3,0.948982,analista,True,6.22,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_09.wav,C3,0.994644,analista,True,4.86,2,
+sintetico,sintetico/xtts_lidiya_szekeres_00.wav,C3,0.99994,analista,True,3.99,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_lidiya_szekeres_01.wav,C3,0.999952,analista,True,4.27,2,
+sintetico,sintetico/xtts_lidiya_szekeres_02.wav,C3,0.999534,analista,True,4.96,2,
+sintetico,sintetico/xtts_lidiya_szekeres_03.wav,C3,0.999559,analista,True,3.71,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_lidiya_szekeres_04.wav,C3,0.889617,analista,True,4.68,2,
+sintetico,sintetico/xtts_lidiya_szekeres_05.wav,C3,0.949408,analista,True,3.34,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_lidiya_szekeres_06.wav,C3,0.999988,analista,True,3.29,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_lidiya_szekeres_07.wav,C3,0.980944,analista,True,3.24,1,"Audio de 3.2 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_lidiya_szekeres_08.wav,C3,0.998743,analista,True,4.08,2,
+sintetico,sintetico/xtts_lidiya_szekeres_09.wav,C3,0.716642,analista,True,4.17,2,
+sintetico,sintetico/xtts_royston_min_00.wav,C3,0.99768,analista,True,4.36,2,
+sintetico,sintetico/xtts_royston_min_01.wav,C3,0.999984,analista,True,4.08,2,
+sintetico,sintetico/xtts_royston_min_02.wav,C3,0.481951,continuar,False,7.05,2,
+sintetico,sintetico/xtts_royston_min_03.wav,C3,0.999449,analista,True,3.48,1,"Audio de 3.5 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_royston_min_04.wav,C3,0.998455,analista,True,4.36,2,
+sintetico,sintetico/xtts_royston_min_05.wav,C3,0.993814,analista,True,4.31,2,
+sintetico,sintetico/xtts_royston_min_06.wav,C3,1.0,analista,True,3.57,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_royston_min_07.wav,C3,0.999884,analista,True,5.8,2,
+sintetico,sintetico/xtts_royston_min_08.wav,C3,0.997636,analista,True,4.27,2,
+sintetico,sintetico/xtts_royston_min_09.wav,C3,0.986664,analista,True,3.85,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."

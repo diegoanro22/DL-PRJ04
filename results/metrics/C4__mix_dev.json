@@ -1,0 +1,105 @@
+{
+  "n": 25926,
+  "n_genuinas": 3160,
+  "n_sinteticas": 22766,
+  "eer": 0.0065952085999886716,
+  "eer_ic95": [
+    0.005347345085998753,
+    0.007909508905685448
+  ],
+  "eer_umbral": 0.9469902515411377,
+  "auc": 0.999828990766822,
+  "auc_ic95": [
+    0.9997698207381205,
+    0.999877330674101
+  ],
+  "min_tdcf": null,
+  "por_ataque": [
+    {
+      "grupo": "A01",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.0023185744846098083
+    },
+    {
+      "grupo": "A02",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.0013056778079055774
+    },
+    {
+      "grupo": "A03",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.001012896676704231
+    },
+    {
+      "grupo": "A04",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.012067555967352952
+    },
+    {
+      "grupo": "A05",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.0021840212015097277
+    },
+    {
+      "grupo": "A06",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.008577856957937646
+    },
+    {
+      "grupo": "edge",
+      "n_genuinas": 3160,
+      "n_sinteticas": 150,
+      "eer": 0.01331223628691982
+    },
+    {
+      "grupo": "f5",
+      "n_genuinas": 3160,
+      "n_sinteticas": 120,
+      "eer": 0.007964135021097031
+    },
+    {
+      "grupo": "omni",
+      "n_genuinas": 3160,
+      "n_sinteticas": 200,
+      "eer": 0.02389240506329115
+    }
+  ],
+  "por_codec": [
+    {
+      "grupo": "mp3",
+      "n_genuinas": 204,
+      "n_sinteticas": 150,
+      "eer": 0.02225490196078432
+    },
+    {
+      "grupo": "none",
+      "n_genuinas": 2956,
+      "n_sinteticas": 22616,
+      "eer": 0.005381457222137383
+    }
+  ],
+  "por_language": [
+    {
+      "grupo": "en",
+      "n_genuinas": 2548,
+      "n_sinteticas": 22296,
+      "eer": 0.002455650223987935
+    },
+    {
+      "grupo": "es",
+      "n_genuinas": 612,
+      "n_sinteticas": 470,
+      "eer": 0.0497948824920039
+    }
+  ],
+  "run": "C4",
+  "split": "mix_dev",
+  "checkpoint": "runs/C4/best.pt",
+  "epoch": 13
+}

@@ -1,0 +1,101 @@
+{
+  "n": 71237,
+  "n_genuinas": 7355,
+  "n_sinteticas": 63882,
+  "eer": 0.021625791996549713,
+  "eer_ic95": [
+    0.02008968556084593,
+    0.023247933136875752
+  ],
+  "eer_umbral": 0.0446808747947216,
+  "auc": 0.997540470766429,
+  "auc_ic95": [
+    0.997258907941267,
+    0.9978184215241687
+  ],
+  "min_tdcf": 0.06069790959608638,
+  "por_ataque": [
+    {
+      "grupo": "A07",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00444810495796219
+    },
+    {
+      "grupo": "A08",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00383671896248376
+    },
+    {
+      "grupo": "A09",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0012898675713087465
+    },
+    {
+      "grupo": "A10",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.07303406491033956
+    },
+    {
+      "grupo": "A11",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.025091741101258447
+    },
+    {
+      "grupo": "A12",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.011510156887451224
+    },
+    {
+      "grupo": "A13",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.000577174166569135
+    },
+    {
+      "grupo": "A14",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0022749275298561272
+    },
+    {
+      "grupo": "A15",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.007741418890297228
+    },
+    {
+      "grupo": "A16",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0039046999278134677
+    },
+    {
+      "grupo": "A17",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.007605456959637812
+    },
+    {
+      "grupo": "A18",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.027774111730603936
+    },
+    {
+      "grupo": "A19",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00801290005912712
+    }
+  ],
+  "run": "C4",
+  "split": "asv19_eval",
+  "checkpoint": "runs/C4/best.pt",
+  "epoch": 13
+}

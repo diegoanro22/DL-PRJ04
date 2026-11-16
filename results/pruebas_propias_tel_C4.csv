@@ -1,0 +1,71 @@
+etiqueta,archivo,modelo,score,accion,acierto,duracion_s,ventanas,avisos
+real_telefono,real_telefono/diego_00_gsm.wav,C4,0.001271,continuar,True,7.0,2,
+real_telefono,real_telefono/diego_01_gsm.wav,C4,0.004046,continuar,True,7.0,2,
+real_telefono,real_telefono/diego_02_amr.wav,C4,0.000247,continuar,True,7.02,2,
+real_telefono,real_telefono/diego_03_amr.wav,C4,0.010305,continuar,True,7.02,2,
+real_telefono,real_telefono/diego_04_g711.wav,C4,0.000778,continuar,True,7.0,2,
+real_telefono,real_telefono/diego_05_g711.wav,C4,0.000213,continuar,True,7.0,2,
+real_telefono,real_telefono/diego_06_amr.wav,C4,0.012162,continuar,True,7.02,2,
+real_telefono,real_telefono/diego_07_amr.wav,C4,0.001655,continuar,True,7.02,2,
+real_telefono,real_telefono/diego_08_g711.wav,C4,0.001205,continuar,True,7.0,2,
+real_telefono,real_telefono/diego_09_g711.wav,C4,0.000449,continuar,True,7.0,2,
+sintetico_telefono,sintetico_telefono/xtts_alma_mar_a_00_amr.wav,C4,1.0,analista,True,4.1,2,
+sintetico_telefono,sintetico_telefono/xtts_alma_mar_a_01_gsm.wav,C4,0.999993,analista,True,3.9,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_alma_mar_a_02_gsm.wav,C4,0.999988,analista,True,4.98,2,
+sintetico_telefono,sintetico_telefono/xtts_alma_mar_a_03_g711.wav,C4,0.999994,analista,True,3.34,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_alma_mar_a_04_g711.wav,C4,0.999969,analista,True,4.08,2,
+sintetico_telefono,sintetico_telefono/xtts_alma_mar_a_05_g711.wav,C4,1.0,analista,True,3.76,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_alma_mar_a_06_g711.wav,C4,1.0,analista,True,4.08,2,
+sintetico_telefono,sintetico_telefono/xtts_alma_mar_a_07_g711.wav,C4,1.0,analista,True,2.97,1,"Audio de 3.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_alma_mar_a_08_g711.wav,C4,1.0,analista,True,3.8,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_alma_mar_a_09_amr.wav,C4,0.999997,analista,True,4.0,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_claribel_dervla_00_gsm.wav,C4,0.999998,analista,True,4.18,2,
+sintetico_telefono,sintetico_telefono/xtts_claribel_dervla_01_amr.wav,C4,1.0,analista,True,3.68,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_claribel_dervla_02_gsm.wav,C4,0.999961,analista,True,4.78,2,
+sintetico_telefono,sintetico_telefono/xtts_claribel_dervla_03_gsm.wav,C4,1.0,analista,True,3.66,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_claribel_dervla_04_amr.wav,C4,0.999984,analista,True,4.88,2,
+sintetico_telefono,sintetico_telefono/xtts_claribel_dervla_05_amr.wav,C4,0.999995,analista,True,4.0,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_claribel_dervla_06_gsm.wav,C4,0.999373,analista,True,3.58,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_claribel_dervla_07_gsm.wav,C4,0.999546,analista,True,4.04,2,
+sintetico_telefono,sintetico_telefono/xtts_claribel_dervla_08_gsm.wav,C4,0.999994,analista,True,3.62,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_claribel_dervla_09_amr.wav,C4,0.999993,analista,True,4.1,2,
+sintetico_telefono,sintetico_telefono/xtts_gitta_nikolina_00_g711.wav,C4,0.999995,analista,True,3.89,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_gitta_nikolina_01_amr.wav,C4,1.0,analista,True,3.92,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_gitta_nikolina_02_amr.wav,C4,0.99999,analista,True,4.94,2,
+sintetico_telefono,sintetico_telefono/xtts_gitta_nikolina_03_g711.wav,C4,0.999999,analista,True,4.54,2,
+sintetico_telefono,sintetico_telefono/xtts_gitta_nikolina_04_gsm.wav,C4,0.99999,analista,True,4.7,2,
+sintetico_telefono,sintetico_telefono/xtts_gitta_nikolina_05_amr.wav,C4,0.999986,analista,True,3.72,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_gitta_nikolina_06_gsm.wav,C4,1.0,analista,True,3.4,1,"Audio de 3.4 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_gitta_nikolina_07_g711.wav,C4,1.0,analista,True,3.2,1,"Audio de 3.2 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_gitta_nikolina_08_amr.wav,C4,1.0,analista,True,3.6,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_gitta_nikolina_09_amr.wav,C4,1.0,analista,True,3.78,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_kazuhiko_atallah_00_amr.wav,C4,1.0,analista,True,3.78,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_kazuhiko_atallah_01_g711.wav,C4,0.999997,analista,True,3.85,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_kazuhiko_atallah_02_g711.wav,C4,0.999964,analista,True,5.57,2,
+sintetico_telefono,sintetico_telefono/xtts_kazuhiko_atallah_03_amr.wav,C4,0.999999,analista,True,4.8,2,
+sintetico_telefono,sintetico_telefono/xtts_kazuhiko_atallah_04_g711.wav,C4,0.999973,analista,True,4.54,2,
+sintetico_telefono,sintetico_telefono/xtts_kazuhiko_atallah_05_gsm.wav,C4,0.99999,analista,True,4.42,2,
+sintetico_telefono,sintetico_telefono/xtts_kazuhiko_atallah_06_g711.wav,C4,0.999999,analista,True,4.41,2,
+sintetico_telefono,sintetico_telefono/xtts_kazuhiko_atallah_07_g711.wav,C4,1.0,analista,True,4.13,2,
+sintetico_telefono,sintetico_telefono/xtts_kazuhiko_atallah_08_gsm.wav,C4,0.999723,analista,True,6.22,2,
+sintetico_telefono,sintetico_telefono/xtts_kazuhiko_atallah_09_gsm.wav,C4,1.0,analista,True,4.88,2,
+sintetico_telefono,sintetico_telefono/xtts_lidiya_szekeres_00_gsm.wav,C4,1.0,analista,True,4.0,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_lidiya_szekeres_01_g711.wav,C4,1.0,analista,True,4.27,2,
+sintetico_telefono,sintetico_telefono/xtts_lidiya_szekeres_02_g711.wav,C4,0.999981,analista,True,4.96,2,
+sintetico_telefono,sintetico_telefono/xtts_lidiya_szekeres_03_g711.wav,C4,1.0,analista,True,3.71,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_lidiya_szekeres_04_g711.wav,C4,0.999767,analista,True,4.68,2,
+sintetico_telefono,sintetico_telefono/xtts_lidiya_szekeres_05_amr.wav,C4,0.999993,analista,True,3.36,1,"Audio de 3.4 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_lidiya_szekeres_06_gsm.wav,C4,0.999995,analista,True,3.3,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_lidiya_szekeres_07_gsm.wav,C4,0.999986,analista,True,3.26,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_lidiya_szekeres_08_g711.wav,C4,0.999977,analista,True,4.08,2,
+sintetico_telefono,sintetico_telefono/xtts_lidiya_szekeres_09_gsm.wav,C4,0.99999,analista,True,4.18,2,
+sintetico_telefono,sintetico_telefono/xtts_royston_min_00_amr.wav,C4,1.0,analista,True,4.38,2,
+sintetico_telefono,sintetico_telefono/xtts_royston_min_01_gsm.wav,C4,0.999998,analista,True,4.08,2,
+sintetico_telefono,sintetico_telefono/xtts_royston_min_02_gsm.wav,C4,0.957974,verificar,True,7.06,2,
+sintetico_telefono,sintetico_telefono/xtts_royston_min_03_amr.wav,C4,1.0,analista,True,3.5,1,"Audio de 3.5 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_royston_min_04_amr.wav,C4,1.0,analista,True,4.38,2,
+sintetico_telefono,sintetico_telefono/xtts_royston_min_05_amr.wav,C4,0.999933,analista,True,4.32,2,
+sintetico_telefono,sintetico_telefono/xtts_royston_min_06_gsm.wav,C4,0.999999,analista,True,3.58,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico_telefono,sintetico_telefono/xtts_royston_min_07_amr.wav,C4,1.0,analista,True,5.82,2,
+sintetico_telefono,sintetico_telefono/xtts_royston_min_08_amr.wav,C4,0.999998,analista,True,4.28,2,
+sintetico_telefono,sintetico_telefono/xtts_royston_min_09_gsm.wav,C4,0.999973,analista,True,3.86,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."

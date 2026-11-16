@@ -1,0 +1,101 @@
+{
+  "n": 71237,
+  "n_genuinas": 7355,
+  "n_sinteticas": 63882,
+  "eer": 0.013730295900980398,
+  "eer_ic95": [
+    0.012575617756617061,
+    0.014891575138398347
+  ],
+  "eer_umbral": 0.026556573808193207,
+  "auc": 0.9988218079940091,
+  "auc_ic95": [
+    0.9986349855383218,
+    0.9989839309756428
+  ],
+  "min_tdcf": 0.03960021947749811,
+  "por_ataque": [
+    {
+      "grupo": "A07",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0022749275298561272
+    },
+    {
+      "grupo": "A08",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0019354653956965278
+    },
+    {
+      "grupo": "A09",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00033946213415959967
+    },
+    {
+      "grupo": "A10",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.046923937406602265
+    },
+    {
+      "grupo": "A11",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.006349358524749422
+    },
+    {
+      "grupo": "A12",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.007503706857887692
+    },
+    {
+      "grupo": "A13",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00030569299773924294
+    },
+    {
+      "grupo": "A14",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.00105259823138815
+    },
+    {
+      "grupo": "A15",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0037007570318243446
+    },
+    {
+      "grupo": "A16",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.0035990069300742247
+    },
+    {
+      "grupo": "A17",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.009303210322924804
+    },
+    {
+      "grupo": "A18",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.015177144782855156
+    },
+    {
+      "grupo": "A19",
+      "n_genuinas": 7355,
+      "n_sinteticas": 4914,
+      "eer": 0.008488324123946135
+    }
+  ],
+  "run": "C3",
+  "split": "asv19_eval",
+  "checkpoint": "runs/C3/best.pt",
+  "epoch": 2
+}

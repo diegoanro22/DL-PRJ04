@@ -1,0 +1,55 @@
+{
+  "n": 2210,
+  "n_genuinas": 1362,
+  "n_sinteticas": 848,
+  "eer": 0.03987095835757627,
+  "eer_ic95": [
+    0.032072527913999935,
+    0.050684170060676575
+  ],
+  "eer_umbral": 0.8887587189674377,
+  "auc": 0.9915474434100795,
+  "auc_ic95": [
+    0.9882680787306404,
+    0.9943121545382761
+  ],
+  "min_tdcf": null,
+  "por_ataque": [
+    {
+      "grupo": "edge",
+      "n_genuinas": 1362,
+      "n_sinteticas": 348,
+      "eer": 0.002538103195098498
+    },
+    {
+      "grupo": "f5",
+      "n_genuinas": 1362,
+      "n_sinteticas": 200,
+      "eer": 0.010506607929515424
+    },
+    {
+      "grupo": "omni",
+      "n_genuinas": 1362,
+      "n_sinteticas": 300,
+      "eer": 0.079647577092511
+    }
+  ],
+  "por_codec": [
+    {
+      "grupo": "mp3",
+      "n_genuinas": 454,
+      "n_sinteticas": 348,
+      "eer": 0.003639424781001582
+    },
+    {
+      "grupo": "none",
+      "n_genuinas": 908,
+      "n_sinteticas": 500,
+      "eer": 0.05243171806167403
+    }
+  ],
+  "run": "C4",
+  "split": "es_test",
+  "checkpoint": "runs/C4/best.pt",
+  "epoch": 13
+}

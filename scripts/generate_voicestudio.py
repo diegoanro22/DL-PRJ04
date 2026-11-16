@@ -4,8 +4,10 @@ VoiceStudio (app de escritorio, AGPL) expone una API en localhost; este script l
 referencia de FLEURS con su transcripción y guarda el audio generado. OmniVoice tiene licencia
 CC-BY-NC: los audios sirven para investigación, no para un producto comercial.
 
-Requiere VoiceStudio abierto. Se genera sin efectos ("raw") y la marca de agua debe estar
-apagada (se verifica antes de empezar), para no medir la marca en lugar de la voz.
+Requiere VoiceStudio abierto. Se genera sin efectos ("raw"), sin el filtro de ruido ni el
+posprocesamiento, y la marca de agua debe estar apagada (se verifica antes de empezar), para no
+medir la marca en lugar de la voz. Sin el filtro de ruido además se evita que la memoria de la
+GPU crezca con cada audio: con él activado, VoiceStudio se quedaba sin VRAM tras unos 700.
 
 Uso:
     uv run python -m scripts.generate_voicestudio --split train --n 1500 --out data/es_mod/omni/train
@@ -47,7 +49,7 @@ def main() -> None:
         rng.shuffle(filas)
         args.out.mkdir(parents=True, exist_ok=True)
 
-        hechos, t0 = 0, time.time()
+        hechos, t0, fallos_seguidos = 0, time.time(), 0
         for i, ref_fila in enumerate(filas * 2):  # dos vueltas si hacen falta más que filas
             if hechos >= args.n:
                 break
@@ -63,17 +65,26 @@ def main() -> None:
                 try:
                     r = client.post("/generate", data={
                         "text": texto, "language": "es", "ref_text": ref_fila[2],
-                        "effect_preset": "raw", "seed": str(args.seed + i)},
+                        "effect_preset": "raw", "denoise": "false", "postprocess_output": "false",
+                        "seed": str(args.seed + i)},
                         files={"ref_audio": (ref.name, ref.read_bytes(), "audio/wav")})
                     r.raise_for_status()
                     if not r.content.startswith(b"RIFF"):
                         raise ValueError(f"respuesta inesperada: {r.content[:120]!r}")
                     destino.write_bytes(r.content)
                     hechos += 1
+                    fallos_seguidos = 0
                     break
                 except Exception as e:  # noqa: BLE001 - un audio que falla no detiene el lote
-                    print(f"intento {intento + 1} falló ({ref.name}): {e}", flush=True)
+                    print(f"intento {intento + 1} falló ({ref.name}): {str(e)[:160]}", flush=True)
+                    client.post("/system/flush-memory")  # libera la caché de la GPU antes de reintentar
                     time.sleep(5)
+            else:
+                fallos_seguidos += 1
+                if fallos_seguidos >= 10:
+                    raise SystemExit("10 audios seguidos fallaron: revisar VoiceStudio (memoria de la GPU)")
+            if hechos and hechos % 50 == 0:
+                client.post("/system/flush-memory")  # la caché de la GPU crece un poco con cada audio
             if hechos and hechos % 100 == 0:
                 print(f"  {hechos}/{args.n} ({(time.time() - t0) / 60:.1f} min)", flush=True)
     print(f"{hechos} audios en {args.out}")

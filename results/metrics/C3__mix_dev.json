@@ -1,0 +1,99 @@
+{
+  "n": 25726,
+  "n_genuinas": 3160,
+  "n_sinteticas": 22566,
+  "eer": 0.004161898655645247,
+  "eer_ic95": [
+    0.0033326994683387425,
+    0.005279219984248748
+  ],
+  "eer_umbral": 0.5838559865951538,
+  "auc": 0.9999071289617966,
+  "auc_ic95": [
+    0.9998709800758844,
+    0.9999358358940357
+  ],
+  "min_tdcf": null,
+  "por_ataque": [
+    {
+      "grupo": "A01",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.00029278113120134643
+    },
+    {
+      "grupo": "A02",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.0004273344143014826
+    },
+    {
+      "grupo": "A03",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.00029278113120134643
+    },
+    {
+      "grupo": "A04",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.005357264514722501
+    },
+    {
+      "grupo": "A05",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.0014639056560068432
+    },
+    {
+      "grupo": "A06",
+      "n_genuinas": 3160,
+      "n_sinteticas": 3716,
+      "eer": 0.005966501342126436
+    },
+    {
+      "grupo": "edge",
+      "n_genuinas": 3160,
+      "n_sinteticas": 150,
+      "eer": 0.007130801687763734
+    },
+    {
+      "grupo": "f5",
+      "n_genuinas": 3160,
+      "n_sinteticas": 120,
+      "eer": 0.03328059071729957
+    }
+  ],
+  "por_codec": [
+    {
+      "grupo": "mp3",
+      "n_genuinas": 204,
+      "n_sinteticas": 150,
+      "eer": 0.014019607843137242
+    },
+    {
+      "grupo": "none",
+      "n_genuinas": 2956,
+      "n_sinteticas": 22416,
+      "eer": 0.004081875598234005
+    }
+  ],
+  "por_language": [
+    {
+      "grupo": "en",
+      "n_genuinas": 2548,
+      "n_sinteticas": 22296,
+      "eer": 0.002696733657444111
+    },
+    {
+      "grupo": "es",
+      "n_genuinas": 612,
+      "n_sinteticas": 270,
+      "eer": 0.048583877995642705
+    }
+  ],
+  "run": "C3",
+  "split": "mix_dev",
+  "checkpoint": "runs/C3/best.pt",
+  "epoch": 2
+}
