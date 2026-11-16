@@ -114,7 +114,7 @@ uv run python -m scripts.precompute_codecs --root data/ASVspoof2019_LA \
   --out-protocol protocols/asv19_eval_codec.csv --dataset-key asv19_eval_codec
 uv run python -m src.evaluate --checkpoint runs/C2/best.pt --splits asv19_eval_codec
 # valor USD/mes en eval y en canal telefónico con los umbrales elegidos en dev
-uv run python -m scripts.value_on_eval --models C0 C2
+uv run python -m scripts.value_on_eval --models A1 C0 C2
 # oclusión por banda de frecuencia (promedio por ataque) y temporal (un audio)
 uv run python -m src.explain.occlusion --checkpoint runs/C2/best.pt --per-attack 40
 uv run python -m src.explain.occlusion --checkpoint runs/C2/best.pt --audio llamada.wav

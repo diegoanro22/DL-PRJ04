@@ -5,7 +5,7 @@ así que mide cuánto valor se conserva fuera de dev: ataques no vistos (asv19_e
 telefónico (asv19_eval_codec, de scripts/precompute_codecs.py).
 
 Uso:
-    uv run python -m scripts.value_on_eval --models C0 C2 --splits asv19_eval asv19_eval_codec
+    uv run python -m scripts.value_on_eval --models A1 C0 C2 --splits asv19_eval asv19_eval_codec
 """
 
 from __future__ import annotations
@@ -33,7 +33,11 @@ def main() -> None:
         th = json.loads((RESULTS / "value" / f"{model}_thresholds.json").read_text())
         params = {**DEFAULT_PARAMS, "c_comp": th["costo_computo"] / DEFAULT_PARAMS["N"]}
         for split in args.splits:
-            s = pd.read_csv(RESULTS / "scores" / f"{model}__{split}.csv")
+            path = RESULTS / "scores" / f"{model}__{split}.csv"
+            if not path.is_file():
+                print(f"sin scores: {path.name} (se omite)")
+                continue
+            s = pd.read_csv(path)
             tpr1, fpr1 = rates_at_threshold(s.score.values, s.label.values, th["t1"])
             tpr2, fpr2 = rates_at_threshold(s.score.values, s.label.values, th["t2"])
             v = value_at_thresholds(tpr1, tpr2, fpr1, fpr2, params)
