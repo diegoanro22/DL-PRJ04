@@ -12,6 +12,8 @@ export interface Analisis {
   umbrales: { t1: number; t2: number }
   umbrales_provisionales: boolean
   duracion_s: number
+  /** score de cada ventana de 4 s; `usada` es false si era silencio y no votó */
+  ventanas?: { inicio_s: number; fin_s: number; score: number; usada: boolean }[]
   avisos: string[]
   latencia_ms: number
 }

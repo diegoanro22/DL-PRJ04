@@ -153,7 +153,7 @@ button, input, select { font: inherit; color: inherit; }
   color: var(--ink);
 }
 
-.band__ruler { position: relative; height: 46px; margin-top: 3px; overflow-x: clip; }
+.band__ruler { position: relative; height: 26px; margin-top: 3px; overflow-x: clip; }
 .ruler__micro {
   position: absolute;
   inset: 0 0 auto 0;
@@ -186,21 +186,36 @@ button, input, select { font: inherit; color: inherit; }
   color: var(--ink-2);
 }
 .tick:first-of-type b { transform: none; }
-.ruler__window {
-  position: absolute;
-  top: 28px;
-  transform: translateX(-50%);
-}
-.ruler__window--fin { transform: translateX(-100%); padding-right: 0; }
-.ruler__window {
-  white-space: nowrap;
-  font-size: 12px;
-  font-weight: 650;
-  color: var(--ink);
-  padding: 0 6px;
-}
 
-.band__caption { min-height: 20px; margin-top: 4px; font-size: 14px; color: var(--ink-2); }
+.band__ventanas { position: relative; height: 30px; margin: 2px 0 0; padding: 0; list-style: none; }
+.ventana {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+  overflow: hidden;
+}
+.ventana:first-child { border-left-color: transparent; }
+.ventana__barra { position: absolute; left: 0; bottom: 0; height: 4px; background: var(--guilloche); }
+.ventana[data-alto] .ventana__barra { background: var(--danger); }
+.ventana__txt {
+  position: absolute;
+  inset: 0 0 4px 0;
+  display: grid;
+  place-items: center;
+  font: 500 12px var(--mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.ventana[data-alto] .ventana__txt { color: var(--danger); font-weight: 650; }
+.ventana[data-usada='false'] {
+  background: repeating-linear-gradient(135deg, transparent 0 4px, var(--rule) 4px 5px);
+}
+.ventana[data-usada='false'] .ventana__txt { color: var(--ink-2); font-family: inherit; font-size: 11px; }
+
+.band__caption { min-height: 20px; margin-top: 6px; font-size: 14px; color: var(--ink-2); }
 
 /* Palancas */
 .levers { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -404,6 +419,10 @@ button, input, select { font: inherit; color: inherit; }
 
 .foot { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--rule); }
 .foot p { font-size: 13px; color: var(--ink-2); max-width: 75ch; line-height: 1.5; }
+.ajustes { margin-top: 12px; font-size: 13px; color: var(--ink-2); }
+.ajustes summary { cursor: pointer; width: fit-content; font-weight: 600; color: var(--ink); }
+.ajustes[open] { display: grid; gap: 10px; }
+.ajustes .field { margin-top: 4px; }
 
 /* Móvil y tabletas */
 @media (max-width: 640px) {

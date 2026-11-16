@@ -1,8 +1,25 @@
 // Envolvente del audio para dibujar la banda de seguridad. Solo se usa en el navegador:
 // el audio no se guarda en ningún lado.
 
-export const WINDOW_S = 4 // el modelo usa los primeros 4 s (64,600 muestras a 16 kHz)
-export const MAX_RECORD_S = 8
+export const WINDOW_S = 64600 / 16000 // una ventana del modelo: 64,600 muestras a 16 kHz (~4 s)
+export const MAX_S = 20 // la API analiza hasta 20 s, en ventanas de 4 s
+export const MAX_RECORD_S = MAX_S
+
+export interface Tramo {
+  inicio: number
+  fin: number
+}
+
+/** Las mismas ventanas que arma la API (app/inference.py: windows), para dibujarlas antes del resultado. */
+export function ventanasDe(duracion: number): Tramo[] {
+  const d = Math.min(duracion, MAX_S)
+  if (d <= WINDOW_S) return [{ inicio: 0, fin: d }]
+  const out: Tramo[] = []
+  for (let s = 0; s + WINDOW_S <= d + 1e-9; s += WINDOW_S) out.push({ inicio: s, fin: s + WINDOW_S })
+  const ultimo = out[out.length - 1].fin
+  if (ultimo < d - 1e-3) out.push({ inicio: d - WINDOW_S, fin: d })
+  return out
+}
 
 export interface Envolvente {
   /** RMS normalizado (0-1) por intervalo de BIN_S segundos */
@@ -39,7 +56,7 @@ export async function decodificar(blob: Blob): Promise<Envolvente | null> {
   try {
     const buffer = await ctx.decodeAudioData(await blob.arrayBuffer())
     const canal = buffer.getChannelData(0)
-    const maxMuestras = Math.min(canal.length, Math.round(buffer.sampleRate * 10))
+    const maxMuestras = Math.min(canal.length, Math.round(buffer.sampleRate * MAX_S))
     return envolventeDeMuestras(canal.subarray(0, maxMuestras), buffer.sampleRate)
   } catch {
     return null

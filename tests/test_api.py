@@ -143,3 +143,35 @@ def test_reempaquetar_sin_calibracion_borra_la_vieja(tmp_path, monkeypatch):
     package_model.main()
     assert not (tmp_path / "models" / "m" / "calibration.json").exists()
     assert not (tmp_path / "models" / "m" / "thresholds.json").exists()
+
+
+def test_ventanas_de_4_s_y_silencio_no_vota(models_dir):
+    from app.inference import NUM_SAMPLES, analyze, windows
+
+    # 10 s: ventanas en 0 y ~4 s, y la última alineada al final para no perder el resto.
+    wav = np.zeros(10 * SR, dtype=np.float32)
+    assert [s for s, _ in windows(wav)] == [0, NUM_SAMPLES, 10 * SR - NUM_SAMPLES]
+    assert len(windows(wav[:3 * SR])) == 1   # hasta 4 s, una sola ventana como en dev/test
+
+    # Voz (tono) los primeros 4 s y silencio después: solo vota la ventana con voz.
+    tono = decode_audio(wav_bytes(4.1)).wav
+    audio = decode_audio(wav_bytes(4.1))
+    audio.wav = np.concatenate([tono, np.zeros(8 * SR, dtype=np.float32)])
+    model = ModelRegistry(models_dir).get("B_prueba")
+    body = analyze(model, audio)
+    usadas = [v["usada"] for v in body["ventanas"]]
+    assert usadas[0] and not any(usadas[1:])
+    assert body["score"] == pytest.approx(body["ventanas"][0]["score"], abs=1e-6)
+
+
+def test_voz_baja_despues_de_un_ruido_fuerte_si_vota(models_dir):
+    from app.inference import analyze
+
+    # Inicio muy fuerte y después voz a 1/45 del volumen (≈ -37 dBFS): todas las ventanas votan,
+    # para que un clon que habla bajo no quede fuera por un ruido fuerte al inicio.
+    fuerte = decode_audio(wav_bytes(4.1, amplitude=0.9)).wav
+    baja = decode_audio(wav_bytes(4.1, amplitude=0.02)).wav
+    audio = decode_audio(wav_bytes(1))
+    audio.wav = np.concatenate([fuerte, baja])
+    body = analyze(ModelRegistry(models_dir).get("B_prueba"), audio)
+    assert all(v["usada"] for v in body["ventanas"])

@@ -21,11 +21,18 @@ import numpy as np
 import soundfile as sf
 
 SAMPLE_RATE = 16000
-NUM_SAMPLES = 64600       # 4 s: los primeros segundos de la llamada, igual que en entrenamiento
+NUM_SAMPLES = 64600       # 4 s: la ventana con la que se entrenó el modelo
 MIN_SECONDS = 1.0         # con menos audio la predicción no es confiable
-# Solo se decodifica este tramo inicial: el modelo usa 4 s y un audio comprimido chico podría
-# expandirse a horas de PCM y agotar la memoria si se decodificara completo.
-MAX_DECODE_SECONDS = 10.0
+# Se analizan hasta MAX_DECODE_SECONDS en ventanas de 4 s y la decisión sale del promedio.
+# El tope evita que un audio comprimido chico se expanda a horas de PCM y agote la memoria.
+MAX_DECODE_SECONDS = 20.0
+# Una ventana vota solo si tiene voz: al menos SPEECH_MIN_S en tramos de 25 ms por encima de
+# SPEECH_RMS (≈ -46 dBFS). El criterio es absoluto, no relativo a la ventana más fuerte: así un
+# ruido fuerte al inicio no puede dejar fuera a un clon que habla más bajo. El silencio no aporta
+# evidencia sobre la voz (y es un sesgo conocido de ASVspoof), por eso no vota.
+SPEECH_RMS = 0.005
+SPEECH_FRAME = 400        # 25 ms a 16 kHz
+SPEECH_MIN_S = 0.8
 SILENCE_RMS = 1e-3        # aprox. -60 dBFS
 CLIP_FRACTION = 0.01      # más de 1 % de muestras saturadas
 DEFAULT_THRESHOLDS = {"t1": 0.5, "t2": 0.9, "tasa_alertas_esperada": None}
@@ -107,6 +114,28 @@ def fixed_window(wav: np.ndarray) -> np.ndarray:
     return np.clip(wav[:NUM_SAMPLES], -1, 1).astype(np.float32)
 
 
+def has_speech(window: np.ndarray) -> bool:
+    """True si la ventana tiene al menos SPEECH_MIN_S de tramos con energía de voz."""
+    n = window.size // SPEECH_FRAME
+    frames = window[: n * SPEECH_FRAME].reshape(n, SPEECH_FRAME)
+    rms = np.sqrt(np.mean(frames.astype(np.float64) ** 2, axis=1))
+    return int((rms >= SPEECH_RMS).sum()) * SPEECH_FRAME / SAMPLE_RATE >= SPEECH_MIN_S
+
+
+def windows(wav: np.ndarray) -> list[tuple[int, np.ndarray]]:
+    """Ventanas de 4 s sin solapamiento que cubren todo el audio: [(inicio, ventana), ...].
+
+    Un audio de hasta 4 s da una sola ventana (repetida, igual que en dev/test). Si sobra un
+    tramo al final, la última ventana se alinea con el final del audio para no perderlo.
+    """
+    if wav.size <= NUM_SAMPLES:
+        return [(0, fixed_window(wav))]
+    starts = list(range(0, wav.size - NUM_SAMPLES + 1, NUM_SAMPLES))
+    if starts[-1] + NUM_SAMPLES < wav.size:
+        starts.append(wav.size - NUM_SAMPLES)
+    return [(s, fixed_window(wav[s:s + NUM_SAMPLES])) for s in starts]
+
+
 def _logit(p: float) -> float:
     p = min(max(p, 1e-7), 1 - 1e-7)
     return float(np.log(p) - np.log1p(-p))
@@ -140,10 +169,14 @@ class ServedModel:
 
     def score(self, window: np.ndarray) -> float:
         """P(sintética) cruda del modelo (softmax), la misma escala que results/scores/."""
-        logits = self.session.run(None, {"wav": window[None, :]})[0][0].astype(np.float64)
-        logits -= logits.max()
-        probs = np.exp(logits) / np.exp(logits).sum()
-        return float(probs[1])
+        return self.scores(window[None, :])[0]
+
+    def scores(self, batch: np.ndarray) -> list[float]:
+        """Scores crudos de varias ventanas [N, 64600] en una sola pasada."""
+        logits = self.session.run(None, {"wav": batch})[0].astype(np.float64)
+        logits -= logits.max(axis=1, keepdims=True)
+        probs = np.exp(logits) / np.exp(logits).sum(axis=1, keepdims=True)
+        return probs[:, 1].tolist()
 
     def probability(self, score: float, prior: float) -> float | None:
         """P(sintética) calibrada para una prevalencia dada; None si no hay calibración."""
@@ -195,10 +228,28 @@ class ModelRegistry:
 
 
 def analyze(model: ServedModel, audio: Audio, prior: float = DEFAULT_PRIOR) -> dict:
+    """Score de cada ventana de 4 s y decisión con el promedio de las que tienen voz.
+
+    El promedio se hace en log-odds (la evidencia de cada ventana), no en probabilidad: así una
+    ventana saturada en 0.9999 no domina, y el resultado vuelve a la escala del score crudo
+    para compararlo con t1/t2 y calibrarlo igual que una sola ventana.
+    """
     t0 = time.perf_counter()
-    score = model.score(fixed_window(audio.wav))
+    parts = windows(audio.wav)
+    raw = model.scores(np.stack([w for _, w in parts]))
     latency_ms = (time.perf_counter() - t0) * 1000
+
+    voiced = np.array([has_speech(w) for _, w in parts])
+    if not voiced.any():
+        voiced[:] = True
+    score = _sigmoid(float(np.mean([_logit(s) for s, v in zip(raw, voiced) if v])))
     action = model.action(score)
+    ventanas = [
+        {"inicio_s": round(start / SAMPLE_RATE, 2),
+         "fin_s": round(min(start + NUM_SAMPLES, audio.wav.size) / SAMPLE_RATE, 2),
+         "score": round(s, 6), "usada": bool(v)}
+        for (start, _), s, v in zip(parts, raw, voiced)
+    ]
     return {
         "modelo": model.name,
         "score": round(score, 6),
@@ -209,6 +260,7 @@ def analyze(model: ServedModel, audio: Audio, prior: float = DEFAULT_PRIOR) -> d
         "umbrales": {"t1": model.thresholds["t1"], "t2": model.thresholds["t2"]},
         "umbrales_provisionales": model.provisional,
         "duracion_s": audio.duration_s,
+        "ventanas": ventanas,
         "avisos": audio.warnings,
         "latencia_ms": round(latency_ms, 1),
     }

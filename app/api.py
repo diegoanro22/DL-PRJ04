@@ -51,7 +51,7 @@ def models() -> list[dict]:
 
 @app.post("/analyze")
 async def analyze_audio(
-    audio: Annotated[UploadFile, File(description="Audio de la llamada; se usan los primeros 4 s")],
+    audio: Annotated[UploadFile, File(description="Audio de la llamada; se analizan hasta 20 s en ventanas de 4 s")],
     modelo: Annotated[str | None, Query(description="Modelo; por defecto DEFAULT_MODEL")] = None,
     prevalencia: Annotated[float, Query(gt=0, lt=1, description="Prevalencia de ataques para "
                                         "calibrar la probabilidad")] = DEFAULT_PRIOR,

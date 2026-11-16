@@ -34,6 +34,8 @@ export default function App() {
   const [prevalencia, setPrevalencia] = useState('0.2')
   const [audio, setAudio] = useState<AudioCargado | null>(null)
   const [resultado, setResultado] = useState<Analisis | null>(null)
+  // A qué audio corresponde el resultado: las ventanas solo se dibujan sobre ese mismo audio.
+  const [analizado, setAnalizado] = useState<AudioCargado | null>(null)
   const [examinando, setExaminando] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [entradas, setEntradas] = useState<Entrada[]>([])
@@ -68,6 +70,7 @@ export default function App() {
           new Promise((ok) => setTimeout(ok, reducir ? 0 : ESCANEO_MIN_MS)),
         ])
         setResultado(r)
+        setAnalizado(a)
         setClave((k) => k + 1)
         setEntradas((es) => [
           {
@@ -138,14 +141,6 @@ export default function App() {
               ))}
             </select>
           </label>
-          <label className="field field--prev">
-            <span>Prevalencia de ataques</span>
-            <span className="field__unit">
-              <input type="number" inputMode="decimal" min="0.01" max="50" step="0.1" value={prevalencia}
-                onChange={(e) => setPrevalencia(e.target.value)} />
-              %
-            </span>
-          </label>
           <p className="status" data-estado={salud ? salud.estado : error ? 'error' : 'cargando'}>
             {salud ? (sinModelos ? 'Sin modelos cargados' : 'Servicio en línea') : error ? 'Sin conexión' : 'Conectando…'}
           </p>
@@ -156,7 +151,9 @@ export default function App() {
         <section className="examine" aria-label="Audio de la llamada">
           <SecurityBand envolvente={envolvente} duracion={duracion} modo={modoBanda}
             onArchivo={(f) => void cargar(f, f.name)} reducirMovimiento={reducir}
-            aceptaArchivos={!grabando && !examinando && !sinModelos} />
+            aceptaArchivos={!grabando && !examinando && !sinModelos}
+            ventanas={!grabando && !examinando && analizado === audio ? resultado?.ventanas : undefined}
+            t2={resultado?.umbrales.t2} />
 
           <div className="levers">
             {grabando ? (
@@ -213,9 +210,25 @@ export default function App() {
 
       <footer className="foot">
         <p>
-          Detector entrenado sobre ASVspoof 2019 LA. Analiza solo los primeros 4 s y no guarda el audio.
+          Detector entrenado sobre ASVspoof 2019 LA. Lee hasta 20 s en ventanas de 4 s y no guarda el audio.
           Es un apoyo para el agente: la decisión final sigue los procedimientos del banco.
         </p>
+        <details className="ajustes">
+          <summary>Ajustes del banco</summary>
+          <label className="field field--prev">
+            <span>Prevalencia de ataques</span>
+            <span className="field__unit">
+              <input type="number" inputMode="decimal" min="0.01" max="50" step="0.1" value={prevalencia}
+                onChange={(e) => setPrevalencia(e.target.value)} />
+              %
+            </span>
+          </label>
+          <p>
+            Qué fracción de las llamadas son fraude con voz sintética (0.2 % = 1 de cada 500). Solo cambia la
+            probabilidad que se muestra, no la acción: la acción sale de comparar el score con los umbrales
+            elegidos por el modelo de valor.
+          </p>
+        </details>
       </footer>
     </div>
   )
