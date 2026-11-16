@@ -3,8 +3,8 @@
 Proyecto final de CC3092 Deep Learning y Sistemas Inteligentes (UVG).
 Diego Rosales (23258) y Juan Francisco Martínez (23617).
 
-El sistema analiza los primeros 4 segundos de voz de una llamada al centro de contacto de un
-banco, estima la probabilidad de que la voz haya sido generada por IA y devuelve al agente una
+El sistema analiza la voz de una llamada al centro de contacto de un banco (hasta 20 s, en
+ventanas de 4 s), estima la probabilidad de que la voz haya sido generada por IA y devuelve al agente una
 de tres acciones: **continuar**, **pedir verificación adicional** o **transferir a un analista de
 fraude**. Se comparan tres modelos (LFCC + LCNN, AASIST-L y XLS-R + AASIST) por su valor de
 negocio en USD/mes, no solo por EER.
@@ -144,7 +144,7 @@ curl -F audio=@llamada.wav "localhost:8000/analyze?modelo=C2"
 
 | Ruta | Qué hace |
 |---|---|
-| `POST /analyze` | Recibe audio (wav, flac, webm, ogg, mp3), usa los primeros 4 s y devuelve el score, P(sintética) calibrada para la prevalencia indicada, la acción (continuar, verificar o analista), avisos de calidad (audio corto, silencio, saturación) y la latencia |
+| `POST /analyze` | Recibe audio (wav, flac, webm, ogg, mp3), analiza hasta 20 s en ventanas de 4 s y devuelve el score de cada ventana, el score promedio de las que tienen voz, P(sintética) calibrada para la prevalencia indicada, la acción (continuar, verificar o analista), avisos de calidad (audio corto, silencio, saturación) y la latencia |
 | `GET /models` | Modelos disponibles en `app/models/` con sus umbrales |
 | `GET /health` | Estado del servicio |
 | `GET /metrics` | Llamadas y acciones por modelo, latencia p50/p95, histograma de scores y alarma de deriva cuando la tasa de alertas se aleja de la esperada |
@@ -156,9 +156,14 @@ audio. Sin `--t1/--t2` marca los umbrales como provisionales. Webm, ogg y mp3 re
 ### Panel del agente
 
 `app/web/` es el panel (React + Vite) que usa el agente: graba del micrófono o recibe un
-archivo, dibuja la forma del audio con la ventana de 4 s que ve el modelo, y muestra la acción,
-la probabilidad calibrada, dónde cayó el score entre los umbrales, los avisos de calidad y un
-registro de la sesión. El build va a `app/static/` y la API lo sirve en `/`.
+archivo (hasta 20 s), dibuja la forma del audio con el score de cada ventana de 4 s, y muestra
+la acción, la probabilidad calibrada, dónde cayó el score entre los umbrales, los avisos de
+calidad y un registro de la sesión. La prevalencia supuesta está en "Ajustes del banco": solo
+cambia la probabilidad mostrada, no la acción.
+
+La decisión promedia, en log-odds, las ventanas con voz (al menos 0.8 s por encima de
+≈ -46 dBFS); las de silencio no votan. El criterio es absoluto para que un ruido fuerte al inicio
+no deje fuera a un clon que habla más bajo. El build va a `app/static/` y la API lo sirve en `/`.
 
 ```bash
 cd app/web && pnpm install && pnpm build   # genera app/static
@@ -182,6 +187,23 @@ empaquetó localmente o, con `--build-arg MODEL_REPO=<usuario>/<repo>`, lo baja 
 modelos de Hugging Face con la misma estructura. Sin ninguno de los dos, el build falla con un
 mensaje claro. La imagen solo incluye C2 (ver `.dockerignore`). Para HF Spaces se crea un Space
 con SDK Docker; su README necesita `sdk: docker` y `app_port: 7860`.
+
+## Set de prueba propio (español)
+
+ASVspoof 2019 es inglés y de estudio; para saber si el detector sirve en la demo se prueba con
+voces en español grabadas con micrófono y con clones de un sintetizador que el modelo no vio.
+
+```bash
+# voces reales, con consentimiento: muestra 10 frases de banco y graba cada una (16 kHz)
+uv run python -m scripts.grabar_reales --nombre diego
+# las mismas frases con 6 voces de XTTS-v2 (entorno propio con torch 2.8; licencia no comercial)
+COQUI_TOS_AGREED=1 uv run scripts/generate_synthetic.py --n-speakers 6
+# con la API corriendo: aciertos por etiqueta (carpetas data/pruebas/real y data/pruebas/sintetico)
+uv run python -m scripts.test_api --modelo C2
+```
+
+Los audios quedan en `data/pruebas/` (fuera de git); los resultados, en
+`results/pruebas_propias_*.csv`.
 
 ## Pruebas
 

@@ -1,0 +1,71 @@
+etiqueta,archivo,modelo,score,accion,acierto,duracion_s,ventanas,avisos
+real,real/diego_00.wav,C0,0.087199,continuar,True,7.0,2,
+real,real/diego_01.wav,C0,0.087208,continuar,True,7.0,2,
+real,real/diego_02.wav,C0,0.099424,continuar,True,7.0,2,
+real,real/diego_03.wav,C0,0.067933,continuar,True,7.0,2,
+real,real/diego_04.wav,C0,0.975745,analista,False,7.0,2,
+real,real/diego_05.wav,C0,0.114759,continuar,True,7.0,2,
+real,real/diego_06.wav,C0,0.089345,continuar,True,7.0,2,
+real,real/diego_07.wav,C0,0.009052,continuar,True,7.0,2,
+real,real/diego_08.wav,C0,0.038158,continuar,True,7.0,2,
+real,real/diego_09.wav,C0,0.138795,continuar,True,7.0,2,
+sintetico,sintetico/xtts_alma_mar_a_00.wav,C0,0.999429,analista,True,4.08,2,
+sintetico,sintetico/xtts_alma_mar_a_01.wav,C0,0.92881,analista,True,3.89,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_alma_mar_a_02.wav,C0,0.909612,analista,True,4.96,2,
+sintetico,sintetico/xtts_alma_mar_a_03.wav,C0,0.976031,analista,True,3.34,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_alma_mar_a_04.wav,C0,0.999722,analista,True,4.08,2,
+sintetico,sintetico/xtts_alma_mar_a_05.wav,C0,0.889584,analista,True,3.76,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_alma_mar_a_06.wav,C0,0.999655,analista,True,4.08,2,
+sintetico,sintetico/xtts_alma_mar_a_07.wav,C0,0.511187,continuar,False,2.97,1,"Audio de 3.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_alma_mar_a_08.wav,C0,0.961528,analista,True,3.8,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_alma_mar_a_09.wav,C0,0.99554,analista,True,3.99,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_00.wav,C0,0.999177,analista,True,4.17,2,
+sintetico,sintetico/xtts_claribel_dervla_01.wav,C0,0.999444,analista,True,3.66,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_02.wav,C0,0.993492,analista,True,4.78,2,
+sintetico,sintetico/xtts_claribel_dervla_03.wav,C0,0.999087,analista,True,3.66,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_04.wav,C0,0.039529,continuar,False,4.86,2,
+sintetico,sintetico/xtts_claribel_dervla_05.wav,C0,0.375885,continuar,False,3.99,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_06.wav,C0,0.647335,continuar,False,3.57,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_07.wav,C0,0.926117,analista,True,4.03,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_08.wav,C0,0.510017,continuar,False,3.62,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_claribel_dervla_09.wav,C0,0.991489,analista,True,4.08,2,
+sintetico,sintetico/xtts_gitta_nikolina_00.wav,C0,0.999789,analista,True,3.89,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_01.wav,C0,0.99963,analista,True,3.89,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_02.wav,C0,0.99693,analista,True,4.92,2,
+sintetico,sintetico/xtts_gitta_nikolina_03.wav,C0,0.983263,analista,True,4.54,2,
+sintetico,sintetico/xtts_gitta_nikolina_04.wav,C0,0.998723,analista,True,4.68,2,
+sintetico,sintetico/xtts_gitta_nikolina_05.wav,C0,0.979514,analista,True,3.71,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_06.wav,C0,0.998199,analista,True,3.38,1,"Audio de 3.4 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_07.wav,C0,0.947483,analista,True,3.2,1,"Audio de 3.2 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_08.wav,C0,0.945635,analista,True,3.57,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_gitta_nikolina_09.wav,C0,0.999903,analista,True,3.76,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_kazuhiko_atallah_00.wav,C0,0.999943,analista,True,3.76,1,"Audio de 3.8 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_kazuhiko_atallah_01.wav,C0,0.98904,analista,True,3.85,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_kazuhiko_atallah_02.wav,C0,0.999342,analista,True,5.57,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_03.wav,C0,0.998671,analista,True,4.78,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_04.wav,C0,0.038783,continuar,False,4.54,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_05.wav,C0,0.135573,continuar,False,4.41,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_06.wav,C0,0.999124,analista,True,4.41,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_07.wav,C0,0.998119,analista,True,4.13,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_08.wav,C0,0.009111,continuar,False,6.22,2,
+sintetico,sintetico/xtts_kazuhiko_atallah_09.wav,C0,0.973174,analista,True,4.86,2,
+sintetico,sintetico/xtts_lidiya_szekeres_00.wav,C0,0.991001,analista,True,3.99,1,"Audio de 4.0 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_lidiya_szekeres_01.wav,C0,0.999782,analista,True,4.27,2,
+sintetico,sintetico/xtts_lidiya_szekeres_02.wav,C0,0.999205,analista,True,4.96,2,
+sintetico,sintetico/xtts_lidiya_szekeres_03.wav,C0,0.999281,analista,True,3.71,1,"Audio de 3.7 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_lidiya_szekeres_04.wav,C0,0.889896,analista,True,4.68,2,
+sintetico,sintetico/xtts_lidiya_szekeres_05.wav,C0,0.969382,analista,True,3.34,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_lidiya_szekeres_06.wav,C0,0.999882,analista,True,3.29,1,"Audio de 3.3 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_lidiya_szekeres_07.wav,C0,0.904331,analista,True,3.24,1,"Audio de 3.2 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_lidiya_szekeres_08.wav,C0,0.99733,analista,True,4.08,2,
+sintetico,sintetico/xtts_lidiya_szekeres_09.wav,C0,0.505881,continuar,False,4.17,2,
+sintetico,sintetico/xtts_royston_min_00.wav,C0,0.99879,analista,True,4.36,2,
+sintetico,sintetico/xtts_royston_min_01.wav,C0,0.998705,analista,True,4.08,2,
+sintetico,sintetico/xtts_royston_min_02.wav,C0,0.76877,analista,True,7.05,2,
+sintetico,sintetico/xtts_royston_min_03.wav,C0,0.997566,analista,True,3.48,1,"Audio de 3.5 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_royston_min_04.wav,C0,0.999483,analista,True,4.36,2,
+sintetico,sintetico/xtts_royston_min_05.wav,C0,0.851748,analista,True,4.31,2,
+sintetico,sintetico/xtts_royston_min_06.wav,C0,0.999963,analista,True,3.57,1,"Audio de 3.6 s: el modelo espera 4 s, se repitió el audio."
+sintetico,sintetico/xtts_royston_min_07.wav,C0,0.997688,analista,True,5.8,2,
+sintetico,sintetico/xtts_royston_min_08.wav,C0,0.472456,continuar,False,4.27,2,
+sintetico,sintetico/xtts_royston_min_09.wav,C0,0.99239,analista,True,3.85,1,"Audio de 3.9 s: el modelo espera 4 s, se repitió el audio."
