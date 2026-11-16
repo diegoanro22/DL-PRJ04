@@ -137,7 +137,7 @@ export function SecurityBand({ envolvente, duracion, modo, onArchivo, reducirMov
 
       <div className="band__ruler" aria-hidden="true">
         <div className="ruler__micro">
-          {Array.from({ length: 24 }, (_, i) => <span key={i}>{i % 2 ? 'CUATRO SEGUNDOS' : 'VERIFICADOR DE VOZ'}</span>)}
+          {Array.from({ length: 24 }, (_, i) => <span key={i}>{i % 2 ? 'CUATRO SEGUNDOS' : 'SIGNET'}</span>)}
         </div>
         {ticks.map((t) => (
           <span key={t} className={Number.isInteger(t) ? 'tick tick--mayor' : 'tick'}

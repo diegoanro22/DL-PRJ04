@@ -1,5 +1,8 @@
 # Product
 
+Nombre: **Signet** (como el anillo sello que probaba quién mandaba una carta: aquí, si la
+voz es de quien dice ser). Se piensa como producto vendible a bancos, no solo como proyecto.
+
 <!-- impeccable:product-schema 1 -->
 
 ## Platform

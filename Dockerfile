@@ -1,6 +1,6 @@
 # Imagen de la API + panel del agente (CPU, ONNX Runtime). Pensada para Hugging Face Spaces
 # (sdk: docker, puerto 7860) pero corre igual en cualquier lado:
-#   docker build -t verificador-voz . && docker run -p 7860:7860 verificador-voz
+#   docker build -t signet . && docker run -p 7860:7860 signet
 # Los modelos se copian de app/models/<nombre>/ (generados con python -m app.package_model).
 
 # 1) Panel: React + Vite -> app/static

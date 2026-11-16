@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-11-14T05:47:48+00:00",
-  "title": "Design System: Verificador de voz",
+  "title": "Design System: Signet",
   "extensions": {
     "colorMeta": {
       "paper": {
@@ -309,7 +309,7 @@
       "kind": "nav",
       "refersTo": "topbar",
       "description": "Barra fina con nombre ancho, controles y estado, cerrada por filete fuerte.",
-      "html": "<header class=\"ds-topbar\"><h1>Verificador de voz</h1><p class=\"ds-status\">Servicio en línea</p></header>",
+      "html": "<header class=\"ds-topbar\"><h1>Signet</h1><p class=\"ds-status\">Servicio en línea</p></header>",
       "css": ":host{--paper:#e9efe6;--plate:#dfe8dc;--ink:#1d2b3a;--ink-2:#3d4d5c;--guilloche:#2f5d50;--uv:#6a3fd1;--ok:#2f6b4f;--warn:#855600;--danger:#b0391f;--rule:rgb(29 43 58 / 0.2);--rule-strong:rgb(29 43 58 / 0.45);--sans:'Archivo Variable','Archivo',system-ui,sans-serif;--mono:'JetBrains Mono Variable','JetBrains Mono',ui-monospace,monospace;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-topbar{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:20px 0 16px;border-bottom:1px solid var(--rule-strong);background:var(--paper);color:var(--ink);font-family:var(--sans);} .ds-topbar h1{margin:0;font-size:22px;font-weight:700;font-variation-settings:'wdth' 118;letter-spacing:-0.01em;line-height:1.1;} .ds-status{margin:0;display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);} .ds-status::before{content:'';width:8px;height:8px;background:var(--ok);}"
     },
     {

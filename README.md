@@ -1,4 +1,4 @@
-# Detección de voz clonada en centros de contacto bancarios
+# Signet: detección de voz clonada en centros de contacto bancarios
 
 Proyecto final de CC3092 Deep Learning y Sistemas Inteligentes (UVG).
 Diego Rosales (23258) y Juan Francisco Martínez (23617).
@@ -173,8 +173,8 @@ ONNX Runtime + ffmpeg) con los modelos de `app/models/`, en el puerto 7860.
 
 ```bash
 uv run python -m app.package_model --checkpoint runs/C2/best.pt --name C2 --t1 0.9258 --t2 0.9258 --tasa-alertas 0.00277
-docker build -t verificador-voz .
-docker run -p 7860:7860 verificador-voz     # http://localhost:7860
+docker build -t signet .
+docker run -p 7860:7860 signet     # http://localhost:7860
 ```
 
 Los modelos no están en git (el ONNX de C2 pesa ~1.3 GB): la imagen usa `app/models/C2` si se

@@ -123,7 +123,10 @@ export default function App() {
   return (
     <div className="page">
       <header className="topbar">
-        <h1>Verificador de voz</h1>
+        <div className="brand">
+          <h1>Signet</h1>
+          <p className="brand__tag">Verificación de voz para centros de contacto</p>
+        </div>
         <div className="topbar__controls">
           <label className="field">
             <span>Modelo</span>

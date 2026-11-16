@@ -13,5 +13,5 @@ Para construir la imagen sin el checkpoint, el `Dockerfile` puede bajarlos de un
 modelos de Hugging Face con la misma estructura (`C2/model.onnx`, ...):
 
 ```bash
-docker build --build-arg MODEL_REPO=<usuario>/<repo> -t verificador-voz .
+docker build --build-arg MODEL_REPO=<usuario>/<repo> -t signet .
 ```

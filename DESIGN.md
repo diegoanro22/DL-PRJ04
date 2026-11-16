@@ -1,5 +1,5 @@
 ---
-name: Verificador de voz
+name: Signet
 description: Panel del agente que examina la voz como un billete bajo la lámpara UV y sella la acción a seguir.
 colors:
   paper: "#e9efe6"
@@ -116,7 +116,7 @@ components:
     height: "232px"
 ---
 
-# Design System: Verificador de voz
+# Design System: Signet
 
 ## Overview
 

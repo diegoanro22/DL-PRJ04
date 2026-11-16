@@ -64,13 +64,17 @@ button, input, select { font: inherit; color: inherit; }
   border-bottom: 1px solid var(--rule-strong);
 }
 
+.brand { display: grid; gap: 2px; }
+
 .topbar h1 {
-  font-size: 22px;
-  font-weight: 700;
-  font-variation-settings: 'wdth' 118;
-  letter-spacing: -0.01em;
-  line-height: 1.1;
+  font-size: 26px;
+  font-weight: 750;
+  font-variation-settings: 'wdth' 125;
+  letter-spacing: 0.02em;
+  line-height: 1;
 }
+
+.brand__tag { font-size: 12px; color: var(--ink-2); letter-spacing: 0.01em; }
 
 .topbar__controls { display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
 
