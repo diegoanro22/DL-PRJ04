@@ -11,6 +11,7 @@ dataset_roots:
   mlaad_es: data/MLAAD_es
   propios: data/propios
   asv19_eval_codec: data/asv19_eval_codec   # scripts/precompute_codecs.py sobre eval
+  es: data                                  # scripts/build_es_protocol.py (FLEURS, Edge TTS, F5)
 output_root: runs
 num_workers: 8
 # Precio de una GPU de nube equivalente (clase L4), para reportar el costo de entrenamiento.

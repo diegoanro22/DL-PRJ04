@@ -41,6 +41,4 @@ app/models/*
 !app/models/README.md
 
 # Impeccable: capturas y estado de builds locales
-.impeccable/review/
-.impeccable/build/
-.impeccable/questions/
+.impeccable/

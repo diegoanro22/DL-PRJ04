@@ -1,0 +1,35 @@
+# Modelo C4: C3 + clones OmniVoice (2025, VoiceStudio) de hablantes de FLEURS.
+# C3 aprendió Edge TTS y F5 pero no detecta OmniVoice ni el clonador comercial de la página. Se
+# parte de C3 con el mismo esquema (solo la cabeza, XLS-R congelado) y más épocas; el clon de la
+# página nunca entra al entrenamiento y queda como prueba de generalización. Entrenar con:
+#   --train-split mix_train --dev-split mix_dev
+model: xlsr_aasist
+variant: xlsr_aasist_frozen  # para que no le apliquen los overrides de memoria de C1/C2
+seed: 42
+init_from: runs/C3/best.pt
+
+audio:
+  sample_rate: 16000
+  num_samples: 64600
+
+model_args:
+  ssl_name: facebook/wav2vec2-xls-r-300m
+  freeze_ssl: true
+  gradient_checkpointing: false   # sin gradientes en XLS-R no hace falta
+  normalize_input: true
+
+train:
+  epochs: 15
+  batch_size: 16             # mismo batch efectivo que C1/C2, sin acumulación
+  grad_accum: 1
+  optimizer: adam
+  lr_head: 5.0e-5            # la mitad que C2: la cabeza ya viene entrenada
+  weight_decay: 1.0e-4
+  scheduler: cosine
+  loss: weighted_ce
+  early_stopping_metric: dev_eer
+  patience: 4
+
+augment:
+  telephony: 0.5            # probabilidad por audio
+  rawboost: 0.5

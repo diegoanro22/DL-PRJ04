@@ -3,8 +3,10 @@
 Estructura esperada (cualquier formato que acepte la API):
     data/pruebas/real/*.wav|webm|...        voces genuinas (grabadas con consentimiento)
     data/pruebas/sintetico/*.wav|...        voces generadas (scripts/generate_synthetic.py)
+    data/pruebas/clon/*.mp3|...             clones de una voz real (p. ej. de un servicio web)
 
-Cada subcarpeta de primer nivel es una etiqueta; los archivos se buscan de forma recursiva.
+Cada subcarpeta de primer nivel es una etiqueta; los archivos se buscan de forma recursiva. Las
+que empiezan con "real" son genuinas; todas las demás se tratan como voz generada.
 Para una real, acierto = "continuar"; para una sintética, acierto = cualquier alerta
 ("verificar" o "analista").
 
@@ -42,7 +44,7 @@ def main() -> None:
                 r = client.post("/analyze", params=params, files={"audio": (f.name, f.read_bytes())})
                 r.raise_for_status()
                 body = r.json()
-                sintetico = etiqueta_dir.name.startswith("sint")
+                sintetico = not etiqueta_dir.name.startswith("real")
                 rows.append({
                     "etiqueta": etiqueta_dir.name,
                     "archivo": str(f.relative_to(args.dir)),
