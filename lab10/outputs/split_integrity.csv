@@ -1,0 +1,2 @@
+split,train_split,id_overlap,path_overlap,speaker_overlap,speaker_metadata_missing
+asv19_eval,mix_train,0,0,0,0

@@ -1,0 +1,9 @@
+parámetro,valor,razón
+Modelo/checkpoint,runs/C4/best.pt; SHA256 f83e759c2b41…,versión indicada; no reentrenar
+Datos / muestra,asv19_eval; semilla 42; 5 locales; N=28 globales,test; dirigidas / estratos
+Unidad/clase,"64600 muestras; 16 kHz; 4.0375 s; y=1 sintética; mono, clamp [-1,1]; recortar/repetir",mismo AudioDataset; audio corto y borde
+Score/umbrales,Δ log-odds; t1=0.957; t2=0.9978,umbrales de negocio sobre softmax crudo
+Tiempo,ancho 0.25 s; paso 0.125 s; 32 posiciones; última alineada al final,resolución/costo; cubrir borde
+Bandas (Hz),0–300; 300–1000; 1000–2000; 2000–3400; 3400–5000; 5000–8000,comparar dentro/fuera de telefonía; incluir Nyquist
+"Principal, Figs. 1–2","silencio brusco (tiempo), FFT anulada (bandas); B=1; cpu/float32","Nyquist incluido; eval(), sin augmentation"
+"Control, Fig. 3",rampa de 10 ms frente a máscara brusca; top-3 y 5 controles/caso,solo sensibilidad al reemplazo; no genera Figs. 1–2

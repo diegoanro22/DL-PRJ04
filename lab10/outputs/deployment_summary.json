@@ -1,0 +1,26 @@
+{
+  "n": 33,
+  "model": "C4",
+  "hub_revision": "fa67b890666c8f92477a27d4155032afbf86b405",
+  "onnx_path": "/home/cisco/universidad/cuarto/segundo_semestre/deep_learning/proyecto4/DL-PRJ04/runs/C4/model.onnx",
+  "onnx_sha256": "a7e03a0410e9685e3cca6a3624910bc9ee9f15929bc1cc8d1a81d0b201c3750b",
+  "onnx_providers": [
+    "CPUExecutionProvider"
+  ],
+  "onnxruntime_version": "1.31.1",
+  "onnx_input_type": "tensor(float)",
+  "onnx_threads": 2,
+  "thresholds": {
+    "t1": 0.957,
+    "t2": 0.9978,
+    "tasa_alertas_esperada": 0.00226
+  },
+  "max_abs_diff_onnx_pytorch": 8.519679704277472e-06,
+  "pytorch_onnx_action_changes": 0,
+  "gpu_cached_onnx_action_changes": 2,
+  "load_seconds": 2.091438970004674,
+  "inference_seconds": 22.663960991994827,
+  "inputs": 33,
+  "forwards": 33,
+  "scope": "Artefacto C4 publicado, clase ServedModel de la API, ventanas originales; no servicio web remoto ni llamada multiventana. GPU/bf16 es histórico de CSV."
+}

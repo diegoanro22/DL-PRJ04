@@ -1,0 +1,10 @@
+{
+  "n": 33,
+  "atol": 0.005,
+  "n_outside_atol": 4,
+  "max_abs_diff": 0.07739098719581584,
+  "action_changes": 2,
+  "historical_runtime": "GPU bfloat16 según results/runs.csv; entorno completo no archivado",
+  "current_runtime": "cpu/float32",
+  "interpretation": "Mismo checkpoint por hash/época; CSV no reproducido exactamente. Se conservan discrepancias, sin ampliar tolerancia ni recalibrar con test. Cercano_t2 significa seleccionado por mínimo histórico; no mínimo actual de todo eval."
+}

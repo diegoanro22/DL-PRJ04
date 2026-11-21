@@ -1,0 +1,15 @@
+{
+  "n": 28,
+  "n_genuine": 2,
+  "n_synthetic": 26,
+  "n_attacks": 13,
+  "seed": 42,
+  "strata": [
+    "split",
+    "label",
+    "attack",
+    "codec"
+  ],
+  "selection": "Hasta dos por estrato split×clase×ataque×códec con RNG(42), sin reemplazo, fijados antes de leer audio; ver global_sample.csv.",
+  "scope": "Comparación entre clases exploratoria; dos genuinos no estiman dispersión poblacional de esa clase ni prevalencia de llamadas bancarias."
+}

@@ -1,0 +1,6 @@
+utt_id,dataset,path,label,attack,speaker,language,codec,dataset_index,label_cached,split,cached_score,audio_path,audio_exists,prediction_cached,correct_cached,extremeness,reason,distance
+LA_E_9999988,asv19,ASVspoof2019_LA_eval/flac/LA_E_9999988.flac,1,A16,LA_0047,en,none,16403,1,asv19_eval,1.0,data/ASVspoof2019_LA/ASVspoof2019_LA_eval/flac/LA_E_9999988.flac,True,1,True,1.0,acierto_score_extremo,
+LA_E_1010033,asv19,ASVspoof2019_LA_eval/flac/LA_E_1010033.flac,1,A10,LA_0006,en,none,20641,1,asv19_eval,4.2647465e-05,data/ASVspoof2019_LA/ASVspoof2019_LA_eval/flac/LA_E_1010033.flac,True,0,False,4.2647465e-05,error,
+LA_E_4762052,asv19,ASVspoof2019_LA_eval/flac/LA_E_4762052.flac,1,A14,LA_0035,en,none,19547,1,asv19_eval,0.997783,data/ASVspoof2019_LA/ASVspoof2019_LA_eval/flac/LA_E_4762052.flac,True,0,False,0.997783,cercano_t2,1.7000000000044757e-05
+LA_E_1000147,asv19,ASVspoof2019_LA_eval/flac/LA_E_1000147.flac,1,A10,LA_0044,en,none,47797,1,asv19_eval,0.9877587,data/ASVspoof2019_LA/ASVspoof2019_LA_eval/flac/LA_E_1000147.flac,True,0,False,0.9877587,subgrupo,0.01004130000000003
+LA_E_8367413,asv19,ASVspoof2019_LA_eval/flac/LA_E_8367413.flac,0,-,LA_0014,en,none,50358,0,asv19_eval,3.8891116e-08,data/ASVspoof2019_LA/ASVspoof2019_LA_eval/flac/LA_E_8367413.flac,True,0,True,0.999999961108884,genuino_distinto,0.997799961108884

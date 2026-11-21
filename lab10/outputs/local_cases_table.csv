@@ -1,0 +1,7 @@
+case,utt_id,binary_real_to_predicted,score,score_decimal,action,inclusion,attack,codec,distance_to_t2,historical_distance_to_t2,synthetic_allowed_to_continue,synthetic_sent_to_review
+1,LA_E_9999988,1→1,0.9999999909562213,1.000000,analista,acierto extremo,A16,none,0.002199990956221254,0.0021999999999999797,False,False
+2,LA_E_1010033,1→0,2.7247334490970646e-05,0.000027,continuar,FN que continúa (A10),A10,none,0.997772752665509,0.997757352535,True,False
+3,LA_E_4762052,1→0,0.9965695370883936,0.996570,verificar,"cercano a t2
+|p−t2|=0.00123046",A14,none,0.0012304629116064447,1.7000000000044757e-05,False,True
+4,LA_E_1000147,1→0,0.9681857807314471,0.968186,verificar,A10; sin códec tel.,A10,none,0.0296142192685529,0.01004130000000003,False,True
+5,LA_E_8367413,0→0,3.2720256481115746e-08,0.000000,continuar,genuino distinto,-,none,0.9977999672797435,0.997799961108884,False,False

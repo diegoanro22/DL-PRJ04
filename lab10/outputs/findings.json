@@ -1,0 +1,25 @@
+{
+  "local_n": 5,
+  "local_errors": [
+    "LA_E_1010033",
+    "LA_E_4762052",
+    "LA_E_1000147"
+  ],
+  "global_n": 28,
+  "global_sampling": "igual cantidad por split/clase/ataque/códec; descriptivo, no prevalencia natural",
+  "fidelity_top_beats_control": 5,
+  "fidelity_n": 5,
+  "fidelity_mean_gap": 9.129647428393364,
+  "ramp_mean_absolute_change": 3.43367977142334,
+  "outside_phone_mean_abs": 2.2932726251227513,
+  "largest_mean_abs_band_lo": 300,
+  "prediction_seconds_median": 0.5958302050130442,
+  "local_seconds_median": 22.98213463999855,
+  "global_seconds": 109.55187161700451,
+  "global_total_seconds_with_base": 127.11683910799911,
+  "global_total_forwards_with_base": 196,
+  "global_forwards": 168,
+  "global_inputs": 168,
+  "local_inputs_without_base": 38,
+  "score_action_changes_against_cached": 0
+}

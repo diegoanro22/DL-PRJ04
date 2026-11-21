@@ -1,0 +1,103 @@
+{
+  "model": "C4",
+  "model_decision": "C4 por indicación del equipo y ficha de Hugging Face: modelo servido, adaptado a español moderno; mejora es_test a costa de ASVspoof.",
+  "checkpoint_sha256": "f83e759c2b4186bd9b7097a81c9c3fb2fde1a6745773e990ee2493ab8139afb0",
+  "checkpoint_epoch": 13,
+  "checkpoint_config_path": "configs/xlsr_aasist_frozen_es_omni.yaml",
+  "checkpoint_model_args": {
+    "ssl_name": "facebook/wav2vec2-xls-r-300m",
+    "freeze_ssl": true,
+    "gradient_checkpointing": false,
+    "normalize_input": true
+  },
+  "checkpoint_audio": {
+    "sample_rate": 16000,
+    "num_samples": 64600
+  },
+  "model_hub": "https://huggingface.co/r0sV/signet",
+  "model_hub_revision": "fa67b890666c8f92477a27d4155032afbf86b405",
+  "backbone_config_revision": "1a640f32ac3e39899438a2931f9924c02f080a54",
+  "spanish_audio_status": "No disponible: generado en el equipo del compañero; no se regeneró ni se sustituyó por otro audio. XAI solo sobre splits indicados.",
+  "thresholds": {
+    "t1": 0.957,
+    "t2": 0.9978
+  },
+  "thresholds_sha256": "3460dbb4a4c48aedee62b6cd9fe15b87dce819e420b31ab3adfa26f133a561eb",
+  "train_split": "mix_train",
+  "split_hashes": {
+    "asv19_eval": "b363333284eda37b6b5168694ae3d2287a2227eb45e041d63111c9b2f9254980"
+  },
+  "score_hashes": {
+    "asv19_eval": "6d8da61635f87977cf79b0f970b5e90a88d632c7497ff85acf19492346663c75"
+  },
+  "data_roots": {
+    "asv19": "data/ASVspoof2019_LA",
+    "asv21": "data/ASVspoof2021_LA",
+    "mlaad_es": "data/MLAAD_es",
+    "propios": "data/propios",
+    "asv19_eval_codec": "data/asv19_eval_codec",
+    "es": "data"
+  },
+  "settings": {
+    "model": "C4",
+    "decision": "C4 por indicación del equipo y ficha de Hugging Face: modelo servido, adaptado a español moderno; mejora es_test a costa de ASVspoof.",
+    "checkpoint": "runs/C4/best.pt",
+    "thresholds": "runs/C4/thresholds.json",
+    "roots": {},
+    "splits": [
+      "asv19_eval"
+    ],
+    "device": "cpu",
+    "machine": "laptop",
+    "seed": 42,
+    "batch": 1,
+    "per_stratum": 2,
+    "window_s": 0.25,
+    "stride_s": 0.125,
+    "score_atol": 0.005,
+    "precision": "float32",
+    "threads": 4,
+    "control_repeats": 5
+  },
+  "source_hashes": {
+    "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/calibrate.py": "a04bfd07019ed4ca47dc1a41309c3e13a094505518608ee5cb5ecc1e0100fa91",
+    "src/config.py": "3324075c9a2dd0ffc8a453e951ecbf6db644c19508834705b7612991a39bd79f",
+    "src/data/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/data/augment.py": "3be68c21d53b43011c9d858ecce0a453516b40d6f8766e1834f82f0476927a94",
+    "src/data/dataset.py": "932477383069672b0ca99b0a9006f01ddd659ffe4e25c2d13f41803f86cb1077",
+    "src/data/fake.py": "4024b39afea321caeb287b1cf4e3dc67e741810a646498fbb5b6c1b3d1d1a7cc",
+    "src/evaluate.py": "bc46b8375a8e1bd2933d6d01f8ccdf6f9d4d687df609d77b9c114b916c00d030",
+    "src/explain/__init__.py": "a9b32c2230061584fb7d21e7e140ceaeeac45ef94c3deab597edf31ad2d6b17b",
+    "src/explain/gradcam_lfcc.py": "94d66fd9943fa9828e86dbd90b291d4698c74281c971dac372b34596b21ec838",
+    "src/explain/occlusion.py": "6dfd920cbe553115a063460bb2ad37dc0fc5f7aa79bc17b96e05cf8467379203",
+    "src/export_onnx.py": "7a137b15483fa1ca1e759729530dcf47ed9453d92e64d1613364f1ed6cb9607d",
+    "src/features/__init__.py": "0b6a8369b1826dbcb1ecadef76eb5daf995ccf8b44641f457a909ed5ec871f45",
+    "src/features/lfcc.py": "fb7c454d14db3f05e24d5cdb547976a06857495cc1c4fb657bedf1395ea6ded7",
+    "src/metrics.py": "2fd0c644e2e68a0f6fb12e663bf43622b95af8c01fcbcb4454361c0a055a0df5",
+    "src/models/__init__.py": "a835ae17322366a33132ce98b245dd992a67ead2de70820a55ac3b0035f54fba",
+    "src/models/aasist.py": "e3f039a5691c6f497e881075bc3fde14486bbc8a9bb0d9c22bd3dc7e098820da",
+    "src/models/debug.py": "6548c7e5aa5538a53aa759ccdfdce81e384f1ad6401fb4355d3292ec8d82d671",
+    "src/models/lfcc_cnn.py": "e3ce1e827cf4b3616994f32ecbd003daa6cd718260228527d6b0732a10eb91d4",
+    "src/models/xlsr_aasist.py": "a711fecde7d5228a394a15dbeec8e2441709af1baf4da9bb7742c31f852ce8b0",
+    "src/train.py": "a37c295120b8729461449934efe8773cdbbd6ac771401e209d645e36dc1e454a",
+    "src/utils.py": "726178f8547804952061747faf5bc12d2bfed9b4f2ba0bb8e0c70c4c8d24a106",
+    "src/value/__init__.py": "513d6ae0a420a4a00f9d31283e447d6739eb9d8f461f5af68bf9f6fdd2562196",
+    "src/value/sensitivity.py": "696fff4ef7d0402cc69bff7184bbf2092a84b5ebe8cf2da74fa1e9f36116d9fc",
+    "src/value/value_model.py": "34fabce9a0612ac48bdf6b854950c5f29d808b3d9c1e58035f935e2f0964eea8",
+    "lab10/acquire.py": "e0af27b6fa82abb549120fc2f64e9a44a86415b11d8613486fc98116a53bdf64",
+    "lab10/audit.py": "ec7ac1157e8d024c80f354d99eeab951a99a8a1bbe536e3e3a51b54330b30e6b",
+    "lab10/download_asv_sample.py": "4263c1bef75a0a2b2c49bb74cf6a1a721c54763ea9675d4d99ec2a6a4a063fd0",
+    "lab10/interpretation.py": "45b9cdbddcee57c0ff0b5931d1df5c3d256f3bfa2f3af5783b6272dec74bceb2",
+    "lab10/pipeline.py": "698c279d825fe134d6beaedda912988d7121e307ee1ab90d1c2ac3cedee1cba2",
+    "lab10/plan_data.py": "dc2a1fe7c94ca8cf5a562268547969782cc47dd982e3e89c1be95bf23e2e2e6c",
+    "lab10/run.py": "0c45cb7df39396055e1777b6b1acfc3d4d1da8d4b1c9f8fe57d0a93aeb55782b",
+    "app/inference.py": "58eed96afd3b9638b99aaf7b6b88393ca47b2f7cb0b6129737c8a01ab6eb44d1"
+  },
+  "notebook_sha256": "eee28d3975c9b8ec3b21b14421ca743b1f7ce60b4bb68be6f97bb8565b3600f0",
+  "asset_hashes": {
+    "xlsr_config.json": "0bffa0d0e98153e883b828d86491f3c6062cb563dc9d7a9cfd1790da30c286ac"
+  },
+  "checkpoint_identity_limit": "Hash local; CSV antiguo sin hash: época y scores se contrastan empíricamente.",
+  "run_config_sha256": "f1667957a68da2d305072422e09d053721aafa276d3ae1142503f9cb2072ebd0"
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "global_bands",
+  "n": 28,
+  "seconds": 109.55187161700451,
+  "forwards": 168,
+  "inputs": 168,
+  "includes_base": false,
+  "base_prediction_seconds": 17.564967490994604,
+  "total_seconds_with_base": 127.11683910799911,
+  "total_forwards_with_base": 196,
+  "total_inputs_with_base": 196
+}

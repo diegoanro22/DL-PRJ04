@@ -9,6 +9,31 @@ de tres acciones: **continuar**, **pedir verificación adicional** o **transferi
 fraude**. Se comparan tres modelos (LFCC + LCNN, AASIST-L y XLS-R + AASIST) por su valor de
 negocio en USD/mes, no solo por EER.
 
+## Versión final y artefacto servido
+
+La versión final seleccionada es **C4 (XLS-R 300M congelado + cabeza AASIST)**,
+publicada como modelo servido en
+[r0sV/signet, revisión fa67b890666c8f92477a27d4155032afbf86b405](https://huggingface.co/r0sV/signet/tree/fa67b890666c8f92477a27d4155032afbf86b405/C4).
+Checkpoint: `runs/C4/best.pt`; configuración:
+`configs/xlsr_aasist_frozen_es_omni.yaml`; mejor época 14 (`epoch=13` en el checkpoint).
+SHA256 del checkpoint: `f83e759c2b4186bd9b7097a81c9c3fb2fde1a6745773e990ee2493ab8139afb0`.
+SHA256 del ONNX publicado: `a7e03a0410e9685e3cca6a3624910bc9ee9f15929bc1cc8d1a81d0b201c3750b`.
+
+C4 se entrenó con ASVspoof 2019 + FLEURS español, Edge/F5 y OmniVoice. Sus umbrales
+operativos publicados son **t1=0.957, t2=0.9978**, sobre softmax crudo: continuar por
+debajo de t1, verificar entre ambos y analista desde t2. Una clasificación binaria
+negativa en t2 **no equivale a continuar**: la zona intermedia activa revisión.
+La calibración de Platt modifica la probabilidad mostrada, no esa regla.
+
+El laboratorio contrasta CPU/PyTorch con **el ONNX publicado usando `ServedModel` de la API**.
+Las diferencias frente a los CSV GPU/bf16, incluidos cambios de acción, se conservan en
+`lab10/outputs/deployment_verification.csv` y `runtime_action_changes.csv`.
+No se presupone equivalencia numérica por compartir precisión float32.
+El `Dockerfile` de este checkout conserva **C2 como valor predeterminado histórico**;
+no constituye un despliegue comprobado de C4. Las instrucciones actuales de API de abajo
+seleccionan C4 explícitamente; la comprobación del laboratorio usa el artefacto local,
+no una consulta a un servicio remoto.
+
 ## Estructura
 
 ```
@@ -27,7 +52,8 @@ results/            métricas (runs.csv) y figuras
 
 ## Instalación
 
-Requiere [uv](https://docs.astral.sh/uv/) y una GPU NVIDIA con driver reciente.
+Requiere [uv](https://docs.astral.sh/uv/) y Python 3.11. La API y el laboratorio funcionan
+en CPU; para entrenamiento se utiliza una GPU NVIDIA con driver compatible con CUDA 12.8.
 
 ```bash
 uv sync                      # Python 3.11 + PyTorch con CUDA 12.8 + dependencias
@@ -72,7 +98,9 @@ uv run python -m src.train --resume runs/B1          # retomar si se cortó (p. 
 | C0 | `configs/xlsr_aasist_frozen.yaml` | XLS-R 300M congelado + cabeza AASIST (modelo base del transfer learning) |
 | C1 | `configs/xlsr_aasist.yaml` | Fine-tuning completo de XLS-R 300M + cabeza AASIST |
 | C1b | `configs/xlsr_aasist_lpft.yaml` | LP-FT: primero solo la cabeza, luego todo |
-| C2 | `configs/xlsr_aasist_frozen_aug.yaml` | C0 + telephony y RawBoost (cada una con probabilidad 0.5); modelo servido |
+| C2 | `configs/xlsr_aasist_frozen_aug.yaml` | C0 + telephony y RawBoost (cada una con probabilidad 0.5); versión histórica |
+| C3 | `configs/xlsr_aasist_frozen_es.yaml` | C2 + FLEURS, Edge TTS y F5-TTS |
+| C4 | `configs/xlsr_aasist_frozen_es_omni.yaml` | C3 + OmniVoice; versión final publicada |
 
 La iteración 2 de cada modelo (A2, B2, C2) activa `augment.telephony` y `augment.rawboost`
 (`true` en todos los audios o una probabilidad entre 0 y 1 por audio). C0 sirve para medir
@@ -112,12 +140,12 @@ y EER por ataque, códec e idioma.
 uv run python -m scripts.precompute_codecs --root data/ASVspoof2019_LA \
   --protocol protocols/asv19_eval.csv --fraction 0.2 --out-audio data/asv19_eval_codec \
   --out-protocol protocols/asv19_eval_codec.csv --dataset-key asv19_eval_codec
-uv run python -m src.evaluate --checkpoint runs/C2/best.pt --splits asv19_eval_codec
-# valor USD/mes en eval y en canal telefónico con los umbrales elegidos en dev
+uv run python -m src.evaluate --checkpoint runs/C4/best.pt --splits asv19_eval_codec
+# ejemplo histórico de valor: C2 tiene sus umbrales dev versionados en results/value/
 uv run python -m scripts.value_on_eval --models A1 C0 C2
 # oclusión por banda de frecuencia (promedio por ataque) y temporal (un audio)
-uv run python -m src.explain.occlusion --checkpoint runs/C2/best.pt --per-attack 40
-uv run python -m src.explain.occlusion --checkpoint runs/C2/best.pt --audio llamada.wav
+uv run python -m src.explain.occlusion --checkpoint runs/C4/best.pt --per-attack 40
+uv run python -m src.explain.occlusion --checkpoint runs/C4/best.pt --audio llamada.wav
 ```
 
 ## Calibración, ONNX y latencia
@@ -125,7 +153,7 @@ uv run python -m src.explain.occlusion --checkpoint runs/C2/best.pt --audio llam
 ```bash
 uv run python -m src.calibrate --scores results/scores/C1__asv19_dev.csv   # -> runs/C1/calibration.json
 uv run python -m src.export_onnx --source runs/C1/best.pt                   # -> runs/C1/model.onnx
-uv run python scripts/benchmark_latency.py --models runs/B2/best.pt runs/C2/best.pt
+uv run python scripts/benchmark_latency.py --models runs/B2/best.pt runs/C4/best.pt
 ```
 
 - La calibración de Platt convierte el score en P(sintética) para cualquier prevalencia, sin
@@ -137,9 +165,12 @@ uv run python scripts/benchmark_latency.py --models runs/B2/best.pt runs/C2/best
 ## API
 
 ```bash
-uv run python -m app.package_model --checkpoint runs/C2/best.pt --name C2 --t1 0.42 --t2 0.97
-uv run uvicorn app.api:app --reload
-curl -F audio=@llamada.wav "localhost:8000/analyze?modelo=C2"
+# Obtiene el artefacto C4 publicado, con revisión y hashes fijados.
+uv run --no-sync python -m lab10.acquire --onnx
+mkdir -p app/models/C4
+cp runs/C4/model.onnx runs/C4/calibration.json runs/C4/thresholds.json app/models/C4/
+DEFAULT_MODEL=C4 uv run uvicorn app.api:app --reload
+curl -F audio=@llamada.wav "localhost:8000/analyze?modelo=C4"
 ```
 
 | Ruta | Qué hace |
@@ -173,20 +204,13 @@ uv run uvicorn app.api:app                  # panel en http://localhost:8000
 
 ### Docker y Hugging Face Spaces
 
-El `Dockerfile` construye el panel y arma una imagen de inferencia sin PyTorch (FastAPI +
-ONNX Runtime + ffmpeg) con los modelos de `app/models/`, en el puerto 7860.
-
-```bash
-uv run python -m app.package_model --checkpoint runs/C2/best.pt --name C2 --t1 0.9258 --t2 0.9258 --tasa-alertas 0.00277
-docker build -t signet .
-docker run -p 7860:7860 signet     # http://localhost:7860
-```
-
-Los modelos no están en git (el ONNX de C2 pesa ~1.3 GB): la imagen usa `app/models/C2` si se
-empaquetó localmente o, con `--build-arg MODEL_REPO=<usuario>/<repo>`, lo baja de un repo de
-modelos de Hugging Face con la misma estructura. Sin ninguno de los dos, el build falla con un
-mensaje claro. La imagen solo incluye C2 (ver `.dockerignore`). Para HF Spaces se crea un Space
-con SDK Docker; su README necesita `sdk: docker` y `app_port: 7860`.
+El `Dockerfile` de este checkout construye API/panel para CPU, puerto 7860, pero conserva
+`DEFAULT_MODEL=C2` y el empaquetado histórico de esa versión. **No usar ese valor como
+identificador de la versión final C4** ni asumir que `MODEL_REPO=r0sV/signet` lo cambia.
+Para C4, el procedimiento reproducible actual es la API local de la sección anterior,
+con su ONNX, calibración, umbrales y `DEFAULT_MODEL=C4` explícitos. Antes de construir una
+imagen C4 debe adaptarse su configuración de modelo/copias y verificarse el mismo hash
+ONNX; no se ha construido ni publicado esa imagen como parte del laboratorio.
 
 ## Set de prueba propio (español)
 
@@ -199,7 +223,7 @@ uv run python -m scripts.grabar_reales --nombre diego
 # las mismas frases con 6 voces de XTTS-v2 (entorno propio con torch 2.8; licencia no comercial)
 COQUI_TOS_AGREED=1 uv run scripts/generate_synthetic.py --n-speakers 6
 # con la API corriendo: aciertos por etiqueta (carpetas data/pruebas/real y data/pruebas/sintetico)
-uv run python -m scripts.test_api --modelo C2
+uv run python -m scripts.test_api --modelo C4
 ```
 
 Los audios quedan en `data/pruebas/` (fuera de git); los resultados, en
@@ -265,3 +289,14 @@ Las augmentations `telephony` (8 kHz + pasa-banda 300–3400 Hz) y `rawboost` se
 los configs `*_aug.yaml`. Los códecs G.711/GSM/AMR se precalculan con
 `scripts.precompute_codecs` (no al vuelo). Los generadores de protocolos de ASVspoof 2021,
 español y datos propios corresponden a etapas posteriores.
+
+## Laboratorio 10: Explainable AI
+
+Explicabilidad de **C4 sin reentrenar**, con cinco casos de ASVspoof 2019 eval y una
+muestra global estratificada de 28 audios. El notebook genera las tablas y figuras del
+análisis. Preparación de pesos/datos,
+dependencias y alcance respecto al español en [lab10/README.md](lab10/README.md).
+
+```bash
+LAB10_THREADS=4 uv run --no-sync python -m lab10.run
+```

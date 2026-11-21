@@ -1,0 +1,33 @@
+{
+  "status": "AUDITORIA_DOCUMENTAL_NO_ES_EJECUCION_XAI",
+  "code_commit": "e868c2c926a0be91bd9fc3e0fe759ed7a7eb189d",
+  "documented_deployment": "C4 publicado en r0sV/signet y README actualizado; Dockerfile/PRODUCT conservan configuración histórica C2.",
+  "later_results": "C4 mejora es_test; C2 mejora asv19_eval y asv19_eval_codec.",
+  "final_presentation": "No está versionada. El usuario seleccionó expresamente C4.",
+  "selected_model": "C4: instrucción explícita del equipo y ficha r0sV/signet (modelo servido).",
+  "hub_revision": "fa67b890666c8f92477a27d4155032afbf86b405",
+  "spanish_audio_access": "El usuario confirmó que solo están en el equipo de su compañero.",
+  "C2_thresholds": {
+    "t1": 0.9257921444,
+    "t2": 0.9257921444
+  },
+  "C2_intermediate_zone": false,
+  "dataset_unit": "primeras 64600 muestras a 16000 Hz = 4.0375 s",
+  "api_unit": "hasta 20 s; promedio de logit(score) de ventanas con voz",
+  "api_silence_fallback": "si ninguna tiene voz, votan TODAS (app/inference.py)",
+  "positive_class": "1 = sintética; 0 = genuina",
+  "score": "softmax[:,1] crudo; no es P calibrada para prevalencia bancaria",
+  "occlusion_target": "logits[:,1] - logits[:,0], unidades log-odds",
+  "published_maps": "No sustituyen cinco casos nuevos ni prueban checkpoint local.",
+  "sources": [
+    "README.md",
+    "PRODUCT.md",
+    "DESIGN.md",
+    "docs/escrito/secciones_diego.md",
+    "results/runs.csv",
+    "src/data/dataset.py",
+    "src/explain/occlusion.py",
+    "app/inference.py",
+    "results/value/C2_thresholds.json"
+  ]
+}

@@ -1,0 +1,3 @@
+utt_id,split,attack,label,gpu_cached_score,gpu_cached_action,pytorch_cpu_score,pytorch_cpu_action,onnx_cpu_score,onnx_cpu_action,abs_diff_onnx_pytorch
+LA_E_5057590,asv19_eval,A12,1,0.997851,analista,0.9960326869859437,verificar,0.9960325183413675,verificar,1.6864457619281126e-07
+LA_E_5760342,asv19_eval,A11,1,0.9606575,verificar,0.8938086918989983,continuar,0.8938172115787025,continuar,8.519679704277472e-06
